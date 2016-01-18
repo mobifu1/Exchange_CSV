@@ -1,5 +1,5 @@
 # Exchange_CSV
-Convert an Input-File:csv to  an Output-File.csv from Script / Eclipse-Java
+Convert an Input-File.csv to  an Output-File.csv from Script / Eclipse-Java
 ... is a Java-Tool for the Transformation of CSV-Files.
 Limits:
 CSV-Lines=maximum 10000, CSV-Rows=maximum 100
