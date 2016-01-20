@@ -47,13 +47,85 @@ public class Calculation {
 	public static int chartlistcounter2 = 1;
 	public static int chartlistcounter3 = 1;
 
-	static String outputpath = "Exchange Output.csv";
+	static String outputpath = "";
+	static String default_outputpath = "Exchange Output.csv";
 	static String handlerpath = "Handler.txt";
 	static String logfilepath = "LogFile-ExChangeCsv.log";
-	static String datum = "20.01.2016";// last Modify
+	static String datum = "21.01.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0;
-
+	// ------------------------------------------------
+	static String error01 = "Error: ";
+	static String error02 = "Fail: ";
+	static String message01 = "Start Separator Autoscan";
+	static String message02 = "Read Separator Done: ";
+	static String message03 = "Header 1st. Line: ";
+	static String message04 = "Open File: ";
+	static String message05 = "CSV Format OK: Header = Data Columns";
+	static String message06 = "Work With: ";
+	static String message07 = "Read File Done";
+	static String message08 = "Created File In: ";
+	static String message09 = " Columns";
+	static String message10 = " Rows, Incl. Header";
+	static String message11 = " Fields";
+	static String message12 = "Start Write File";
+	static String message13 = "Open Handler File";
+	static String message14 = "Found: ";
+	static String message15 = " Handler Commands";
+	static String message16 = "Read Handler File OK";
+	static String message17 = " To Many Commands In Handler File";
+	static String message18 = "Compare Instring Result Pos: Line ";
+	static String message19 = "Compare Instring Result Neg: Line ";
+	static String message20 = "Mig In: ";
+	static String message21 = "Mig In: .....................................................";
+	static String message22 = "Mig Out: ";
+	static String message23 = "Mig Out: ....................................................";
+	static String message24 = "Bubblesort: ";
+	static String message25 = " Sortings ";
+	static String message26 = "Quicksort: ";
+	static String message27 = "  Done";
+	static String message28 = "Press Button: ";
+	static String message29 = "Writefile";
+	static String message30 = "Numerical Gaps: ";
+	static String message31 = " Max= ";
+	static String message32 = " Min= ";
+	static String message33 = "Gaps: ";
+	static String message34 = "Dupe Check: Start";
+	static String message35 = "Dupe: ";
+	static String message36 = "No Dupes";
+	static String message37 = "Stats Start: ";
+	static String message38 = " Values = 100% ";
+	static String message39 = "Stats Sort: ";
+	static String message40 = "Stats Result: ";
+	static String message41 = " x ";
+	static String message42 = " = ";
+	static String message43 = " % ";
+	static String message44 = "Stats End";
+	static String message45 = "AutoExit: ";
+	static String message46 = "LogLevel: ";
+	static String message47 = "Execute Handler: OK";
+	static String message48 = "Created File In: ";
+	static String message49 = "Init Table: Done";
+	static String message50 = "Text Array Length: ";
+	static String message51 = "Created Help Text";
+	static String message52 = "Quicksort Numbers: ";
+	static String message53 = "Quicksort Strings: ";
+	static String message54 = "Path: ";
+	static String message55 = "Compare Result Pos: Line ";
+	static String message56 = "Compare Result Neg: Line ";
+	static String message57 = " :EQUAL";
+	static String message58 = " :ODDS";
+	static String message59 = "********************************************";
+	static String message60 = "****************Read File*******************";
+	static String message61 = "****************Write File******************";
+	static String message62 = "****************Handler File****************";
+	static String message63 = " Header ";
+	static String message64 = " Data Min ";
+	static String message65 = " Data Max ";
+	static String message66 = " ASCII: ,=44 / ;=59 / :=58";
+	//static String message67 = ;
+	//static String message68 = ;
+	//static String message69 = ;
 	// -----------------------------------------------
 	static String textarray[] = {
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
@@ -64,9 +136,9 @@ public class Calculation {
 			("//V2.4: New Feature: Compare Column / Compare Instring Column / Log File"),
 			("//CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Handler-Commands-Max=100"),
 			("//------------------------------------------------------"),
-			("//Interaktions-Commands:"),
+			("//Transform-Commands:"),
 			("//Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
-			("//Separator: Ausgabe Trennzeichen 44=, / 58=: / 59=;"),
+			("//Separator: Ausgabe Trennzeichen" + message65),
 			("//Spalten: Spaltenanzahl des Ausgabe File"),
 			("//Copy: Kopiere Spalte 2 nach Spalte 3"),
 			("//Set Header: Setze nur Header in Spalte 0 mit Test"),
@@ -99,7 +171,7 @@ public class Calculation {
 			("//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults"),
 			("//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts"),
 			("//------------------------------------------------------"),
-			("//Es sind folgende Handler Commands moeglich:"),
+			("//Handler Commands:"),
 			("Filename,Output Filename,Date,Front,"),// Standard,Date
 			("Separator,59,"), // ------------------------------------
 			("Spalten,30,"), // --------------------------------------
@@ -142,32 +214,29 @@ public class Calculation {
 		JFrame1.jTextPane1.setText("");
 		clearall();
 
-		System.out.println("Path: " + path1);
+		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
+		if (loglevel >= 1) {
+			write_log(message59);
+			write_log(message60);
+			write_log(message59);
+			write_log(now2);			
+		} // standard = 1
+		// Autoscan separator
+		// System.out.println(message54 + path1);
 		String row = "";
-		row = ("Path=" + path1);
+		row = (message54 + path1);
 		JFrame1.jList1(row);
 		if (loglevel >= 1) {
 			write_log(row);
 		} // standard = 1
-		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
-		if (loglevel >= 1) {
-			write_log("********************************************");
-		} // standard = 1
-		if (loglevel >= 1) {
-			write_log("****************Read File*******************");
-		} // standard = 1
-		if (loglevel >= 1) {
-			write_log("****************" + now2 + "******************");
-		} // standard = 1
-		// Autoscan separator
 		String c = ";";
 		String line = "";
 		try {
 			if (path1 != null) {
 
-				JFrame1.jList1("Start Separator Autoscan");
+				JFrame1.jList1(message01);
 				if (loglevel >= 1) {
-					write_log("Start Separator Autoscan");
+					write_log(message01);
 				} // standard = 1
 				FileReader fr1 = new FileReader(path1);
 				BufferedReader br1 = new BufferedReader(fr1);
@@ -181,23 +250,23 @@ public class Calculation {
 					if (line.indexOf(",") != -1) {
 						c = ",";
 					}
-					JFrame1.jList1("Header 1st. Line: " + line);
+					JFrame1.jList1(message03 + line);
 					if (loglevel >= 1) {
-						write_log("Header 1st. Line: " + line);
+						write_log(message03 + line);
 					} // standard = 1
 				}
 				fr1.close();
-				JFrame1.jList1("Read Separator Done: " + c);
+				JFrame1.jList1(message02 + c + message66);
 				if (loglevel >= 1) {
-					write_log("Read Separator Done: " + c);
+					write_log(message02 + c+ message66);
 				} // standard = 1
 			}
 		} catch (Exception e) {
 
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 
@@ -206,9 +275,9 @@ public class Calculation {
 		try {
 			if (path1 != null) {
 
-				JFrame1.jList1("Open File");
+				JFrame1.jList1(message04 + path1);
 				if (loglevel >= 1) {
-					write_log("Open File");
+					write_log(message04 + path1);
 				} // standard = 1
 				i = 0; // Laenge
 				int x = 0;// Zaehler
@@ -252,58 +321,60 @@ public class Calculation {
 				fr2.close();
 				//
 				if (jheader == jmin && jmin == jmax) {
-					JFrame1.jList1("CSV Format OK: Header = Data Columns");//
+					JFrame1.jList1(message05);//
 					if (loglevel >= 1) {
-						write_log("CSV Format OK: Header = Data Columns");
+						write_log(message05);
 					} // standard = 1
 				}
 				if (jmin < jheader) {
-					JFrame1.jList1("Error: Header (" + jheader + ") > "
-							+ "Data min (" + jmin + ") Columns");//
+					JFrame1.jList1(error01 + message63 + "(" + jheader + ") >"
+							+ message64 + "(" + jmin + ")" + message09);//
 					if (loglevel >= 1) {
-						write_log("Error: Header (" + jheader + ") > "
-								+ "Data min (" + jmin + ") Columns");
+						write_log(error01 + message63 + "(" + jheader + ") >"
+								+ message64 + "(" + jmin + ")" + message09);
 					} // standard = 1
 				}
 				if (jmax > jheader) {
-					JFrame1.jList1("Error: Data max (" + jmax + ") > "
-							+ "Header (" + jheader + ") Columns");//
+					JFrame1.jList1(error01 + message65 + "(" + jmax  + ") >"
+							+ message63  + "(" + jheader + ")" + message09);//
 					if (loglevel >= 1) {
-						write_log("Error: Data max (" + jmax + ") > "
-								+ "Header (" + jheader + ") Columns");
+						write_log(error01 + message65 + "(" + jmax  + ") >"
+								+ message63  + "(" + jheader + ")" + message09);
 					} // standard = 1
 				}
 				if (jmin != jmax) {
-					JFrame1.jList1("Error: Data min (" + jmin + ") != "
-							+ "Data max (" + jmax + ") Columns");//
+					JFrame1.jList1(error01 + message64 + "(" + jmin + ") !="
+							+ message65  + "(" + jmax  + ")" + message09);//
 					if (loglevel >= 1) {
-						write_log("Error: Data min (" + jmin + ") != "
-								+ "Data max (" + jmax + ") Columns");
+						write_log(error01 + message64 + "(" + jmin + ") !="
+								+ message65  + "(" + jmax  + ")" + message09);
 					} // standard = 1
 				}
-				JFrame1.jList1("Work with: " + (j) + " columns");// Spalte
+				JFrame1.jList1(message06 + (j) + message09);// Spalte
 				if (loglevel >= 1) {
-					write_log("Work with: " + (j) + " columns");
+					write_log(message06 + (j) + message09);
 				} // standard = 1
-				JFrame1.jList1("Work with: " + (i) + " rows, incl. Header"); // Zeile
+				JFrame1.jList1(message06 + (i) + message10); // Zeile
 				if (loglevel >= 1) {
-					write_log("Work with: " + (i) + " rows, incl. Header");
+					write_log(message06 + (i) + message10);
 				} // standard = 1
-				JFrame1.jList1("Work with: " + (i * j) + " fields");
+				JFrame1.jList1(message06 + (i * j) + message11);
 				if (loglevel >= 1) {
-					write_log("Work with: " + (i * j) + " fields");
+					write_log(message06 + (i * j) + message11);
 				} // standard = 1
-				JFrame1.jList1("Read File Done");
+				JFrame1.jList1(message07);
 				if (loglevel >= 1) {
-					write_log("Read File Done");
+					write_log(message07);
 				} // standard = 1
-				outputpath = "Exchange output.csv";
+				outputpath = default_outputpath;
 				// System.out.println("Open File:" + " i=" + i + " j=" +j);
 			}
 		} catch (Exception e) {
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
-			if (loglevel >= 2) {write_log("Error: " + e);} // debug = 2
+			if (loglevel >= 2) {
+				write_log(error01 + e);
+			} // debug = 2
 		}
 	}
 
@@ -319,15 +390,12 @@ public class Calculation {
 		// *************************************************************************
 		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
 		if (loglevel >= 1) {
-			write_log("********************************************");
+			write_log(message59);
+			write_log(message61);
+			write_log(message59);
+			write_log(now2);			
 		} // standard = 1
-		if (loglevel >= 1) {
-			write_log("****************Write File******************");
-		} // standard = 1
-		if (loglevel >= 1) {
-			write_log("****************" + now2 + "******************");
-		} // standard = 1
-			// -----------------------------------------------------------------------------
+ 		// -----------------------------------------------------------------------------
 		try {
 
 			File file1 = new File(filename);
@@ -340,9 +408,9 @@ public class Calculation {
 			if (file1.exists()) {
 				BufferedWriter bw;
 				bw = new BufferedWriter(new FileWriter(file1, true));// True=Append
-				JFrame1.jList1("Start Write File");
+				JFrame1.jList1(message12);
 				if (loglevel >= 1) {
-					write_log("Start Write File");
+					write_log(message12);
 				} // standard = 1
 				int x = 0;
 				int p = 0;
@@ -360,7 +428,7 @@ public class Calculation {
 						}
 					}
 					bw.write(line);
-					System.out.println(line);
+					// System.out.println(line);
 					JFrame1.jList1(line);
 					if (loglevel >= 1) {
 						write_log(line);
@@ -370,18 +438,18 @@ public class Calculation {
 				}
 				bw.flush();
 				bw.close();
-				System.out.println("Created File in: " + filename);
-				JFrame1.jList1("Created File in: " + filename);
+				// System.out.println(message08 + filename);
+				JFrame1.jList1(message08 + filename);
 				if (loglevel >= 1) {
-					write_log("Created File in: " + filename);
+					write_log(message08 + filename);
 				} // standard = 1
 
 			}
 		} catch (Exception e) {
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 	}
@@ -389,21 +457,18 @@ public class Calculation {
 	// *****************************************************************************************
 	public static void handler(String path2) {
 		String commands[] = new String[max_commands];
-		System.out.println("Path: " + path2);
+		// System.out.println(message54 + path2);
 		String row = "";
-		row = ("Path=" + path2);
+		row = (message54 + path2);
 		// -----------------------------------------------------------------------------
 		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
 		if (loglevel >= 1) {
-			write_log("********************************************");
+			write_log(message59);
+			write_log(message62);
+			write_log(message59);
+			write_log(now2);			
 		} // standard = 1
-		if (loglevel >= 1) {
-			write_log("****************Handler File****************");
-		} // standard = 1
-		if (loglevel >= 1) {
-			write_log("****************" + now2 + "******************");
-		} // standard = 1
-			// -----------------------------------------------------------------------------
+		// -----------------------------------------------------------------------------
 		JFrame1.jList1(row);
 		if (loglevel >= 1) {
 			write_log(row);
@@ -411,9 +476,9 @@ public class Calculation {
 		JFrame1.jTextPane1.setText("");
 		try {
 			if (path2 != null) {
-				JFrame1.jList1("Open Handler File");
+				JFrame1.jList1(message13);
 				if (loglevel >= 1) {
-					write_log("Open Handler File");
+					write_log(message13);
 				} // standard = 1
 				int x = 0;// Zaehler
 				int m = 0; // Zaehler
@@ -813,22 +878,22 @@ public class Calculation {
 				}
 				fr1.close();
 
-				JFrame1.jList1("Found: " + x + " Handler Commands");
+				JFrame1.jList1(message14 + x + message15);
 				if (loglevel >= 1) {
-					write_log("Found: " + x + " Handler Commands");
+					write_log(message14 + x + message15);
 				} // standard = 1
 				found_commands = x;
 				JFrame1.jProgressBar1.setMaximum(x - 1);
 				if (x <= max_commands) {
-					JFrame1.jList1("Read Handler File OK");
+					JFrame1.jList1(message16);
 					if (loglevel >= 1) {
-						write_log("Read Handler File OK");
+						write_log(message16);
 					} // standard = 1
 				}
 				if (x > max_commands) {
-					JFrame1.jList1("Fail: to many Commands in Handler File");
+					JFrame1.jList1(error02 + message17);
 					if (loglevel >= 1) {
-						write_log("Fail: to many Commands in Handler File");
+						write_log(error02 + message17);
 					} // standard = 1
 				}
 
@@ -856,7 +921,7 @@ public class Calculation {
 							for (m = 0; m < jj; m++) {
 								if (m == 0) {
 									command = splitcommands[m];
-									System.out.println(command);
+									// System.out.println(command);
 								}
 								if (m == 1) {
 									attribute1 = splitcommands[m];
@@ -914,17 +979,17 @@ public class Calculation {
 									}
 								}
 								outputpath = outputpath + ".csv";
-								System.out.println(outputpath);
+								// System.out.println(outputpath);
 							}
 							// -----------------------------------
 							if (command.equals("Separator")) {
 								d = (char) Integer.parseInt(attribute1);
-								System.out.println(d);
+								// System.out.println(d);
 							}
 							// -----------------------------------
 							if (command.equals("Spalten")) {
 								z = Integer.parseInt(attribute1);
-								System.out.println(z);
+								// System.out.println(z);
 							}
 							// -----------------------------------
 							if (command.equals("Copy Spalte")) {
@@ -936,7 +1001,7 @@ public class Calculation {
 								for (v = 0; v < i; v++) {
 									multicolumn[b][v] = multicolumn[a][v];
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Set Header")) {
@@ -948,7 +1013,7 @@ public class Calculation {
 									b = "//" + b;
 								}
 								multicolumn[a][0] = b;
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Set Spalte")) {
@@ -960,7 +1025,7 @@ public class Calculation {
 								for (v = 1; v < i; v++) {
 									multicolumn[a][v] = b;
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Set Block")) {
@@ -973,7 +1038,7 @@ public class Calculation {
 									multicolumn[a][v] = Integer.toString(b);
 									b++;
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Find Replace")) {
@@ -989,7 +1054,7 @@ public class Calculation {
 										multicolumn[a][v] = (c);
 									}
 								}
-								System.out.println(a + " " + b + " " + c);
+								// System.out.println(a + " " + b + " " + c);
 							}
 							// -----------------------------------
 							if (command.equals("Instring Find Replace")) {
@@ -1034,7 +1099,7 @@ public class Calculation {
 										}
 									}
 								}
-								System.out.println(a + " " + b + " " + c);
+								// System.out.println(a + " " + b + " " + c);
 							}
 							// -----------------------------------
 							if (command.equals("Instring Find Move")) {
@@ -1064,8 +1129,9 @@ public class Calculation {
 										}
 									}
 								}
-								System.out.println(a + " " + b + " " + c + " "
-										+ d);
+								// System.out.println(a + " " + b + " " + c +
+								// " "
+								// + d);
 							}
 							// -----------------------------------
 							if (command.equals("Instring Find Clear")) {
@@ -1075,8 +1141,8 @@ public class Calculation {
 								a = Integer.parseInt(attribute1);// 0
 								b = attribute2; // Compare
 								v = 1;
-								System.out.println("Start Clear ," + " i="
-										+ (i) + " j=" + (j));
+								// System.out.println("Start Clear ," + " i="
+								// + (i) + " j=" + (j));
 								do {
 									// System.out.println("Searchstring=" + b);
 									if (multicolumn[a][v].contains(b)) {
@@ -1095,7 +1161,7 @@ public class Calculation {
 									}
 									// }
 								} while (v < i); // liefert while ein true > do
-								System.out.println(a + " " + b + " " + i);
+								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
 							if (command.equals("Instring Not Find Clear")) {
@@ -1105,8 +1171,9 @@ public class Calculation {
 								a = Integer.parseInt(attribute1);// 0
 								b = attribute2; // Compare
 								v = 1;
-								System.out.println("Start Not Clear ," + " i="
-										+ (i) + " j=" + (j));
+								// System.out.println("Start Not Clear ," +
+								// " i="
+								// + (i) + " j=" + (j));
 								do {
 									// System.out.println("Searchstring=" + b);
 									if (!multicolumn[a][v].contains(b)) {
@@ -1125,7 +1192,7 @@ public class Calculation {
 									}
 									// }
 								} while (v < i); // liefert while ein true > do
-								System.out.println(a + " " + b + " " + i);
+								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
 							if (command.equals("String Combine Front")) {
@@ -1137,7 +1204,7 @@ public class Calculation {
 								for (v = 1; v < i; v++) {
 									multicolumn[a][v] = (b + multicolumn[a][v]);
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("String Combine Back")) {
@@ -1149,7 +1216,7 @@ public class Calculation {
 								for (v = 1; v < i; v++) {
 									multicolumn[a][v] = (multicolumn[a][v] + b);
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Convert To Upper Case")) {
@@ -1161,7 +1228,7 @@ public class Calculation {
 									b = multicolumn[a][v].toUpperCase();
 									multicolumn[a][v] = b;
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Convert To Lower Case")) {
@@ -1173,7 +1240,7 @@ public class Calculation {
 									b = multicolumn[a][v].toLowerCase();
 									multicolumn[a][v] = b;
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Compare Column")) {
@@ -1192,21 +1259,16 @@ public class Calculation {
 										if (multicolumn[a][v]
 												.equals(multicolumn[c][v])) {
 											// --------------------------------
-											JFrame1.jList1("Compare Result pos: Line "
-													+ v
-													+ " "
-													+ (multicolumn[a][v])
-													+ ","
+											JFrame1.jList1(message55 + v + " "
+													+ (multicolumn[a][v]) + ","
 													+ (multicolumn[c][v])
-													+ " :EQUAL");
+													+ message57);
 											if (loglevel >= 1) {
-												write_log("Compare Result pos: Line "
-														+ v
-														+ " "
+												write_log(message55 + v + " "
 														+ (multicolumn[a][v])
 														+ ","
 														+ (multicolumn[c][v])
-														+ " :EQUAL");
+														+ message57);
 											} // standard = 1
 												// ---------------------------------
 										}
@@ -1216,27 +1278,22 @@ public class Calculation {
 										if (!multicolumn[a][v]
 												.equals(multicolumn[c][v])) {
 											// --------------------------------
-											JFrame1.jList1("Compare Result neg: Line "
-													+ v
-													+ " "
-													+ (multicolumn[a][v])
-													+ ","
+											JFrame1.jList1(message56 + v + " "
+													+ (multicolumn[a][v]) + ","
 													+ (multicolumn[c][v])
-													+ " :ODDS");
+													+ message58);
 											if (loglevel >= 1) {
-												write_log("Compare Result neg: Line "
-														+ v
-														+ " "
+												write_log(message56 + v + " "
 														+ (multicolumn[a][v])
 														+ ","
 														+ (multicolumn[c][v])
-														+ " :ODDS");
+														+ message58);
 											} // standard = 1
 												// ---------------------------------
 										}
 									}
 								}
-								System.out.println(a + " " + c + " " + b);
+								// System.out.println(a + " " + c + " " + b);
 							}
 							// -------------------------------------------------
 							if (command.equals("Compare Instring Column")) {
@@ -1255,21 +1312,16 @@ public class Calculation {
 										if (multicolumn[a][v]
 												.contains(multicolumn[c][v])) {
 											// --------------------------------
-											JFrame1.jList1("Compare Instring Result pos: Line "
-													+ v
-													+ " "
-													+ (multicolumn[a][v])
-													+ ","
+											JFrame1.jList1(message18 + v + " "
+													+ (multicolumn[a][v]) + ","
 													+ (multicolumn[c][v])
-													+ " :EQUAL");
+													+ message57);
 											if (loglevel >= 1) {
-												write_log("Compare Instring Result pos: Line "
-														+ v
-														+ " "
+												write_log(message18 + v + " "
 														+ (multicolumn[a][v])
 														+ ","
 														+ (multicolumn[c][v])
-														+ " :EQUAL");
+														+ message57);
 											} // standard = 1
 												// ---------------------------------
 										}
@@ -1279,27 +1331,22 @@ public class Calculation {
 										if (!multicolumn[a][v]
 												.contains(multicolumn[c][v])) {
 											// --------------------------------
-											JFrame1.jList1("Compare Instring Result neg: Line "
-													+ v
-													+ " "
-													+ (multicolumn[a][v])
-													+ ","
+											JFrame1.jList1(message19 + v + " "
+													+ (multicolumn[a][v]) + ","
 													+ (multicolumn[c][v])
-													+ " :ODDS");
+													+ message58);
 											if (loglevel >= 1) {
-												write_log("Compare Instring Result neg: Line "
-														+ v
-														+ " "
+												write_log(message19 + v + " "
 														+ (multicolumn[a][v])
 														+ ","
 														+ (multicolumn[c][v])
-														+ " :ODDS");
+														+ message58);
 											} // standard = 1
 												// ---------------------------------
 										}
 									}
 								}
-								System.out.println(a + " " + c + " " + b);
+								// System.out.println(a + " " + c + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Trim")) {
@@ -1311,7 +1358,7 @@ public class Calculation {
 									b = multicolumn[a][v].trim();
 									multicolumn[a][v] = b;
 								}
-								System.out.println(a + " " + b);
+								// System.out.println(a + " " + b);
 							}
 							// -----------------------------------
 							if (command.equals("Extract Chars")) {
@@ -1334,8 +1381,9 @@ public class Calculation {
 										d = multicolumn[v][c];
 									}
 								}
-								System.out.println(v + " " + a + " " + b + " "
-										+ d);
+								// System.out.println(v + " " + a + " " + b +
+								// " "
+								// + d);
 							}
 							// -----------------------------------
 							if (command.equals("Migrate In")) {
@@ -1354,34 +1402,35 @@ public class Calculation {
 									d = multicolumn[v][c];
 									migrate[a][c] = d;
 									if (c == 1) {
-										JFrame1.jList1("Mig In: " + d);
+										JFrame1.jList1(message20 + d);
 										if (loglevel >= 1) {
-											write_log("Mig In: " + d);
+											write_log(message20 + d);
 										} // standard = 1
 									}// Visuelle Kontrolle
 									if (c == 2) {
-										JFrame1.jList1("Mig In: " + d);
+										JFrame1.jList1(message20 + d);
 										if (loglevel >= 1) {
-											write_log("Mig In: " + d);
+											write_log(message20 + d);
 										} // standard = 1
 									}
 									if (c == 3) {
-										JFrame1.jList1("Mig In: " + d);
+										JFrame1.jList1(message20 + d);
 										if (loglevel >= 1) {
-											write_log("Mig In: " + d);
+											write_log(message20 + d);
 										} // standard = 1
 									}
 									if (c == 4) {
-										JFrame1.jList1("Mig In: ....................................");
+										JFrame1.jList1(message21);
 										if (loglevel >= 1) {
-											write_log("Mig In: ....................................");
+											write_log(message21);
 										} // standard = 1
 									}
 									// System.out.println("migin:" + " v=" + v +
 									// " a=" + a + " c=" + c);
 									// System.out.println("migin:" +
 									// migrate[a][c] + "*" + multicolumn[v][c]);
-									System.out.println(v + " " + a + " " + d);
+									// System.out.println(v + " " + a + " " +
+									// d);
 								}
 							}
 							// -----------------------------------
@@ -1420,47 +1469,47 @@ public class Calculation {
 											multicolumn[g][l] = migrate[b][c];
 											o++;
 											if (o == 1) {
-												JFrame1.jList1("Mig Out: " + d
+												JFrame1.jList1(message22 + d
 														+ " > "
 														+ multicolumn[g][l]);
 												if (loglevel >= 1) {
-													write_log("Mig Out: " + d
+													write_log(message22 + d
 															+ " > "
 															+ multicolumn[g][l]);
 												} // standard = 1
 											}// Visuelle Kontrolle
 											if (o == 2) {
-												JFrame1.jList1("Mig Out: " + d
+												JFrame1.jList1(message22 + d
 														+ " > "
 														+ multicolumn[g][l]);
 												if (loglevel >= 1) {
-													write_log("Mig Out: " + d
+													write_log(message22 + d
 															+ " > "
 															+ multicolumn[g][l]);
 												} // standard = 1
 											}
 											if (o == 3) {
-												JFrame1.jList1("Mig Out: " + d
+												JFrame1.jList1(message22 + d
 														+ " > "
 														+ multicolumn[g][l]);
 												if (loglevel >= 1) {
-													write_log("Mig Out: " + d
+													write_log(message22 + d
 															+ " > "
 															+ multicolumn[g][l]);
 												} // standard = 1
 											}
 											if (o == 4) {
-												JFrame1.jList1("Mig Out: ....................................................");
+												JFrame1.jList1(message23);
 												if (loglevel >= 1) {
-													write_log("Mig Out: ....................................................");
+													write_log(message23);
 												} // standard = 1
 											}
 											// }
 											// System.out.println("migout:" +
 											// multicolumn[g][l] + "," +
 											// migrate[b][c]);
-											System.out.println(g + " " + l
-													+ " " + d);
+											// System.out.println(g + " " + l
+											// + " " + d);
 										}
 									}
 								}
@@ -1484,10 +1533,10 @@ public class Calculation {
 								int w;
 								int f;
 								w = i - 1; // i-1 , vorletzter index
-								System.out.println("Bubblesort: " + "a=" + a
-										+ " b= " + b + " c=" + c);
-								System.out.println("Bubblesort: " + "i=" + i
-										+ " w= " + w + " j=" + j);
+								// System.out.println(message24 + "a=" + a
+								// + " b= " + b + " c=" + c);
+								// System.out.println(message24 + "i=" + i
+								// + " w= " + w + " j=" + j);
 
 								sort_count = 0;
 								// static int i = 0; // Csv input laenge
@@ -1567,10 +1616,10 @@ public class Calculation {
 									w--; // jede Runde 1 weniger
 									// if (sort_ok = true) break;
 								}
-								JFrame1.jList1("Bubblesort: " + "Sortings "
+								JFrame1.jList1(message24 + message25
 										+ sort_count + "  done");
 								if (loglevel >= 1) {
-									write_log("Bubblesort: " + "Sortings "
+									write_log(message24 + message25
 											+ sort_count + "  done");
 								} // standard = 1
 									// System.out.println("row=" + v + " value="
@@ -1593,11 +1642,11 @@ public class Calculation {
 									Quicksort_numbers(1, i - 1, a, c);
 								if (b.equals("Strings") || b.equals("strings"))
 									Quicksort_strings(1, i - 1, a, c);
-								JFrame1.jList1("Quicksort: " + "Sortings "
-										+ sort_count + "  done");
+								JFrame1.jList1(message26 + message25
+										+ sort_count + message27);
 								if (loglevel >= 1) {
-									write_log("Quicksort: " + "Sortings "
-											+ sort_count + "  done");
+									write_log(message26 + message25
+											+ sort_count + message27);
 								} // standard = 1
 							}
 							// -------------------------------------
@@ -1605,11 +1654,9 @@ public class Calculation {
 								int a;
 								a = Integer.parseInt(attribute1);// Parameter
 								if (a == 1) {
-									JFrame1.jList1("Press Button: "
-											+ "Writefile");
+									JFrame1.jList1(message28 + message29);
 									if (loglevel >= 1) {
-										write_log("Press Button: "
-												+ "Writefile");
+										write_log(message28 + message29);
 									} // standard = 1
 									writefile();
 								}
@@ -1639,13 +1686,14 @@ public class Calculation {
 												.parseInt(multicolumn[a][f]);
 									}
 								}
-								System.out.println("Numerical Gaps: " + "Min="
-										+ min + " Max=" + max);
-								JFrame1.jList1("Numerical Gaps: " + "Min="
-										+ min + " Max=" + max);
+								// System.out.println("Numerical Gaps: " +
+								// "Min="
+								// + min + " Max=" + max);
+								JFrame1.jList1(message30 + message32 + min
+										+ message31 + max);
 								if (loglevel >= 1) {
-									write_log("Numerical Gaps: " + "Min=" + min
-											+ " Max=" + max);
+									write_log(message30 + message32 + min
+											+ message31 + max);
 								} // standard = 1
 
 								for (f = min; f <= max; f++) {
@@ -1657,10 +1705,11 @@ public class Calculation {
 										}
 									}
 									if (Nachfolger == false) {
-										System.out.println("Gaps: " + (f + 1));
-										JFrame1.jList1("Gaps: " + (f + 1));
+										// System.out.println(message33 + (f +
+										// 1));
+										JFrame1.jList1(message33 + (f + 1));
 										if (loglevel >= 1) {
-											write_log("Gaps: " + (f + 1));
+											write_log(message33 + (f + 1));
 										} // standard = 1
 									}
 								}
@@ -1678,10 +1727,9 @@ public class Calculation {
 								int dupelistcounter = 1;
 								boolean dupelistfound = false;
 
-								System.out.println("Dupe Check: Start");
-								JFrame1.jList1("Dupe Check: Start");
+								JFrame1.jList1(message34);
 								if (loglevel >= 1) {
-									write_log("Dupe Check: Start");
+									write_log(message34);
 								} // standard = 1
 								for (v = 1; v < i; v++) { // i = Csv input
 															// laenge
@@ -1701,11 +1749,9 @@ public class Calculation {
 											}
 											if (dupelistfound == false) {
 												(dupelist[dupelistcounter]) = c;
-												System.out
-														.println("Dupe: " + c);
-												JFrame1.jList1("Dupe: " + c);
+												JFrame1.jList1(message35 + c);
 												if (loglevel >= 1) {
-													write_log("Dupe: " + c);
+													write_log(message35 + c);
 												} // standard = 1
 												dupelistcounter++;
 											}
@@ -1715,10 +1761,9 @@ public class Calculation {
 
 								}
 								if (dupe == false) {
-									System.out.println("No Dupes");
-									JFrame1.jList1("No Dupes");
+									JFrame1.jList1(message36);
 									if (loglevel >= 1) {
-										write_log("No Dupes");
+										write_log(message36);
 									} // standard = 1
 								}
 							}
@@ -1737,16 +1782,14 @@ public class Calculation {
 								b = (attribute2);// Chart
 								int hundert_prozent = i - 1;
 
-								System.out.println("Stats Start: "
-										+ (multicolumn[a][0]) + " / " + (i - 1)
-										+ " Values = 100%");
-								JFrame1.jList1("Stats Start: "
-										+ (multicolumn[a][0]) + " / " + (i - 1)
-										+ " Values = 100%");
+								// System.out.println(message37
+								// + (multicolumn[a][0]) + " / " + (i - 1)
+								// + message38);
+								JFrame1.jList1(message37 + (multicolumn[a][0])
+										+ " / " + (i - 1) + message38);
 								if (loglevel >= 1) {
-									write_log("Stats Start: "
-											+ (multicolumn[a][0]) + " / "
-											+ (i - 1) + " Values = 100%");
+									write_log(message37 + (multicolumn[a][0])
+											+ " / " + (i - 1) + message38);
 								} // standard = 1
 
 								// Format statlist
@@ -1826,13 +1869,13 @@ public class Calculation {
 									}
 									w--; // jede Runde 1 weniger
 								}
-								System.out.println("Stats Sort: " + "Sortings "
-										+ sort_count + "  done");
-								JFrame1.jList1("Stats Sort: " + "Sortings "
-										+ sort_count + "  done");
+								// System.out.println(message39 + message25
+								// + sort_count + message27);
+								JFrame1.jList1(message39 + message25
+										+ sort_count + message27);
 								if (loglevel >= 1) {
-									write_log("Stats Sort: " + "Sortings "
-											+ sort_count + "  done");
+									write_log(message39 + message25
+											+ sort_count + message27);
 								} // standard = 1
 									// --------------------------------------
 								for (sj = 1; sj < statlistcounter; sj++) {
@@ -1855,19 +1898,19 @@ public class Calculation {
 										chartlist3[1][sj] = statlist[1][sj];
 										chartlist3[2][sj] = statlist[2][sj];
 									}
-									System.out.println("Stats Result: "
-											+ (statlist[1][sj]) + " x "
-											+ (statlist[0][sj]) + " = "
-											+ statlist[2][sj] + "%");
-									JFrame1.jList1("Stats Result: "
-											+ (statlist[1][sj]) + " x "
-											+ (statlist[0][sj]) + " = "
-											+ statlist[2][sj] + "%");
+									// System.out.println(message40
+									// + (statlist[1][sj]) + message41
+									// + (statlist[0][sj]) + message42
+									// + statlist[2][sj] + message43);
+									JFrame1.jList1(message40
+											+ (statlist[1][sj]) + message41
+											+ (statlist[0][sj]) + message42
+											+ statlist[2][sj] + message43);
 									if (loglevel >= 1) {
-										write_log("Stats Result: "
-												+ (statlist[1][sj]) + " x "
-												+ (statlist[0][sj]) + " = "
-												+ statlist[2][sj] + "%");
+										write_log(message40 + (statlist[1][sj])
+												+ message41 + (statlist[0][sj])
+												+ message42 + statlist[2][sj]
+												+ message43);
 									} // standard = 1
 								}
 								// --------------------
@@ -1886,10 +1929,10 @@ public class Calculation {
 									chartlistcounter3 = statlistcounter;
 									cal.chart3.start(chartlistcounter3);
 								}
-								System.out.println("Stats End");
-								JFrame1.jList1("Stats End");
+								// System.out.println(message44);
+								JFrame1.jList1(message44);
 								if (loglevel >= 1) {
-									write_log("Stats End");
+									write_log(message44);
 								} // standard = 1
 							}
 							// ---------------------------------------------
@@ -1899,10 +1942,10 @@ public class Calculation {
 								if (a == 1) {
 									System.exit(0);
 								}
-								System.out.println("Exit:" + a);
-								JFrame1.jList1("Exit:" + a);
+								// System.out.println(message45 + a);
+								JFrame1.jList1(message45 + a);
 								if (loglevel >= 1) {
-									write_log("Exit:" + a);
+									write_log(message45 + a);
 								} // standard = 1
 							}
 							// ---------------------------------------
@@ -1918,10 +1961,10 @@ public class Calculation {
 								if (a == 2) {
 									loglevel = 2;
 								}
-								System.out.println("LogLevel:" + a);
-								JFrame1.jList1("LogLevel:" + a);
+								// System.out.println(message46 + a);
+								JFrame1.jList1(message46 + a);
 								if (loglevel >= 1) {
-									write_log("LogLevel:" + a);
+									write_log(message46 + a);
 								} // standard = 1
 							}
 							// -----------------------------------
@@ -1929,14 +1972,16 @@ public class Calculation {
 					}
 				}
 			}
-			JFrame1.jTextPane1.setText("Execute Handler: OK");
-			if (loglevel >= 1) {write_log("Execute Handler: OK");}
+			JFrame1.jTextPane1.setText(message47);
+			if (loglevel >= 1) {
+				write_log(message47);
+			}
 		} catch (Exception e) {
 
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 	}
@@ -1953,7 +1998,8 @@ public class Calculation {
 			if (!file2.exists()) {
 				file2.createNewFile();
 				// *************************************************************************
-				String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
+				String now2 = new SimpleDateFormat("dd.MM.yyy")
+						.format(new Date());
 				if (loglevel >= 1) {
 					write_log("********************************************");
 				} // standard = 1
@@ -1964,10 +2010,10 @@ public class Calculation {
 					write_log("****************" + now2 + "******************");
 				} // standard = 1
 					// -----------------------------------------------------------------------------
-				System.out.println("Created File in: " + filename2);
-				JFrame1.jList1("Created LogFile in: " + filename2);
+				// System.out.println(message48 + filename2);
+				JFrame1.jList1(message48 + filename2);
 				if (loglevel >= 1) {
-					write_log("Created LogFile in: " + filename2);
+					write_log(message48 + filename2);
 				} // standard = 1
 			} else {
 				// file2.delete();
@@ -1982,10 +2028,10 @@ public class Calculation {
 				bw2.close();
 			}
 		} catch (Exception e) {
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 	}
@@ -1999,10 +2045,10 @@ public class Calculation {
 				migrate[x][y] = ("");
 			}
 		}
-		System.out.println("Init Table: Done");
-		JFrame1.jList1("Init Table: Done");
+		// System.out.println(message49);
+		JFrame1.jList1(message49);
 		if (loglevel >= 1) {
-			write_log("Init Table: Done");
+			write_log(message49);
 		} // standard = 1
 	}
 
@@ -2016,10 +2062,10 @@ public class Calculation {
 
 			}
 		}
-		System.out.println("Init Table: Done");
-		JFrame1.jList1("Init Table: Done");
+		// System.out.println(message49);
+		JFrame1.jList1(message49);
 		if (loglevel >= 1) {
-			write_log("Init Table: Done");
+			write_log(message49);
 		} // standard = 1
 	}
 
@@ -2047,18 +2093,18 @@ public class Calculation {
 				// ------------------------------------------------
 				bw.flush();
 				bw.close();
-				JFrame1.jList1("Created File in: " + filename);
+				JFrame1.jList1(message48 + filename);
 				if (loglevel >= 1) {
-					write_log("Created File in: " + filename);
+					write_log(message48 + filename);
 				} // standard = 1
-				System.out.println("Created File in: " + filename);
-				System.out.println("Text Array Length: " + textarray.length);
+				// System.out.println(message48 + filename);
+				// System.out.println(message50 + textarray.length);
 			}
 		} catch (Exception e) {
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 	}
@@ -2074,15 +2120,15 @@ public class Calculation {
 				write_log(textarray[i]);
 			} // standard = 1
 		}
-		System.out.println("Created Help Text");
-		System.out.println("Text Array Length: " + textarray.length);
+		// System.out.println(message51);
+		// System.out.println(message50 + textarray.length);
 	}
 
 	// -----------------------------------------------------------------------
 	public static void Quicksort_numbers(int start, int end, int spalte,
 			String direction) {
-		System.out.println("Quicksort Numbers : " + start + " " + end + " "
-				+ spalte + " " + direction);
+		// System.out.println(message52 + start + " " + end + " "
+		// + spalte + " " + direction);
 		try {
 			if (start < end) {
 				int ii;
@@ -2092,10 +2138,10 @@ public class Calculation {
 			}
 		} catch (Exception e) {
 
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 	}
@@ -2169,10 +2215,10 @@ public class Calculation {
 			}
 		} catch (Exception e) {
 
-			JFrame1.jTextPane1.setText("Error:  Quicksort Numbers," + e);
+			JFrame1.jTextPane1.setText(error01 + message52 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error:  Quicksort Numbers," + e);
+				write_log(error01 + message52 + e);
 			} // debug = 2
 		}
 		return ii;
@@ -2181,8 +2227,8 @@ public class Calculation {
 	// ----------------------------------------------------------------------------
 	public static void Quicksort_strings(int start, int end, int spalte,
 			String direction) {
-		System.out.println("Quicksort Strings : " + start + " " + end + " "
-				+ spalte + " " + direction);
+		// System.out.println(message53 + start + " " + end + " "
+		// + spalte + " " + direction);
 		try {
 			if (start < end) {
 				int ii;
@@ -2192,10 +2238,10 @@ public class Calculation {
 			}
 		} catch (Exception e) {
 
-			JFrame1.jTextPane1.setText("Error: " + e);
+			JFrame1.jTextPane1.setText(error01 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: " + e);
+				write_log(error01 + e);
 			} // debug = 2
 		}
 	}
@@ -2269,10 +2315,10 @@ public class Calculation {
 			}
 		} catch (Exception e) {
 
-			JFrame1.jTextPane1.setText("Error: Quicksort String," + e);
+			JFrame1.jTextPane1.setText(error01 + message53 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
-				write_log("Error: Quicksort String," + e);
+				write_log(error01 + message53 + e);
 			} // debug = 2
 		}
 		return ii;
