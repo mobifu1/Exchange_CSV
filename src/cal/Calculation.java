@@ -138,7 +138,7 @@ public class Calculation {
 			("//------------------------------------------------------"),
 			("//Transform-Commands:"),
 			("//Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
-			("//Separator: Ausgabe Trennzeichen" + message65),
+			("//Separator: Ausgabe Trennzeichen" + message66),
 			("//Spalten: Spaltenanzahl des Ausgabe File"),
 			("//Copy: Kopiere Spalte 2 nach Spalte 3"),
 			("//Set Header: Setze nur Header in Spalte 0 mit Test"),
