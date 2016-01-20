@@ -123,9 +123,9 @@ public class Calculation {
 	static String message64 = " Data Min ";
 	static String message65 = " Data Max ";
 	static String message66 = " ASCII: ,=44 / ;=59 / :=58";
-	//static String message67 = ;
-	//static String message68 = ;
-	//static String message69 = ;
+	// static String message67 = ;
+	// static String message68 = ;
+	// static String message69 = ;
 	// -----------------------------------------------
 	static String textarray[] = {
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
@@ -171,8 +171,7 @@ public class Calculation {
 			("//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults"),
 			("//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts"),
 			("//------------------------------------------------------"),
-			("//Handler Commands:"),
-			("Filename,Output Filename,Date,Front,"),// Standard,Date
+			("//Handler Commands:"), ("Filename,Output Filename,Date,Front,"),// Standard,Date
 			("Separator,59,"), // ------------------------------------
 			("Spalten,30,"), // --------------------------------------
 			("Copy Spalte,2,3,"), // ---------------------------------
@@ -219,10 +218,10 @@ public class Calculation {
 			write_log(message59);
 			write_log(message60);
 			write_log(message59);
-			write_log(now2);			
+			write_log(now2);
 		} // standard = 1
-		// Autoscan separator
-		// System.out.println(message54 + path1);
+			// Autoscan separator
+			// System.out.println(message54 + path1);
 		String row = "";
 		row = (message54 + path1);
 		JFrame1.jList1(row);
@@ -258,7 +257,7 @@ public class Calculation {
 				fr1.close();
 				JFrame1.jList1(message02 + c + message66);
 				if (loglevel >= 1) {
-					write_log(message02 + c+ message66);
+					write_log(message02 + c + message66);
 				} // standard = 1
 			}
 		} catch (Exception e) {
@@ -335,19 +334,19 @@ public class Calculation {
 					} // standard = 1
 				}
 				if (jmax > jheader) {
-					JFrame1.jList1(error01 + message65 + "(" + jmax  + ") >"
-							+ message63  + "(" + jheader + ")" + message09);//
+					JFrame1.jList1(error01 + message65 + "(" + jmax + ") >"
+							+ message63 + "(" + jheader + ")" + message09);//
 					if (loglevel >= 1) {
-						write_log(error01 + message65 + "(" + jmax  + ") >"
-								+ message63  + "(" + jheader + ")" + message09);
+						write_log(error01 + message65 + "(" + jmax + ") >"
+								+ message63 + "(" + jheader + ")" + message09);
 					} // standard = 1
 				}
 				if (jmin != jmax) {
 					JFrame1.jList1(error01 + message64 + "(" + jmin + ") !="
-							+ message65  + "(" + jmax  + ")" + message09);//
+							+ message65 + "(" + jmax + ")" + message09);//
 					if (loglevel >= 1) {
 						write_log(error01 + message64 + "(" + jmin + ") !="
-								+ message65  + "(" + jmax  + ")" + message09);
+								+ message65 + "(" + jmax + ")" + message09);
 					} // standard = 1
 				}
 				JFrame1.jList1(message06 + (j) + message09);// Spalte
@@ -393,9 +392,9 @@ public class Calculation {
 			write_log(message59);
 			write_log(message61);
 			write_log(message59);
-			write_log(now2);			
+			write_log(now2);
 		} // standard = 1
- 		// -----------------------------------------------------------------------------
+			// -----------------------------------------------------------------------------
 		try {
 
 			File file1 = new File(filename);
@@ -466,9 +465,9 @@ public class Calculation {
 			write_log(message59);
 			write_log(message62);
 			write_log(message59);
-			write_log(now2);			
+			write_log(now2);
 		} // standard = 1
-		// -----------------------------------------------------------------------------
+			// -----------------------------------------------------------------------------
 		JFrame1.jList1(row);
 		if (loglevel >= 1) {
 			write_log(row);
@@ -2097,8 +2096,8 @@ public class Calculation {
 				if (loglevel >= 1) {
 					write_log(message48 + filename);
 				} // standard = 1
-				// System.out.println(message48 + filename);
-				// System.out.println(message50 + textarray.length);
+					// System.out.println(message48 + filename);
+					// System.out.println(message50 + textarray.length);
 			}
 		} catch (Exception e) {
 			JFrame1.jTextPane1.setText(error01 + e);
