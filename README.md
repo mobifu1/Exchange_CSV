@@ -8,7 +8,7 @@ Convert an input-file.csv to an output-file.csv from script / Eclipse-Java
 
 ... is a Java-tool for the transformation of CSV-files.
 
-Limits: CSV-lines maximum=10000, CSV-rows maximum=100
+Limits: CSV-lines maximum=10000, CSV-columns maximum=100
 
 The Button Help will give you support.
 
