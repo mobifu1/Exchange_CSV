@@ -66,7 +66,7 @@ public class Calculation {
 	static String message07 = "Read File Done";
 	static String message08 = "Created File In:";
 	static String message09 = "Columns";
-	static String message10 = "Rows, Incl. Header";
+	static String message10 = "Lines, Incl. Header";
 	static String message11 = "Fields";
 	static String message12 = "Start Write File";
 	static String message13 = "Open Script File";
