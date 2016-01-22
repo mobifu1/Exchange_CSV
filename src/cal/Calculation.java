@@ -105,7 +105,7 @@ public class Calculation {
 	static String message46 = "LogLevel:";
 	static String message47 = "Execute Script: OK";
 	static String message48 = "Created File In:";
-	static String message49 = "Init Table: Done";
+	static String message49 = "Application Init: Done";
 	static String message50 = "Text Array Length:";
 	static String message51 = "Created Help Text";
 	static String message52 = "Quicksort Numbers:";
@@ -123,8 +123,14 @@ public class Calculation {
 	static String message64 = "Data Min";
 	static String message65 = "Data Max";
 	static String message66 = "ASCII: ,=44 / ;=59 / :=58";
-	// static String message67 = ;
-	// static String message68 = ;
+	static String message67 = "(";
+	static String message68 = ")";
+	static String message69 = ") >";
+	static String message70 = ") !=";
+	static String message71 = "****************Start Log File**************";
+	// static String message72 = ;
+	// static String message73 = ;
+	// static String message74 = ;
 	static String message99 = " ";
 	// -----------------------------------------------
 	static String textarray[] = {
@@ -171,7 +177,8 @@ public class Calculation {
 			("//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults"),
 			("//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts"),
 			("//------------------------------------------------------"),
-			("//Script Commands:"), ("Filename,Output Filename,Date,Front,"),// Standard,Date
+			("//Script Commands:"),// ---------------------------------
+			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Spalten,30,"), // --------------------------------------
 			("Copy Spalte,2,3,"), // ---------------------------------
@@ -328,38 +335,39 @@ public class Calculation {
 				}
 				if (jmin < jheader) {
 					JFrame1.jList1(error01 + message99 + message99 + message99
-							+ message63 + message99 + "(" + jheader + ") >"
-							+ message99 + message64 + message99 + "(" + jmin
-							+ ")" + message99 + message09);//
+							+ message63 + message99 + message67 + jheader
+							+ message69 + message99 + message64 + message99
+							+ message67 + jmin + message68 + message99
+							+ message09);//
 					if (loglevel >= 1) {
 						write_log(error01 + message99 + message99 + message63
-								+ message99 + "(" + jheader + ") >" + message99
-								+ message64 + message99 + "(" + jmin + ")"
-								+ message99 + message09);
+								+ message99 + message67 + jheader + message69
+								+ message99 + message64 + message99 + message67
+								+ jmin + message68 + message99 + message09);
 					} // standard = 1
 				}
 				if (jmax > jheader) {
 					JFrame1.jList1(error01 + message99 + message99 + message65
-							+ message99 + "(" + jmax + ") >" + message99
-							+ message63 + message99 + "(" + jheader + ")"
-							+ message99 + message09);//
+							+ message99 + message67 + jmax + message69
+							+ message99 + message63 + message99 + message67
+							+ jheader + message68 + message99 + message09);//
 					if (loglevel >= 1) {
 						write_log(error01 + message99 + message99 + message65
-								+ message99 + "(" + jmax + ") >" + message99
-								+ message63 + message99 + "(" + jheader + ")"
-								+ message99 + message09);
+								+ message99 + message67 + jmax + message69
+								+ message99 + message63 + message99 + message67
+								+ jheader + message68 + message99 + message09);
 					} // standard = 1
 				}
 				if (jmin != jmax) {
 					JFrame1.jList1(error01 + message99 + message99 + message64
-							+ message99 + "(" + jmin + ") !=" + message99
-							+ message65 + message99 + "(" + jmax + ")"
-							+ message99 + message09);//
+							+ message99 + message67 + jmin + message70
+							+ message99 + message65 + message99 + message67
+							+ jmax + message68 + message99 + message09);//
 					if (loglevel >= 1) {
 						write_log(error01 + message99 + message99 + message64
-								+ message99 + "(" + jmin + ") !=" + message99
-								+ message65 + message99 + "(" + jmax + ")"
-								+ message99 + message09);
+								+ message99 + message67 + jmin + message70
+								+ message99 + message65 + message99 + message67
+								+ jmax + message68 + message99 + message09);
 					} // standard = 1
 				}
 				JFrame1.jList1(message06 + message99 + (j) + message99
@@ -392,7 +400,7 @@ public class Calculation {
 			e.printStackTrace();
 			if (loglevel >= 2) {
 				write_log(error01 + message99 + e);
-			} // debug = 2
+			} // error = 2
 		}
 	}
 
@@ -2064,21 +2072,22 @@ public class Calculation {
 				// *************************************************************************
 				String now2 = new SimpleDateFormat("dd.MM.yyy")
 						.format(new Date());
-				if (loglevel >= 1) {
-					write_log("********************************************");
-				} // standard = 1
-				if (loglevel >= 1) {
-					write_log("****************Create Log******************");
-				} // standard = 1
-				if (loglevel >= 1) {
-					write_log("****************" + now2 + "******************");
-				} // standard = 1
-					// -----------------------------------------------------------------------------
+				BufferedWriter bw2;
+				bw2 = new BufferedWriter(new FileWriter(file2, true));// True=Append
+				bw2.write(message59);
+				bw2.newLine();
+				bw2.write(message71);
+				bw2.newLine();
+				bw2.write(message59);
+				bw2.newLine();
+				bw2.write(now2);
+				bw2.newLine();
+				bw2.write(message48 + message99 + filename2);
+				bw2.flush();
+				bw2.close();
+				// -----------------------------------------------------------------------------
 				// System.out.println(message48+ message99 + filename2);
 				JFrame1.jList1(message48 + message99 + filename2);
-				if (loglevel >= 1) {
-					write_log(message48 + message99 + filename2);
-				} // standard = 1
 			} else {
 				// file2.delete();
 				// file2.createNewFile();
@@ -2094,9 +2103,6 @@ public class Calculation {
 		} catch (Exception e) {
 			JFrame1.jTextPane1.setText(error01 + message99 + e);
 			e.printStackTrace();
-			if (loglevel >= 2) {
-				write_log(error01 + message99 + e);
-			} // debug = 2
 		}
 	}
 

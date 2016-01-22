@@ -70,7 +70,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	static String message08 = "Load Script File";
 	static String message09 = "Create Script";
 	static String message10 = "Create New Script File";
-	static String message11 = "Clear Listbox";
+	static String message11 = "Init Application";
 	static String message12 = "Help";
 	static String message13 = "Help In Listbox";
 	static String message14 = "Progress";
@@ -338,13 +338,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton1ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton1.actionPerformed, event=" + evt);
+		//System.out.println("jButton1.actionPerformed, event=" + evt);
 
 		JFileChooser fc1 = new JFileChooser();
 		fc1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int status = fc1.showOpenDialog(null);
 		if (status == JFileChooser.APPROVE_OPTION) {
-			System.out.println(message16);
+			//System.out.println(message16);
 			File selFile = fc1.getSelectedFile();
 			String path1 = (selFile.getPath());
 			Calculation.readfile(path1);
@@ -352,17 +352,17 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton2ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton2.actionPerformed, event=" + evt);
+		//System.out.println("jButton2.actionPerformed, event=" + evt);
 		Calculation.writefile();
 	}
 
 	private void jButton3ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton3.actionPerformed, event=" + evt);
+		//System.out.println("jButton3.actionPerformed, event=" + evt);
 		JFileChooser fc1 = new JFileChooser();
 		fc1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int status = fc1.showOpenDialog(null);
 		if (status == JFileChooser.APPROVE_OPTION) {
-			System.out.println(message16);
+			//System.out.println(message16);
 			File selFile = fc1.getSelectedFile();
 			String path2 = (selFile.getPath());
 			Calculation.handler(path2);
@@ -370,7 +370,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton4.actionPerformed, event=" + evt);
+		//System.out.println("jButton4.actionPerformed, event=" + evt);
 		Calculation.create_handlerfile();
 	}
 
@@ -380,7 +380,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton5ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton5.actionPerformed, event=" + evt);
+		//System.out.println("jButton5.actionPerformed, event=" + evt);
 		listModel.clear();
 		Calculation.clearall();
 		jProgressBar1.setValue(0);
@@ -388,7 +388,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton6ActionPerformed(ActionEvent evt) {
-		System.out.println("jButton6.actionPerformed, event=" + evt);
+		//System.out.println("jButton6.actionPerformed, event=" + evt);
 		Calculation.writetext();
 	}
 }
