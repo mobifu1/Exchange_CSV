@@ -1,0 +1,82 @@
+//Java Eclipse Version: 3.8.1 / Jigloo Version: 4.6.6
+//http://www.eclipse.org/platform
+//http://www.cloudgarden.com/jigloo/
+//Version: Exchange CSV V2.4.5-Beta, last modify: 21.01.2016
+//V2.4: New Feature: Compare Column / Compare Instring Column / Log File
+//CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100
+//------------------------------------------------------
+//Transform-Commands:
+//Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back
+//Separator: Ausgabe Trennzeichen ASCII: ,=44 / ;=59 / :=58
+//Spalten: Spaltenanzahl des Ausgabe File
+//Copy: Kopiere Spalte 2 nach Spalte 3
+//Set Header: Setze nur Header in Spalte 0 mit Test
+//Set Spalte: Setze Spalte 0 ohne Header mit bla
+//Set Block: Setze Spalte 0 ohne Header beginnend mit 2000 fortlaufend incremental
+//Find and Replace: Suche in Spalte 0 nach bla und ersetze mit blupp
+//Instring Find Replace: Suche in Spalte 0 Instring nach up und ersetze mit ap
+//Instring Find Move: Suche in Spalte 0 Instring nach up und ersetze mit ap in Spalte 1
+//Instring Find Clear: Suche in Spalte 0 Instring nach up und lösche die gesamte CSV-Zeile
+//Instring Not Find Clear: Suche in Spalte 0 Instring nach up, wenn nicht vorhanden lösche die gesamte CSV-Zeile
+//String Combine Front: new String = bla + old String in Spalte 0
+//String Combine Back: new String = old String + blupp in Spalte 0
+//Convert To Lower Case:  in Spalte 0
+//Convert To Upper Case: in Spalte 0
+//Trim: entfernt alle nicht darstellbaren Zeichen am Anfang und am Ende in Spalte 0
+//Extract Chars: von Position 0 bis Position 3+1 in Spalte 0  = Extract 4 Chars
+//Migrate In: Daten zum Migrieren aus Spalte 1 in Migrationsarray Spalte 0 laden
+//Migrate Out:vergleicht Wert aus  Migrationsarray Spalte 0 mit Wert in Spalte 1
+//Migrate Out:wenn beide Werte gleich, dann Copy aus Migrationsarray Spalte 1 nach Spalte 2
+//Bubblesort: Sortierung der Spalte 0, Numbers/Strings, up/down
+//Quicksort: Sortierung der Spalte 0, Numbers/Strings, up/down
+//Writefile: 1, Press Button Writefile
+//Autoexit: 1, Applikation schliessen
+//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error / Start Log mit extra Script-File
+//------------------------------------------------------
+//Check-Commands:
+//Find Numerical Gaps: 0, suche numerische Lücken zwischen Min. und Max. in Spalte 0 > Terminalresults
+//Compare Column: Vergleiche String in Spalte 0 mit Spalte 1 pos/neg > Terminalresults
+//Compare Instring Column: Suche String der Spalte 0 Instring in Spalte 1 pos/neg > Terminalresults
+//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults
+//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts
+//------------------------------------------------------
+//Script Commands:
+Log File,1,
+Filename,Output Filename,Date,Front,
+Separator,59,
+Spalten,6,
+Copy Spalte,2,3,
+Set Header,3,Other Dogs,
+Set Spalte,4,abc,
+Set Block,4,2000,
+Set Header,4,Other Numbers,
+Set Header,5,Results,
+Find Replace,4,2005,2030,
+Find Numerical Gaps,4,
+Instring Find Replace,2,Boxer,Cat Dog,
+Instring Find Move,2,at Do,3,Cat Dog,
+Instring Find Clear,0,Fail,
+Instring Not Find Clear,1,543,
+String Combine Front,2,Dog-,
+String Combine Back,2,-Dog,
+Convert To Upper Case,0,
+Convert To Lower Case,2,
+Trim,0,
+Extract Chars,1,1,5,
+Migrate In,0,0,
+Migrate Out,0,0,0,0,
+Bubblesort,1,Numbers,down,
+Quicksort,0,Strings,up,
+Compare Column,2,3,pos,
+Compare Instring Column,3,2,neg,
+Dupe Check,2,
+Instring Find Move,2,-pittbull-,5,OK,
+Instring Find Move,2,-frenchy-,5,OK,
+Instring Find Move,2,-jack russel-,5,OK,
+Instring Find Move,2,-terrier-,5,OK,
+Instring Find Move,2,-sheepdog-,5,OK,
+Instring Find Move,2,-cat dog-,5,OK,
+Stats,3,
+Stats,3,Chart1,
+Writefile,1,
+Autoexit,0,

@@ -49,9 +49,9 @@ public class Calculation {
 
 	static String outputpath = "";
 	static String default_outputpath = "Exchange Output.csv";
-	static String handlerpath = "Script-ExChangeCsv.txt";
+	static String handlerpath = "Script-ExChange.txt";
 	static String logfilepath = "LogFile-ExChangeCsv.log";
-	static String datum = "21.01.2016";// last Modify
+	static String datum = "22.01.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0;
 	// ------------------------------------------------
@@ -146,7 +146,7 @@ public class Calculation {
 			("//Set Block: Setze Spalte 0 ohne Header beginnend mit 2000 fortlaufend incremental"),
 			("//Find and Replace: Suche in Spalte 0 nach bla und ersetze mit blupp"),
 			("//Instring Find Replace: Suche in Spalte 0 Instring nach up und ersetze mit ap"),
-			("//Instring Find Move: Suche in Spalte 0 Instring nach up und ersetze mit ap in Spalte 1"),
+			("//Instring Find Move: Suche in Spalte 0 Instring nach up und ersetze in Spalte 1 mit ap"),
 			("//Instring Find Clear: Suche in Spalte 0 Instring nach up und lösche die gesamte CSV-Zeile"),
 			("//Instring Not Find Clear: Suche in Spalte 0 Instring nach up, wenn nicht vorhanden lösche die gesamte CSV-Zeile"),
 			("//String Combine Front: new String = bla + old String in Spalte 0"),
@@ -154,7 +154,7 @@ public class Calculation {
 			("//Convert To Lower Case:  in Spalte 0"),
 			("//Convert To Upper Case: in Spalte 0"),
 			("//Trim: entfernt alle nicht darstellbaren Zeichen am Anfang und am Ende in Spalte 0"),
-			("//Extract Chars: von Position 0 bis Position 3+1 in Spalte 0  = Extract 4 Chars"),
+			("//Extract Chars: in Spalte 5 von Position 0 bis Position 3+1 = Extract 4 Chars"),
 			("//Migrate In: Daten zum Migrieren aus Spalte 1 in Migrationsarray Spalte 0 laden"),
 			("//Migrate Out:vergleicht Wert aus  Migrationsarray Spalte 0 mit Wert in Spalte 1"),
 			("//Migrate Out:wenn beide Werte gleich, dann Copy aus Migrationsarray Spalte 1 nach Spalte 2"),
@@ -162,7 +162,7 @@ public class Calculation {
 			("//Quicksort: Sortierung der Spalte 0, Numbers/Strings, up/down"),
 			("//Writefile: 1, Press Button Writefile"),
 			("//Autoexit: 1, Applikation schliessen"),
-			("//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=debug / Start Log mit extra Script-File"),
+			("//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error / Start Log mit extra Script-File"),
 			("//------------------------------------------------------"),
 			("//Check-Commands:"),
 			("//Find Numerical Gaps: 0, suche numerische Lücken zwischen Min. und Max. in Spalte 0 > Terminalresults"),
@@ -188,7 +188,7 @@ public class Calculation {
 			("Convert To Lower Case,0,"), // -------------------------
 			("Convert To Upper Case,0,"), // -------------------------
 			("Trim,0,"), // ------------------------------------------
-			("Extract Chars,0,0,3,"), // -----------------------------
+			("Extract Chars,5,0,3,"), // -----------------------------
 			("Migrate In,1,0,"), // ----------------------------------
 			("Migrate Out,0,1,1,2,"), // -----------------------------
 			("Bubblesort,0,Numbers,up,"), // -------------------------
