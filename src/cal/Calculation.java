@@ -2573,6 +2573,7 @@ public class Calculation {
 	// *****************************************************************************************
 	public static void create_handlerfile() {
 		String filename = "." + File.separator + handlerpath;
+		@SuppressWarnings("unused")
 		char c = 34;
 		try {
 

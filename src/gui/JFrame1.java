@@ -1,14 +1,14 @@
 package gui;
 
-import java.awt.Toolkit;
+//import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.net.URL;
+//import java.net.URL;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
+//import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -48,8 +48,10 @@ public class JFrame1 extends javax.swing.JFrame {
 	private JScrollPane jScrollPane1;
 	private JLabel jLabel1;
 	private JSeparator jSeparator1;
+	@SuppressWarnings("rawtypes")
 	private JList jList1;
 	private JButton jButton2;
+	@SuppressWarnings("rawtypes")
 	static DefaultListModel listModel = new DefaultListModel();
 	public static String titel = "Exchange CSV V2.4"; // V2.x
 
@@ -106,6 +108,7 @@ public class JFrame1 extends javax.swing.JFrame {
 		initGUI();
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -374,6 +377,7 @@ public class JFrame1 extends javax.swing.JFrame {
 		Calculation.create_handlerfile();
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void jList1(String row) {
 		JFrame1.listModel.addElement(row);
 

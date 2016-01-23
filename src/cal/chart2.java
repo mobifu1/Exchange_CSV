@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.swing.*;
 
+@SuppressWarnings("serial")
 public class chart2 extends JFrame {
 
 	static int i;
