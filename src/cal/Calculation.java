@@ -31,7 +31,7 @@ public class Calculation {
 	static int max_commands = 100;// maximale Hoehe
 	static int found_commands;
 	static int max_stat_width = 3;
-	static int max_stat_high = 10000;
+	static int max_stat_high = max_high;
 	static String multicolumn[][] = new String[max_width][max_high];
 	static String migrate[][] = new String[max_width][max_high];
 	static String dupelist[] = new String[max_high];
@@ -93,7 +93,7 @@ public class Calculation {
 	// static String message34 = "";
 	static String message35 = "Dupe:";
 	static String message36 = "No Dupes";
-	// static String message37 = "";
+	static String message37 = "Change Value:";
 	static String message38 = "Values = 100%";
 	static String message39 = "Stats Sort:";
 	static String message40 = "Stats Result:";
@@ -141,7 +141,9 @@ public class Calculation {
 					+ ", last modify: " + datum),
 			("//V2.4: New Feature: Compare Column / Compare Instring Column / Log File"),
 			("//                   Find Move / Find Clear / Not Find Clear"),
-			("//CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100"),
+			("//                   Change: Set Maximum CSV Lines,100000,"),
+			("//                   Change: Set Maximum CSV Columns,1000,"),
+			("//Default: CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//Transform-Commands:"),
 			("//Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
@@ -552,7 +554,9 @@ public class Calculation {
 									|| (row.indexOf("Stats,") != -1)
 									|| (row.indexOf("Autoexit,") != -1)
 									|| (row.indexOf("Log File,") != -1)
-									|| (row.indexOf("Set Block,") != -1)) {
+									|| (row.indexOf("Set Block,") != -1)
+									|| (row.indexOf("Set Maximum CSV Lines,") != -1)
+									|| (row.indexOf("Set Maximum CSV Columns,") != -1)) {
 								// --------------------------------------------
 								if (row.length() >= 9) {
 									if (row.substring(0, 9).equals("Filename,")) {
@@ -639,6 +643,34 @@ public class Calculation {
 								if (row.length() >= 10) {
 									if (row.substring(0, 10).equals(
 											"Set Block,")) {
+										commands[x] = (row);
+										JFrame1.jList1(message72 + message99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(message72 + message99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// --------------------------------------------
+								if (row.length() >= 22) {
+									if (row.substring(0, 22).equals(
+											"Set Maximum CSV Lines,")) {
+										commands[x] = (row);
+										JFrame1.jList1(message72 + message99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(message72 + message99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// ---------------------------------------------
+								if (row.length() >= 24) {
+									if (row.substring(0, 24).equals(
+											"Set Maximum CSV Columns,")) {
 										commands[x] = (row);
 										JFrame1.jList1(message72 + message99
 												+ commands[x]);
@@ -1233,6 +1265,40 @@ public class Calculation {
 									b++;
 								}
 								// System.out.println(a + " " + b);
+							}
+							// -----------------------------------
+							if (command.equals("Set Maximum CSV Lines")) {
+								// --------------------------------------------------
+								int a;
+								a = Integer.parseInt(attribute1);
+								max_high = a;
+
+								JFrame1.jList1(message73 + message99
+										+ "Set Maximum CSV Lines" + message99
+										+ a);
+								if (loglevel >= 1) {
+									write_log(message73 + message99
+											+ "Set Maximum CSV Lines"
+											+ message99 + a);
+								} // standard = 1
+									// System.out.println(a);
+							}
+							// -----------------------------------
+							if (command.equals("Set Maximum CSV Column")) {
+								// --------------------------------------------------
+								int a;
+								a = Integer.parseInt(attribute1);
+								max_width = a;
+
+								JFrame1.jList1(message73 + message99
+										+ "Set Maximum CSV Column" + message99
+										+ a);
+								if (loglevel >= 1) {
+									write_log(message73 + message99
+											+ "Set Maximum CSV Column"
+											+ message99 + a);
+								} // standard = 1
+									// System.out.println(a);
 							}
 							// -----------------------------------
 							if (command.equals("Find Replace")) {
