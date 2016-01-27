@@ -100,7 +100,7 @@ public class Calculation {
 	static String message41 = "x";
 	static String message42 = "=";
 	static String message43 = "%";
-	// static String message44 = "";
+	static String message44 = "............................................";
 	static String message45 = "AutoExit:";
 	static String message46 = "LogLevel:";
 	static String message47 = "Execute Script: OK";
@@ -139,10 +139,11 @@ public class Calculation {
 			("//http://www.cloudgarden.com/jigloo/"),
 			("//Version: " + JFrame1.titel + JFrame1.subversion
 					+ ", last modify: " + datum),
-			("//V2.4: New Feature: Compare Column / Compare Instring Column / Log File"),
-			("//                   Find Move / Find Clear / Not Find Clear"),
-			("//                   Change: Set Maximum CSV Lines,100000,"),
-			("//                   Change: Set Maximum CSV Columns,1000,"),
+			("//V2.4 New Feature:"),
+			("//Compare Column / Compare Instring Column / Log File"),
+			("//Find Move / Find Clear / Not Find Clear"),
+			("//Change: Set Maximum CSV Lines,100000,"),
+			("//Change: Set Maximum CSV Columns,1000,"),
 			("//Default: CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//Transform-Commands:"),
@@ -418,6 +419,7 @@ public class Calculation {
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
 		y = i;
+		int outputcounter = 0;
 		// z = 30; // Breite der csv Datei
 		// ---------------------------------------------
 		String filename = "." + File.separator + outputpath;
@@ -463,19 +465,25 @@ public class Calculation {
 						}
 					}
 					bw.write(line);
-					// System.out.println(line);
-					JFrame1.jList1(line);
-					if (loglevel >= 1) {
-						write_log(line);
-					} // standard = 1
-					x++;
 					bw.newLine();
+					// System.out.println(line);
+					if (outputcounter < 10) {
+						JFrame1.jList1(line);
+						if (loglevel >= 1) {
+							write_log(line);
+						} // standard = 1
+					}
+					outputcounter++;
+					x++;
+
 				}
 				bw.flush();
 				bw.close();
 				// System.out.println(message08 + message99 + filename);
+				JFrame1.jList1(message44);
 				JFrame1.jList1(message08 + message99 + filename);
 				if (loglevel >= 1) {
+					write_log(message44);
 					write_log(message08 + message99 + filename);
 				} // standard = 1
 
