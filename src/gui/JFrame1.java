@@ -53,13 +53,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	private JButton jButton2;
 	@SuppressWarnings("rawtypes")
 	static DefaultListModel listModel = new DefaultListModel();
-	public static String titel = "Exchange CSV V2.4"; // V2.x
+	public static String titel = "Exchange CSV V2.5"; // V2.x
 
 	//titel+substring = Version
 	//public static String subversion = ".1-Alpha"; // Subversion
 	//public static String subversion = ".8-Beta"; // Subversion
-	public static String subversion = ".8-RC"; // Subversion
-	//public static String subversion = "-R-Stable"; // Subversion
+	//public static String subversion = ".8-RC"; // Subversion
+	public static String subversion = "-R-Stable"; // Subversion
 	//public static String subversion = "-R-Final"; // Subversion
 	
 	static String message01 = "Application Started";
@@ -177,7 +177,7 @@ public class JFrame1 extends javax.swing.JFrame {
 			}
 			if (titel == "Exchange CSV V2.5") {
 				getContentPane().setBackground(
-						new java.awt.Color(215, 253, 252));
+						new java.awt.Color(119, 219, 239));
 			}
 			if (titel == "Exchange CSV V2.6") {
 				getContentPane().setBackground(

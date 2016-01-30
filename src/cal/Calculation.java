@@ -51,7 +51,7 @@ public class Calculation {
 	static String default_outputpath = "Exchange Output.csv";
 	static String handlerpath = "Script-ExChange.txt";
 	static String logfilepath = "LogFile-ExChangeCsv.log";
-	static String datum = "23.01.2016";// last Modify
+	static String datum = "01.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0;
 	static int time_value = 100;// milliseconds waittime
@@ -140,7 +140,7 @@ public class Calculation {
 			("//http://www.cloudgarden.com/jigloo/"),
 			("//Version: " + JFrame1.titel + JFrame1.subversion
 					+ ", last modify: " + datum),
-			("//V2.4 New Feature:"),
+			("//V2.5-R-Stable New Feature:"),
 			("//Compare Column / Compare Instring Column / Log File"),
 			("//Find Move / Find Clear / Not Find Clear"),
 			("//Change: Set Maximum CSV Lines,100000,"),
@@ -187,9 +187,9 @@ public class Calculation {
 			("//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults"),
 			("//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts"),
 			("//------------------------------------------------------"),
-			("//SCRIPT-COMMANDS:"),// ---------------------------------
-			("Set Maximum CSV Lines,10000,"),
-			("Set Maximum CSV Columns,100,"),
+			("//SCRIPT-COMMANDS:"),// --------------------------------
+			("Set Maximum CSV Lines,10000,"), // ---------------------
+			("Set Maximum CSV Columns,100,"),// ----------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Spalten,30,"), // --------------------------------------
@@ -198,9 +198,9 @@ public class Calculation {
 			("Set Spalte,0,bla,"), // --------------------------------
 			("Set Block,0,2000,"), // --------------------------------
 			("Find Replace,0,bla,blupp,"), // ------------------------
-			("Find Move,0,up,1,ap,"), // ------------------------------
-			("Find Clear,0,up,"), // ----------------------------------
-			("Not Find Clear,0,up,"), // ------------------------------
+			("Find Move,0,up,1,ap,"), // -----------------------------
+			("Find Clear,0,up,"), // ---------------------------------
+			("Not Find Clear,0,up,"), // -----------------------------
 			("Instring Find Replace,0,up,ap,"), // -------------------
 			("Instring Find Move,0,up,1,ap,"), // --------------------
 			("Instring Find Clear,0,up,"), // ------------------------
