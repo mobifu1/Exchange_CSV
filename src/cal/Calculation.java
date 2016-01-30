@@ -54,6 +54,7 @@ public class Calculation {
 	static String datum = "23.01.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0;
+	static int time_value = 100;// milliseconds waittime
 	// ------------------------------------------------
 	static String error01 = "Error:";
 	static String error02 = "Fail:";
@@ -146,7 +147,9 @@ public class Calculation {
 			("//Change: Set Maximum CSV Columns,1000,"),
 			("//Default: CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
-			("//Transform-Commands:"),
+			("//TRANSFORM-COMMANDS:"),
+			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
+			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
 			("//Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
 			("//Separator: Ausgabe Trennzeichen" + message99 + message66),
 			("//Spalten: Spaltenanzahl des Ausgabe File"),
@@ -177,14 +180,16 @@ public class Calculation {
 			("//Autoexit: 1, Applikation schliessen"),
 			("//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error / Start Log mit extra Script-File"),
 			("//------------------------------------------------------"),
-			("//Check-Commands:"),
+			("//CHECK-COMMANDS:"),
 			("//Find Numerical Gaps: 0, suche numerische Lücken zwischen Min. und Max. in Spalte 0 > Terminalresults"),
 			("//Compare Column: Vergleiche String in Spalte 0 mit Spalte 1 pos/neg > Terminalresults"),
 			("//Compare Instring Column: Suche String der Spalte 0 Instring in Spalte 1 pos/neg > Terminalresults"),
 			("//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults"),
 			("//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts"),
 			("//------------------------------------------------------"),
-			("//Script Commands:"),// ---------------------------------
+			("//SCRIPT-COMMANDS:"),// ---------------------------------
+			("Set Maximum CSV Lines,10000,"),
+			("Set Maximum CSV Columns,100,"),
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Spalten,30,"), // --------------------------------------
@@ -1081,7 +1086,7 @@ public class Calculation {
 					JFrame1.jProgressBar1.setValue(x);
 					JFrame1.jProgressBar1.paint(JFrame1.jProgressBar1
 							.getGraphics());// zwingen zum Aktualliesieren
-					Thread.sleep(200);
+					Thread.sleep(time_value);
 					// --------------
 					if (commands[x] != null) {
 						if (!commands[x].equals("")) {
@@ -1292,18 +1297,18 @@ public class Calculation {
 									// System.out.println(a);
 							}
 							// -----------------------------------
-							if (command.equals("Set Maximum CSV Column")) {
+							if (command.equals("Set Maximum CSV Columns")) {
 								// --------------------------------------------------
 								int a;
 								a = Integer.parseInt(attribute1);
 								max_width = a;
 
 								JFrame1.jList1(message73 + message99
-										+ "Set Maximum CSV Column" + message99
+										+ "Set Maximum CSV Columns" + message99
 										+ a);
 								if (loglevel >= 1) {
 									write_log(message73 + message99
-											+ "Set Maximum CSV Column"
+											+ "Set Maximum CSV Columns"
 											+ message99 + a);
 								} // standard = 1
 									// System.out.println(a);

@@ -1,9 +1,13 @@
 //Java Eclipse Version: 3.8.1 / Jigloo Version: 4.6.6
 //http://www.eclipse.org/platform
 //http://www.cloudgarden.com/jigloo/
-//Version: Exchange CSV V2.4.5-Beta, last modify: 21.01.2016
-//V2.4: New Feature: Compare Column / Compare Instring Column / Log File
-//CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100
+//Version: Exchange CSV V2.4.8-RC, last modify: 23.01.2016
+//V2.4 New Feature:
+//Compare Column / Compare Instring Column / Log File
+//Find Move / Find Clear / Not Find Clear
+//Change: Set Maximum CSV Lines,100000,
+//Change: Set Maximum CSV Columns,1000,
+//Default: CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100
 //------------------------------------------------------
 //Transform-Commands:
 //Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back
@@ -13,9 +17,12 @@
 //Set Header: Setze nur Header in Spalte 0 mit Test
 //Set Spalte: Setze Spalte 0 ohne Header mit bla
 //Set Block: Setze Spalte 0 ohne Header beginnend mit 2000 fortlaufend incremental
-//Find and Replace: Suche in Spalte 0 nach bla und ersetze mit blupp
+//Find Replace: Suche in Spalte 0 nach bla und ersetze mit blupp
+//Find Move: Suche in Spalte 0 nach up und ersetze in Spalte 1 mit ap
+//Find Clear: Suche in Spalte 0 nach up und lösche die gesamte CSV-Zeile
+//Not Find Clear: Suche in Spalte 0 nach up, wenn nicht vorhanden lösche die gesamte CSV-Zeile
 //Instring Find Replace: Suche in Spalte 0 Instring nach up und ersetze mit ap
-//Instring Find Move: Suche in Spalte 0 Instring nach up und ersetze mit ap in Spalte 1
+//Instring Find Move: Suche in Spalte 0 Instring nach up und ersetze in Spalte 1 mit ap
 //Instring Find Clear: Suche in Spalte 0 Instring nach up und lösche die gesamte CSV-Zeile
 //Instring Not Find Clear: Suche in Spalte 0 Instring nach up, wenn nicht vorhanden lösche die gesamte CSV-Zeile
 //String Combine Front: new String = bla + old String in Spalte 0
@@ -23,7 +30,7 @@
 //Convert To Lower Case:  in Spalte 0
 //Convert To Upper Case: in Spalte 0
 //Trim: entfernt alle nicht darstellbaren Zeichen am Anfang und am Ende in Spalte 0
-//Extract Chars: von Position 0 bis Position 3+1 in Spalte 0  = Extract 4 Chars
+//Extract Chars: in Spalte 5 von Position 0 bis Position 3+1 = Extract 4 Chars
 //Migrate In: Daten zum Migrieren aus Spalte 1 in Migrationsarray Spalte 0 laden
 //Migrate Out:vergleicht Wert aus  Migrationsarray Spalte 0 mit Wert in Spalte 1
 //Migrate Out:wenn beide Werte gleich, dann Copy aus Migrationsarray Spalte 1 nach Spalte 2
@@ -44,6 +51,8 @@
 Log File,1,
 Filename,Output Filename,Date,Front,
 Separator,59,
+Set Maximum CSV Lines,10000,
+Set Maximum CSV Columns,100,
 Spalten,6,
 Copy Spalte,2,3,
 Set Header,3,Other Dogs,
