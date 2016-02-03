@@ -27,7 +27,7 @@ public class Calculation {
 	static int z = 0; // Csv output width
 	static int mc = 0; // migrate counter
 	static int max_width = 100; // maximum width
-	public static int max_high = 10000;// maximum lines
+	static int max_high = 10000;// maximum lines
 	static int max_commands = 100;// maximum commands
 	static int found_commands; // how many commands found
 	static int max_stat_width = 3;
@@ -43,99 +43,99 @@ public class Calculation {
 	public static String CHARTLIST_HEADER1 = "Chart";
 	public static String CHARTLIST_HEADER2 = "Chart";
 	public static String CHARTLIST_HEADER3 = "Chart";
-	static int statlistcounter = 1;
+	public static int statlistcounter = 1;
 	public static int chartlistcounter1 = 1;
 	public static int chartlistcounter2 = 1;
 	public static int chartlistcounter3 = 1;
 	// ------------------------------------------------
 	static String outputpath = "";
-	static String default_outputpath = "Exchange Output.csv";
-	static String scriptpath = "Script-ExChange.txt";
-	static String logfilepath = "LogFile-ExChangeCsv.log";
-	static String date = "03.02.2016";// last Modify
+	static final String default_outputpath = "Exchange Output.csv";
+	static final String scriptpath = "Script-ExChange.txt";
+	static final String logfilepath = "LogFile-ExChangeCsv.log";
+	static final String date = "03.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
-	static int time_value_ms = 100;// wait time update progressbar
+	static final int time_value_ms = 100;// wait time update progressbar
 	// ------------------------------------------------
 	// global constants
-	static String ERROR01 = "Error:";
-	static String ERROR02 = "Fail:";
-	static String MESSAGE01 = "Start Separator Autoscan";
-	static String MESSAGE02 = "Read Separator Done:";
-	static String MESSAGE03 = "Header 1st. Line:";
-	static String MESSAGE04 = "Open File:";
-	static String MESSAGE05 = "CSV Format OK: Header = Data Columns";
-	static String MESSAGE06 = "Work With:";
-	static String MESSAGE07 = "Read File Done";
-	static String MESSAGE08 = "Created File In:";
-	static String MESSAGE09 = "Columns";
-	static String MESSAGE10 = "Lines, Incl. Header";
-	static String MESSAGE11 = "Fields";
-	static String MESSAGE12 = "Start Write File";
-	static String MESSAGE13 = "Open Script File";
-	static String MESSAGE14 = "Found:";
-	static String MESSAGE15 = "Script Commands";
-	static String MESSAGE16 = "Read Script File OK";
-	static String MESSAGE17 = "To Many Commands In Script File";
-	static String MESSAGE18 = "Compare Instring Result Pos: Line";
-	static String MESSAGE19 = "Compare Instring Result Neg: Line";
-	static String MESSAGE20 = "Mig In:";
-	static String MESSAGE21 = "Mig In: .....................................................";
-	static String MESSAGE22 = "Mig Out:";
-	static String MESSAGE23 = "Mig Out: ....................................................";
-	static String MESSAGE24 = "Bubblesort:";
-	static String MESSAGE25 = "Sortings";//
-	static String MESSAGE26 = "Quicksort:";
-	static String MESSAGE27 = "Done";
-	static String MESSAGE28 = "Press Button:";
-	static String MESSAGE29 = "Writefile";
-	static String MESSAGE30 = "Numerical Gaps:";
-	static String MESSAGE31 = "Max=";
-	static String MESSAGE32 = "Min=";
-	static String MESSAGE33 = "Gaps:";
-	// static String MESSAGE34 = "";
-	static String MESSAGE35 = "Dupe:";
-	static String MESSAGE36 = "No Dupes";
-	static String MESSAGE37 = "Change Value:";
-	static String MESSAGE38 = "Values = 100%";
-	static String MESSAGE39 = "Stats Sort:";
-	static String MESSAGE40 = "Stats Result:";
-	static String MESSAGE41 = "x";
-	static String MESSAGE42 = "=";
-	static String MESSAGE43 = "%";
-	static String MESSAGE44 = "............................................";
-	static String MESSAGE45 = "AutoExit:";
-	static String MESSAGE46 = "LogLevel:";
-	static String MESSAGE47 = "Execute Script: OK";
-	static String MESSAGE48 = "Created File In:";
-	static String MESSAGE49 = "Application Init: Done";
-	static String MESSAGE50 = "Text Array Length:";
-	static String MESSAGE51 = "Created Help Text";
-	static String MESSAGE52 = "Quicksort Numbers:";
-	static String MESSAGE53 = "Quicksort Strings:";
-	static String MESSAGE54 = "Path:";
-	static String MESSAGE55 = "Compare Result Pos: Line";
-	static String MESSAGE56 = "Compare Result Neg: Line";
-	static String MESSAGE57 = ":EQUAL";
-	static String MESSAGE58 = ":ODDS";
-	static String MESSAGE59 = "********************************************";
-	static String MESSAGE60 = "****************Read File*******************";
-	static String MESSAGE61 = "****************Write File******************";
-	static String MESSAGE62 = "****************Script File*****************";
-	static String MESSAGE63 = "Header";
-	static String MESSAGE64 = "Data Min";
-	static String MESSAGE65 = "Data Max";
-	static String MESSAGE66 = "ASCII: ,=44 / ;=59 / :=58";
-	static String MESSAGE67 = "(";
-	static String MESSAGE68 = ")";
-	static String MESSAGE69 = ") >";
-	static String MESSAGE70 = ") !=";
-	static String MESSAGE71 = "****************Start Log File**************";
-	static String MESSAGE72 = "Read Script Command:";
-	static String MESSAGE73 = "Start Execute:";
-	// static String MESSAGE74 = "";
-	static String MESSAGE99 = " ";
-	static char backslash = 92;
+	static final String ERROR01 = "Error:";
+	static final String ERROR02 = "Fail:";
+	static final String MESSAGE01 = "Start Separator Autoscan";
+	static final String MESSAGE02 = "Read Separator Done:";
+	static final String MESSAGE03 = "Header 1st. Line:";
+	static final String MESSAGE04 = "Open File:";
+	static final String MESSAGE05 = "CSV Format OK: Header = Data Columns";
+	static final String MESSAGE06 = "Work With:";
+	static final String MESSAGE07 = "Read File Done";
+	static final String MESSAGE08 = "Created File In:";
+	static final String MESSAGE09 = "Columns";
+	static final String MESSAGE10 = "Lines, Incl. Header";
+	static final String MESSAGE11 = "Fields";
+	static final String MESSAGE12 = "Start Write File";
+	static final String MESSAGE13 = "Open Script File";
+	static final String MESSAGE14 = "Found:";
+	static final String MESSAGE15 = "Script Commands";
+	static final String MESSAGE16 = "Read Script File OK";
+	static final String MESSAGE17 = "To Many Commands In Script File";
+	static final String MESSAGE18 = "Compare Instring Result Pos: Line";
+	static final String MESSAGE19 = "Compare Instring Result Neg: Line";
+	static final String MESSAGE20 = "Mig In:";
+	static final String MESSAGE21 = "Mig In: .....................................................";
+	static final String MESSAGE22 = "Mig Out:";
+	static final String MESSAGE23 = "Mig Out: ....................................................";
+	static final String MESSAGE24 = "Bubblesort:";
+	static final String MESSAGE25 = "Sortings";//
+	static final String MESSAGE26 = "Quicksort:";
+	static final String MESSAGE27 = "Done";
+	static final String MESSAGE28 = "Press Button:";
+	static final String MESSAGE29 = "Writefile";
+	static final String MESSAGE30 = "Numerical Gaps:";
+	static final String MESSAGE31 = "Max=";
+	static final String MESSAGE32 = "Min=";
+	static final String MESSAGE33 = "Gaps:";
+	// static final String MESSAGE34 = "";
+	static final String MESSAGE35 = "Dupe:";
+	static final String MESSAGE36 = "No Dupes";
+	static final String MESSAGE37 = "Change Value:";
+	static final String MESSAGE38 = "Values = 100%";
+	static final String MESSAGE39 = "Stats Sort:";
+	static final String MESSAGE40 = "Stats Result:";
+	static final String MESSAGE41 = "x";
+	static final String MESSAGE42 = "=";
+	static final String MESSAGE43 = "%";
+	static final String MESSAGE44 = "............................................";
+	static final String MESSAGE45 = "AutoExit:";
+	static final String MESSAGE46 = "LogLevel:";
+	static final String MESSAGE47 = "Execute Script: OK";
+	static final String MESSAGE48 = "Created File In:";
+	static final String MESSAGE49 = "Application Init: Done";
+	static final String MESSAGE50 = "Text Array Length:";
+	static final String MESSAGE51 = "Created Help Text";
+	static final String MESSAGE52 = "Quicksort Numbers:";
+	static final String MESSAGE53 = "Quicksort Strings:";
+	static final String MESSAGE54 = "Path:";
+	static final String MESSAGE55 = "Compare Result Pos: Line";
+	static final String MESSAGE56 = "Compare Result Neg: Line";
+	static final String MESSAGE57 = ":EQUAL";
+	static final String MESSAGE58 = ":ODDS";
+	static final String MESSAGE59 = "********************************************";
+	static final String MESSAGE60 = "****************Read File*******************";
+	static final String MESSAGE61 = "****************Write File******************";
+	static final String MESSAGE62 = "****************Script File*****************";
+	static final String MESSAGE63 = "Header";
+	static final String MESSAGE64 = "Data Min";
+	static final String MESSAGE65 = "Data Max";
+	static final String MESSAGE66 = "ASCII: ,=44 / ;=59 / :=58";
+	static final String MESSAGE67 = "(";
+	static final String MESSAGE68 = ")";
+	static final String MESSAGE69 = ") >";
+	static final String MESSAGE70 = ") !=";
+	static final String MESSAGE71 = "****************Start Log File**************";
+	static final String MESSAGE72 = "Read Script Command:";
+	static final String MESSAGE73 = "Start Execute:";
+	// static final String MESSAGE74 = "";
+	static final String MESSAGE99 = " ";
+	static final char backslash = 92;
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			("//*******************************************************************"),
@@ -323,7 +323,7 @@ public class Calculation {
 				} // standard = 1
 				i = 0; // length
 				int x = 0;// counter
-				boolean first = true;
+				boolean isValidFirstLine = true;// first line
 				int jheader = 0;
 				int jmin = 0;
 				int jmax = 0;
@@ -332,15 +332,15 @@ public class Calculation {
 				BufferedReader br2 = new BufferedReader(fr2);
 				while ((row = br2.readLine()) != null) {
 					String splitrow[] = row.split(c);
-					if (first == true) {
+					if (isValidFirstLine == true) {
 						jheader = splitrow.length; // Header width ermitteln
 													// nur in der 1. Zeile
 						j = jheader;
 						jmin = jheader;
 						jmax = jheader;
-						first = false;
+						isValidFirstLine = false;
 					}
-					if (first == false) {
+					if (isValidFirstLine == false) {
 						jdata = splitrow.length; // Data width ermitteln ab der
 													// 2. Zeile
 						if (jdata < j) {
@@ -2245,7 +2245,7 @@ public class Calculation {
 								int max;
 								int f;
 								int g;
-								boolean Nachfolger;
+								boolean isValidFollower;
 
 								min = Integer.parseInt(multicolumn[a][1]);
 								max = Integer.parseInt(multicolumn[a][1]);
@@ -2277,14 +2277,14 @@ public class Calculation {
 								} // standard = 1
 
 								for (f = min; f <= max; f++) {
-									Nachfolger = false;
+									isValidFollower = false;
 									for (g = 1; g < i; g++) {
 										if (f + 1 == Integer
 												.parseInt(multicolumn[a][g])) {
-											Nachfolger = true;
+											isValidFollower = true;
 										}
 									}
-									if (Nachfolger == false) {
+									if (isValidFollower == false) {
 										// System.out.println(MESSAGE33+
 										// MESSAGE99 + (f +
 										// 1));
@@ -2313,10 +2313,10 @@ public class Calculation {
 								int f;
 								int dj;
 								String g;
-								boolean dupe = false;
+								boolean isValidDupe = false;
 								a = Integer.parseInt(attribute1);// column
 								int dupelistcounter = 1;
-								boolean dupelistfound = false;
+								boolean isValidDupeListFound = false;
 
 								for (v = 1; v < i; v++) { // i = Csv input
 															// length
@@ -2326,15 +2326,15 @@ public class Calculation {
 										g = (multicolumn[a][f]);
 
 										if (c.equals(g) && v != f) {
-											dupe = true;
+											isValidDupe = true;
 											// -----------------------
-											dupelistfound = false;
+											isValidDupeListFound = false;
 											for (dj = 1; dj < i; dj++) {
 												if (c.equals(dupelist[dj])) {
-													dupelistfound = true;
+													isValidDupeListFound = true;
 												}
 											}
-											if (dupelistfound == false) {
+											if (isValidDupeListFound == false) {
 												(dupelist[dupelistcounter]) = c;
 												JFrame1.jList1(MESSAGE35
 														+ MESSAGE99 + c);
@@ -2349,7 +2349,7 @@ public class Calculation {
 									}
 
 								}
-								if (dupe == false) {
+								if (isValidDupe == false) {
 									JFrame1.jList1(MESSAGE36);
 									if (loglevel >= 1) {
 										write_log(MESSAGE36);
@@ -2371,7 +2371,7 @@ public class Calculation {
 								int k;
 								int sj;
 								float p;
-								boolean statlistfound = false;
+								boolean isValidStatListFound = false;
 								statlistcounter = 1;
 								a = Integer.parseInt(attribute1);// column
 								b = (attribute2);// Chart
@@ -2393,10 +2393,10 @@ public class Calculation {
 															// length
 									c = (multicolumn[a][v]);
 									// -----------------------
-									statlistfound = false;
+									isValidStatListFound = false;
 									for (sj = 1; sj < i; sj++) {
 										if (c.equals(statlist[0][sj])) {
-											statlistfound = true;
+											isValidStatListFound = true;
 											k = Integer
 													.parseInt(statlist[1][sj]);
 											k++;
@@ -2407,7 +2407,7 @@ public class Calculation {
 											// (statlist[0][sj])+","+(statlist[1][sj]));
 										}
 									}
-									if (statlistfound == false) {
+									if (isValidStatListFound == false) {
 										(statlist[0][statlistcounter]) = c;
 										(statlist[1][statlistcounter]) = String
 												.valueOf(1);
