@@ -54,8 +54,8 @@ public class Calculation {
 	static String logfilepath = "LogFile-ExChangeCsv.log";
 	static String date = "03.02.2016";// last Modify
 	static long sort_count;
-	static int loglevel = 0; // 0 nothing,1 log,2 log +errors
-	static int time_value_ms = 100;// wait time
+	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
+	static int time_value_ms = 100;// wait time update progressbar
 	// ------------------------------------------------
 	// global constants
 	static String ERROR01 = "Error:";
@@ -135,17 +135,30 @@ public class Calculation {
 	static String MESSAGE73 = "Start Execute:";
 	// static String MESSAGE74 = "";
 	static String MESSAGE99 = " ";
+	static char backslash = 92;
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
-			("//***************************************************************************"),
-			("//***************************************************************************"),
-			("//*************************  EXCHANGE CSV  *****************************"),
-			("//***************************************************************************"),
-			("//***************************************************************************"),
+			("//*******************************************************************"),
+			("//*******************************************************************"),
+			("//*********                   EXCHANGE                      *********"),
+			("//*********        _______     ______     _        _        *********"),
+			("//*********       |  _____|   /  ____|   | |      | |       *********"),
+			("//*********       | |         " + backslash + " " + backslash
+					+ "__      " + backslash + " " + backslash + "      / /       *********"),
+			("//*********       | |          " + backslash + "__ " + backslash
+					+ "      " + backslash + " " + backslash + "    / /        *********"),
+			("//*********       | |             " + backslash + " " + backslash
+					+ "      " + backslash + " " + backslash + "  / /         *********"),
+			("//*********       | |_____    _____" + backslash + " "
+					+ backslash + "      " + backslash + " " + backslash + "/ /          *********"),
+			("//*********       |_______|  |_______/       " + backslash + "__/           *********"),
+			("//*********                                                 *********"),
+			("//*******************************************************************"),
+			("//*******************************************************************"),
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
 			("//http://www.eclipse.org/platform"),
 			("//http://www.cloudgarden.com/jigloo/"),
-			("//Version: " + JFrame1.titel + JFrame1.subversion
+			("//Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
 					+ ", last modify: " + date),
 			("//V2.5-R-Stable New Feature:"),
 			("//Compare Column / Compare Instring Column / Log File"),
@@ -1404,7 +1417,8 @@ public class Calculation {
 									// System.out.println("Searchstring=" + b);
 									if (multicolumn[a][v].equals(b)) {
 										// clear Line: change Position
-										for (int h = v; h < i; h++) { // i = Csvinputlength
+										for (int h = v; h < i; h++) { // i =
+																		// Csvinputlength
 											for (int g = 0; g < j; g++) {
 												multicolumn[g][h] = multicolumn[g][h + 1];
 											}
@@ -1414,7 +1428,7 @@ public class Calculation {
 										v++;
 									}
 									// }
-								} while (v < i); // result while  true > do
+								} while (v < i); // result while true > do
 								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
@@ -1440,7 +1454,7 @@ public class Calculation {
 									// System.out.println("Searchstring=" + b);
 									if (!multicolumn[a][v].equals(b)) {
 										// clear Line: change Position
-									for (int h = v; h < i; h++) { // i = Csv
+										for (int h = v; h < i; h++) { // i = Csv
 																		// input
 																		// length
 											for (int g = 0; g < j; g++) {
@@ -2503,17 +2517,17 @@ public class Calculation {
 								if (b.equals("Chart1")) {
 									CHARTLIST_HEADER1 = (multicolumn[a][0]);
 									chartlistcounter1 = statlistcounter;
-									cal.chart.start(chartlistcounter1);
+									cal.Chart1.start(chartlistcounter1);
 								}
 								if (b.equals("Chart2")) {
 									CHARTLIST_HEADER2 = (multicolumn[a][0]);
 									chartlistcounter2 = statlistcounter;
-									cal.chart2.start(chartlistcounter2);
+									cal.Chart2.start(chartlistcounter2);
 								}
 								if (b.equals("Chart3")) {
 									CHARTLIST_HEADER3 = (multicolumn[a][0]);
 									chartlistcounter3 = statlistcounter;
-									cal.chart3.start(chartlistcounter3);
+									cal.Chart3.start(chartlistcounter3);
 								}
 							}
 							// ---------------------------------------------

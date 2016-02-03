@@ -14,51 +14,53 @@
 //Java Eclipse Version: 3.8.1 / Jigloo Version: 4.6.6
 //http://www.eclipse.org/platform
 //http://www.cloudgarden.com/jigloo/
-//Version: Exchange CSV V2.4.8-RC, last modify: 23.01.2016
-//V2.4 New Feature:
+//Version: Exchange CSV V2.5.1-Beta, last modify: 03.02.2016
+//V2.5-R-Stable New Feature:
 //Compare Column / Compare Instring Column / Log File
 //Find Move / Find Clear / Not Find Clear
 //Change: Set Maximum CSV Lines,100000,
 //Change: Set Maximum CSV Columns,1000,
-//Default: CSV-Spalten-Max=100, CSV-Zeilen-Max=10000, Script-Commands-Max=100
+//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100
 //------------------------------------------------------
-//Transform-Commands:
-//Filename: Ausgabe Name , Parameter: Date, Date/Time , Parameter: Front,Back
-//Separator: Ausgabe Trennzeichen ASCII: ,=44 / ;=59 / :=58
-//Spalten: Spaltenanzahl des Ausgabe File
-//Copy: Kopiere Spalte 2 nach Spalte 3
-//Set Header: Setze nur Header in Spalte 0 mit Test
-//Set Spalte: Setze Spalte 0 ohne Header mit bla
-//Set Block: Setze Spalte 0 ohne Header beginnend mit 2000 fortlaufend incremental
-//Find Replace: Suche in Spalte 0 nach bla und ersetze mit blupp
-//Find Move: Suche in Spalte 0 nach up und ersetze in Spalte 1 mit ap
-//Find Clear: Suche in Spalte 0 nach up und lösche die gesamte CSV-Zeile
-//Not Find Clear: Suche in Spalte 0 nach up, wenn nicht vorhanden lösche die gesamte CSV-Zeile
-//Instring Find Replace: Suche in Spalte 0 Instring nach up und ersetze mit ap
-//Instring Find Move: Suche in Spalte 0 Instring nach up und ersetze in Spalte 1 mit ap
-//Instring Find Clear: Suche in Spalte 0 Instring nach up und lösche die gesamte CSV-Zeile
-//Instring Not Find Clear: Suche in Spalte 0 Instring nach up, wenn nicht vorhanden lösche die gesamte CSV-Zeile
-//String Combine Front: new String = bla + old String in Spalte 0
-//String Combine Back: new String = old String + blupp in Spalte 0
-//Convert To Lower Case:  in Spalte 0
-//Convert To Upper Case: in Spalte 0
-//Trim: entfernt alle nicht darstellbaren Zeichen am Anfang und am Ende in Spalte 0
-//Extract Chars: in Spalte 5 von Position 0 bis Position 3+1 = Extract 4 Chars
-//Migrate In: Daten zum Migrieren aus Spalte 1 in Migrationsarray Spalte 0 laden
-//Migrate Out:vergleicht Wert aus  Migrationsarray Spalte 0 mit Wert in Spalte 1
-//Migrate Out:wenn beide Werte gleich, dann Copy aus Migrationsarray Spalte 1 nach Spalte 2
-//Bubblesort: Sortierung der Spalte 0, Numbers/Strings, up/down
-//Quicksort: Sortierung der Spalte 0, Numbers/Strings, up/down
+//TRANSFORM-COMMANDS:
+//Set Maximum CSV Lines: Integer, maximum of the OS
+//Set Maximum CSV Columns: Integer, maximum of the OS
+//Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back
+//Separator: Output Separator Char: ASCII: ,=44 / ;=59 / :=58
+//Columns: Columns of Output File
+//Copy: Copy Column 2 > Column 3
+//Set Header: Set Header of Column 0 to Test
+//Set Column: Set Column 0 without Header to bla
+//Set Block: Set Column 0 without Header from 2000 ++ increment
+//Find Replace: Search in Column 0 for bla and replace with blupp
+//Find Move: Search in Column 0 for up and replace in Column 1 with ap
+//Find Clear: Search in Column 0 for up,if exist then clear CSV-Line
+//Not Find Clear: Search in Column 0 for up, if not exist then clear CSV-Line
+//Instring Find Replace: Search in Column 0 Instring for up and replace with ap
+//Instring Find Move: Search in Column 0 Instring for up and replace in Column 1 with ap
+//Instring Find Clear: Search in Column 0 Instring for up,if exist then clear CSV-Line
+//Instring Not Find Clear: Search in Column 0 Instring for up,if not exist then clear CSV-Line
+//String Combine Front: new String = bla + old String in Column 0
+//String Combine Back: new String = old String + blupp in Column 0
+//Convert To Lower Case:  in Column 0
+//Convert To Upper Case: in Column 0
+//Trim: Delete strange Chars in Front and Back of String in Column 0
+//Extract Chars: in Column 5 from Position 0 to Position 3+1 = Extract 4 Chars
+//Migrate In: Load data from Column 1 into Migrationarray Column 0
+//Migrate Out:Compare value of Migrationarray Column 0 with value of Column 1
+//Migrate Out:If both values the same then copy from Migrationarray Column 1 to Column 2
+//Bubblesort: Sorting of Column 0, Numbers/Strings, up/down
+//Quicksort: Sorting of Column 0, Numbers/Strings, up/down
 //Writefile: 1, Press Button Writefile
-//Autoexit: 1, Applikation schliessen
-//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error / Start Log mit extra Script-File
+//Autoexit: 1, Application exit
+//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error
 //------------------------------------------------------
-//Check-Commands:
-//Find Numerical Gaps: 0, suche numerische Lücken zwischen Min. und Max. in Spalte 0 > Terminalresults
-//Compare Column: Vergleiche String in Spalte 0 mit Spalte 1 pos/neg > Terminalresults
-//Compare Instring Column: Suche String der Spalte 0 Instring in Spalte 1 pos/neg > Terminalresults
-//Dupe Check: 0, Findet mehrfach vorhandene Werte in Spalte 0 > Terminalresults
-//Stats: 0, Prozentuale Ausgabe der Spalte 0, Chart1/2/3: Grafische Ausgabe, max. 3 Charts
+//CHECK-COMMANDS:
+//Find Numerical Gaps: 0, Find numerical Gaps between min and max value in Column 0 > Terminalresults
+//Compare Column: Compare String in Column 0 with Column 1 pos/neg > Terminalresults
+//Compare Instring Column: Compare Instring a String  in Column 0 with Column 1 pos/neg > Terminalresults
+//Dupe Check: 0, Find multiple exists Values in Column 0 > Terminalresults
+//Stats: 0, Percent Output of Column 0, Chart1/2/3: Grafical Output, max. 3 Charts
 //------------------------------------------------------
 //Script Commands:
 Log File,1,

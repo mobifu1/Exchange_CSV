@@ -1,6 +1,7 @@
 package gui;
 
 //import java.awt.Toolkit;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -36,8 +37,8 @@ import cal.Calculation;
  */
 @SuppressWarnings("serial")
 public class JFrame1 extends javax.swing.JFrame {
-	private static int y_high = 340;
-	private static int x_wide = 650;
+	private static int Y_HIGH = 340;
+	private static int X_WIDE = 650;
 	private JButton jButton1;
 	public static JProgressBar jProgressBar1;
 	public static JTextPane jTextPane1;
@@ -53,13 +54,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	private JButton jButton2;
 	@SuppressWarnings("rawtypes")
 	static DefaultListModel listModel = new DefaultListModel();
-	public static String titel = "Exchange CSV V2.5"; // V2.x
+	public static String TITEL = "Exchange CSV V2.5"; // V2.x
 
 	// titel+substring = Version
 	// public static String subversion = ".1-Alpha"; // Subversion
-	public static String subversion = ".1-Beta"; // Subversion
+	public static String SUBVERSION = ".1-Beta"; // Subversion
 	// public static String subversion = ".8-RC"; // Subversion
-	//public static String subversion = "-R-Stable"; // Subversion
+	// public static String subversion = "-R-Stable"; // Subversion
 	// public static String subversion = "-R-Final"; // Subversion
 
 	static String MASSAGE01 = "Application Started";
@@ -96,8 +97,8 @@ public class JFrame1 extends javax.swing.JFrame {
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 				inst.setResizable(false);// Maximized=false
-				inst.setPreferredSize(new java.awt.Dimension(x_wide, y_high));
-				inst.setSize(x_wide, y_high);
+				inst.setPreferredSize(new java.awt.Dimension(X_WIDE, Y_HIGH));
+				inst.setSize(X_WIDE, Y_HIGH);
 				// this.setIconImage(Toolkit.getDefaultToolkit().getImage("images\\mcsv-icon-wp.png"));
 			}
 		});
@@ -113,89 +114,89 @@ public class JFrame1 extends javax.swing.JFrame {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
-			this.setTitle(titel + subversion);
-			this.setPreferredSize(new java.awt.Dimension(x_wide, y_high));
-			if (titel == "Exchange CSV V1.0") {
+			this.setTitle(TITEL + SUBVERSION);
+			this.setPreferredSize(new java.awt.Dimension(X_WIDE, Y_HIGH));
+			if (TITEL == "Exchange CSV V1.0") {
 				getContentPane().setBackground(
 						new java.awt.Color(215, 253, 252));
 			}
-			if (titel == "Exchange CSV V1.1") {
+			if (TITEL == "Exchange CSV V1.1") {
 				getContentPane().setBackground(
 						new java.awt.Color(206, 180, 254));
 			}
-			if (titel == "Exchange CSV V1.2") {
+			if (TITEL == "Exchange CSV V1.2") {
 				getContentPane().setBackground(
 						new java.awt.Color(254, 252, 188));
 			}
-			if (titel == "Exchange CSV V1.3") {
+			if (TITEL == "Exchange CSV V1.3") {
 				getContentPane().setBackground(
 						new java.awt.Color(212, 208, 200));
 			}
-			if (titel == "Exchange CSV V1.4") {
+			if (TITEL == "Exchange CSV V1.4") {
 				getContentPane().setBackground(
 						new java.awt.Color(128, 255, 128));
 			}
-			if (titel == "Exchange CSV V1.5") {
+			if (TITEL == "Exchange CSV V1.5") {
 				getContentPane().setBackground(
 						new java.awt.Color(215, 253, 252));
 			}
-			if (titel == "Exchange CSV V1.6") {
+			if (TITEL == "Exchange CSV V1.6") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V1.7") {
+			if (TITEL == "Exchange CSV V1.7") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V1.8") {
+			if (TITEL == "Exchange CSV V1.8") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V1.9") {
+			if (TITEL == "Exchange CSV V1.9") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.0") {
+			if (TITEL == "Exchange CSV V2.0") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.1") {
+			if (TITEL == "Exchange CSV V2.1") {
 				getContentPane().setBackground(
 						new java.awt.Color(206, 180, 254));
 			}
-			if (titel == "Exchange CSV V2.2") {
+			if (TITEL == "Exchange CSV V2.2") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.3") {
+			if (TITEL == "Exchange CSV V2.3") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.4") {
+			if (TITEL == "Exchange CSV V2.4") {
 				getContentPane().setBackground(
 						new java.awt.Color(128, 255, 128));
 			}
-			if (titel == "Exchange CSV V2.5") {
+			if (TITEL == "Exchange CSV V2.5") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.6") {
+			if (TITEL == "Exchange CSV V2.6") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.7") {
+			if (TITEL == "Exchange CSV V2.7") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.8") {
+			if (TITEL == "Exchange CSV V2.8") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V2.9") {
+			if (TITEL == "Exchange CSV V2.9") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
-			if (titel == "Exchange CSV V3.0") {
+			if (TITEL == "Exchange CSV V3.0") {
 				getContentPane().setBackground(
 						new java.awt.Color(119, 219, 239));
 			}
@@ -295,6 +296,8 @@ public class JFrame1 extends javax.swing.JFrame {
 					jList1.setBounds(109, 109, 395, 152);
 					jList1.setBorder(BorderFactory
 							.createBevelBorder(BevelBorder.RAISED));
+					Font font = new Font("Courier", Font.PLAIN, 10);
+					jList1.setFont(font);
 				}
 			}
 			{
@@ -327,7 +330,7 @@ public class JFrame1 extends javax.swing.JFrame {
 			}
 
 			pack();
-			this.setSize(x_wide, y_high);
+			this.setSize(X_WIDE, Y_HIGH);
 			// Set Icon-----
 			jLabel1.setToolTipText(MASSAGE15);
 			jLabel1.setText(MASSAGE15);

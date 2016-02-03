@@ -9,7 +9,7 @@ import java.util.Date;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class chart3 extends JFrame {
+public class Chart1 extends JFrame {
 
 	static int i;
 	public static int xmaxWert;
@@ -47,6 +47,7 @@ public class chart3 extends JFrame {
 					Color.green));
 			// Säulen zeichnen
 			for (int i = 0; i < xmaxWert - 1; i++) {
+				// g2.draw(new Rectangle2D.Double(x, y,rectWidth,rectHeight));
 				g2.fill(new Rectangle2D.Double(7 * i, 0, 7, listwerte[i]
 						/ ymaxWert * 85));
 			}
@@ -69,22 +70,22 @@ public class chart3 extends JFrame {
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
 			for (int i = 0; i < xmaxWert - 1; i++) {
-				// g2.drawString(cal.Calculation.chartlist3[0][i+1], i * 7,
+				// g2.drawString(cal.Calculation.chartlist1[0][i+1], i * 7,
 				// +10);
-				int length = cal.Calculation.chartlist3[0][i + 1].length();
+				int length = cal.Calculation.chartlist1[0][i + 1].length();
 				if (length > 14) {
-					cal.Calculation.chartlist3[0][i + 1] = cal.Calculation.chartlist3[0][i + 1]
+					cal.Calculation.chartlist1[0][i + 1] = cal.Calculation.chartlist1[0][i + 1]
 							.substring(0, 13);
 				}
-				int length1 = cal.Calculation.chartlist3[2][i + 1].length();
+				int length1 = cal.Calculation.chartlist1[2][i + 1].length();
 				if (length1 > 5) {
-					cal.Calculation.chartlist3[2][i + 1] = cal.Calculation.chartlist3[2][i + 1]
+					cal.Calculation.chartlist1[2][i + 1] = cal.Calculation.chartlist1[2][i + 1]
 							.substring(0, 4);
 				}
 				g2.drawString(String.valueOf(i + 1) + ". "
-						+ cal.Calculation.chartlist3[0][i + 1] + " / "
-						+ cal.Calculation.chartlist3[2][i + 1] + "% / "
-						+ cal.Calculation.chartlist3[1][i + 1], 35,
+						+ cal.Calculation.chartlist1[0][i + 1] + " / "
+						+ cal.Calculation.chartlist1[2][i + 1] + "% / "
+						+ cal.Calculation.chartlist1[1][i + 1], 35,
 						(-80 + (4 * i)));
 			}
 			// Beschriftung y-Achse
@@ -99,7 +100,7 @@ public class chart3 extends JFrame {
 
 	private Diagramm dgramm;
 
-	public chart3(String titel, int x, int y, int w, int h) {
+	public Chart1(String titel, int x, int y, int w, int h) {
 		super(titel);
 		this.setSize(w, h);
 		this.setLocation(x, y);
@@ -113,7 +114,7 @@ public class chart3 extends JFrame {
 		double testwerte[] = new double[xmaxWert];
 		for (int i = 0; i < xmaxWert - 1; i++) {
 			testwerte[i] = Double
-					.parseDouble(cal.Calculation.chartlist3[2][i + 1]);
+					.parseDouble(cal.Calculation.chartlist1[2][i + 1]);
 			//System.out.println("Prozent " + (i) + ": " + testwerte[i]);
 		}
 		return testwerte;
@@ -122,19 +123,19 @@ public class chart3 extends JFrame {
 	public static void main() {
 		String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
 				.format(new Date());
-		titel = "Chart: " + Calculation.CHARTLIST_HEADER3 + "  " + now;
+		titel = "Chart: " + Calculation.CHARTLIST_HEADER1 + "  " + now;
 		int x = 900;
 		int y = 600;
 		int w = 1200;
 		int h = 800;
-		chart3 f = new chart3(titel, x, y, w, h);
+		Chart1 f = new Chart1(titel, x, y, w, h);
 		f.dgramm.setlistwerte(f.testwerte());
 		f.setVisible(true);
 	}
 
-	public static void start(int chartlistcounter3) {
+	public static void start(int chartlistcounter1) {
 
-		xmaxWert = chartlistcounter3;
+		xmaxWert = chartlistcounter1;
 		if (xmaxWert > 13) {
 			xmaxWert = 13;
 		}
