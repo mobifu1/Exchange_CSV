@@ -122,7 +122,7 @@ public class chart3 extends JFrame {
 	public static void main() {
 		String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
 				.format(new Date());
-		titel = "Chart: " + Calculation.chartlist_header3 + "  " + now;
+		titel = "Chart: " + Calculation.CHARTLIST_HEADER3 + "  " + now;
 		int x = 900;
 		int y = 600;
 		int w = 1200;

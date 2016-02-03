@@ -55,36 +55,36 @@ public class JFrame1 extends javax.swing.JFrame {
 	static DefaultListModel listModel = new DefaultListModel();
 	public static String titel = "Exchange CSV V2.5"; // V2.x
 
-	//titel+substring = Version
-	//public static String subversion = ".1-Alpha"; // Subversion
-	//public static String subversion = ".8-Beta"; // Subversion
-	//public static String subversion = ".8-RC"; // Subversion
-	public static String subversion = "-R-Stable"; // Subversion
-	//public static String subversion = "-R-Final"; // Subversion
-	
-	static String message01 = "Application Started";
-	static String message02 = "Application Init";
-	static String message03 = "Read File";
-	static String message04 = "Input File";
-	static String message05 = "Write File";
-	static String message06 = "Output File";
-	static String message07 = "Load Script";
-	static String message08 = "Load Script File";
-	static String message09 = "Create Script";
-	static String message10 = "Create New Script File";
-	static String message11 = "Init Application";
-	static String message12 = "Help";
-	static String message13 = "Help In Listbox";
-	static String message14 = "Progress";
-	static String message15 = "Logo";
-	static String message16 = "File Choose OK";
+	// titel+substring = Version
+	// public static String subversion = ".1-Alpha"; // Subversion
+	public static String subversion = ".1-Beta"; // Subversion
+	// public static String subversion = ".8-RC"; // Subversion
+	//public static String subversion = "-R-Stable"; // Subversion
+	// public static String subversion = "-R-Final"; // Subversion
 
-	// static String message17 = ;
-	// static String message18 = ;
-	// static String message19 = ;
-	// static String message20 = ;
-	// static String message21 = ;
-	// static String message22 = ;
+	static String MASSAGE01 = "Application Started";
+	static String MASSAGE02 = "Application Init";
+	static String MASSAGE03 = "Read File";
+	static String MASSAGE04 = "Input File";
+	static String MASSAGE05 = "Write File";
+	static String MASSAGE06 = "Output File";
+	static String MASSAGE07 = "Load Script";
+	static String MASSAGE08 = "Load Script File";
+	static String MASSAGE09 = "Create Script";
+	static String MASSAGE10 = "Create New Script File";
+	static String MASSAGE11 = "Init Application";
+	static String MASSAGE12 = "Help";
+	static String MASSAGE13 = "Help In Listbox";
+	static String MASSAGE14 = "Progress";
+	static String MASSAGE15 = "Logo";
+	static String MASSAGE16 = "File Choose OK";
+
+	// static String MASSAGE17 = ;
+	// static String MASSAGE18 = ;
+	// static String MASSAGE19 = ;
+	// static String MASSAGE20 = ;
+	// static String MASSAGE21 = ;
+	// static String MASSAGE22 = ;
 
 	/**
 	 * Auto-generated main method to display this JFrame
@@ -202,11 +202,11 @@ public class JFrame1 extends javax.swing.JFrame {
 			{
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
-				jButton1.setText(message03);
+				jButton1.setText(MASSAGE03);
 				jButton1.setBounds(507, 47, 115, 23);
 				jButton1.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
-				jButton1.setToolTipText(message04);
+				jButton1.setToolTipText(MASSAGE04);
 				jButton1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jButton1ActionPerformed(evt);
@@ -216,11 +216,11 @@ public class JFrame1 extends javax.swing.JFrame {
 			{
 				jButton2 = new JButton();
 				getContentPane().add(jButton2);
-				jButton2.setText(message05);
+				jButton2.setText(MASSAGE05);
 				jButton2.setBounds(507, 117, 115, 23);
 				jButton2.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
-				jButton2.setToolTipText(message06);
+				jButton2.setToolTipText(MASSAGE06);
 				jButton2.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jButton2ActionPerformed(evt);
@@ -230,11 +230,11 @@ public class JFrame1 extends javax.swing.JFrame {
 			{
 				jButton3 = new JButton();
 				getContentPane().add(jButton3);
-				jButton3.setText(message07);
+				jButton3.setText(MASSAGE07);
 				jButton3.setBounds(507, 82, 115, 23);
 				jButton3.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
-				jButton3.setToolTipText(message08);
+				jButton3.setToolTipText(MASSAGE08);
 				jButton3.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jButton3ActionPerformed(evt);
@@ -244,11 +244,11 @@ public class JFrame1 extends javax.swing.JFrame {
 			{
 				jButton4 = new JButton();
 				getContentPane().add(jButton4);
-				jButton4.setText(message09);
+				jButton4.setText(MASSAGE09);
 				jButton4.setBounds(507, 238, 115, 23);
 				jButton4.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
-				jButton4.setToolTipText(message10);
+				jButton4.setToolTipText(MASSAGE10);
 				jButton4.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jButton4ActionPerformed(evt);
@@ -261,7 +261,7 @@ public class JFrame1 extends javax.swing.JFrame {
 				jButton5.setBounds(507, 12, 16, 16);
 				jButton5.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
-				jButton5.setToolTipText(message11);
+				jButton5.setToolTipText(MASSAGE11);
 				jButton5.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jButton5ActionPerformed(evt);
@@ -274,8 +274,8 @@ public class JFrame1 extends javax.swing.JFrame {
 				jButton6.setBounds(507, 203, 115, 23);
 				jButton6.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
-				jButton6.setText(message12);
-				jButton6.setToolTipText(message13);
+				jButton6.setText(MASSAGE12);
+				jButton6.setToolTipText(MASSAGE13);
 				jButton6.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						jButton6ActionPerformed(evt);
@@ -300,7 +300,7 @@ public class JFrame1 extends javax.swing.JFrame {
 			{
 				jTextPane1 = new JTextPane();
 				getContentPane().add(jTextPane1);
-				jTextPane1.setText(message01);
+				jTextPane1.setText(MASSAGE01);
 				jTextPane1.setBounds(29, 271, 593, 20);
 				jTextPane1.setBorder(BorderFactory
 						.createBevelBorder(BevelBorder.RAISED));
@@ -310,7 +310,7 @@ public class JFrame1 extends javax.swing.JFrame {
 				jProgressBar1 = new JProgressBar();
 				getContentPane().add(jProgressBar1);
 				jProgressBar1.setBounds(29, 297, 593, 7);
-				jProgressBar1.setToolTipText(message14);
+				jProgressBar1.setToolTipText(MASSAGE14);
 				// jProgressBar1.setMaximum(100);
 				jProgressBar1.setMinimum(0);
 				jProgressBar1.setValue(0);
@@ -329,8 +329,8 @@ public class JFrame1 extends javax.swing.JFrame {
 			pack();
 			this.setSize(x_wide, y_high);
 			// Set Icon-----
-			jLabel1.setToolTipText(message15);
-			jLabel1.setText(message15);
+			jLabel1.setToolTipText(MASSAGE15);
+			jLabel1.setText(MASSAGE15);
 			jLabel1.setIcon(new ImageIcon(getClass().getClassLoader()
 					.getResource("gui/csv.gif")));
 
@@ -341,13 +341,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton1ActionPerformed(ActionEvent evt) {
-		//System.out.println("jButton1.actionPerformed, event=" + evt);
+		// System.out.println("jButton1.actionPerformed, event=" + evt);
 
 		JFileChooser fc1 = new JFileChooser();
 		fc1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int status = fc1.showOpenDialog(null);
 		if (status == JFileChooser.APPROVE_OPTION) {
-			//System.out.println(message16);
+			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			String path1 = (selFile.getPath());
 			Calculation.readfile(path1);
@@ -355,25 +355,25 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton2ActionPerformed(ActionEvent evt) {
-		//System.out.println("jButton2.actionPerformed, event=" + evt);
+		// System.out.println("jButton2.actionPerformed, event=" + evt);
 		Calculation.writefile();
 	}
 
 	private void jButton3ActionPerformed(ActionEvent evt) {
-		//System.out.println("jButton3.actionPerformed, event=" + evt);
+		// System.out.println("jButton3.actionPerformed, event=" + evt);
 		JFileChooser fc1 = new JFileChooser();
 		fc1.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int status = fc1.showOpenDialog(null);
 		if (status == JFileChooser.APPROVE_OPTION) {
-			//System.out.println(message16);
+			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			String path2 = (selFile.getPath());
-			Calculation.handler(path2);
+			Calculation.script(path2);
 		}
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
-		//System.out.println("jButton4.actionPerformed, event=" + evt);
+		// System.out.println("jButton4.actionPerformed, event=" + evt);
 		Calculation.create_handlerfile();
 	}
 
@@ -384,15 +384,15 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	private void jButton5ActionPerformed(ActionEvent evt) {
-		//System.out.println("jButton5.actionPerformed, event=" + evt);
+		// System.out.println("jButton5.actionPerformed, event=" + evt);
 		listModel.clear();
 		Calculation.clearall();
 		jProgressBar1.setValue(0);
-		jTextPane1.setText(message02);
+		jTextPane1.setText(MASSAGE02);
 	}
 
 	private void jButton6ActionPerformed(ActionEvent evt) {
-		//System.out.println("jButton6.actionPerformed, event=" + evt);
+		// System.out.println("jButton6.actionPerformed, event=" + evt);
 		Calculation.writetext();
 	}
 }
