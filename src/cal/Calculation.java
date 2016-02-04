@@ -135,7 +135,7 @@ public class Calculation {
 	static final String MESSAGE73 = "Start Execute:";
 	// static final String MESSAGE74 = "";
 	static final String MESSAGE99 = " ";
-	static final char backslash = 92;
+	static final char BACKSLASH = 92;
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			("//*******************************************************************"),
@@ -143,15 +143,15 @@ public class Calculation {
 			("//*********                   EXCHANGE                      *********"),
 			("//*********        _______     ______     _        _        *********"),
 			("//*********       |  _____|   /  ____|   | |      | |       *********"),
-			("//*********       | |         " + backslash + " " + backslash
-					+ "__      " + backslash + " " + backslash + "      / /       *********"),
-			("//*********       | |          " + backslash + "__ " + backslash
-					+ "      " + backslash + " " + backslash + "    / /        *********"),
-			("//*********       | |             " + backslash + " " + backslash
-					+ "      " + backslash + " " + backslash + "  / /         *********"),
-			("//*********       | |_____    _____" + backslash + " "
-					+ backslash + "      " + backslash + " " + backslash + "/ /          *********"),
-			("//*********       |_______|  |_______/       " + backslash + "__/           *********"),
+			("//*********       | |         " + BACKSLASH + " " + BACKSLASH
+					+ "__      " + BACKSLASH + " " + BACKSLASH + "      / /       *********"),
+			("//*********       | |          " + BACKSLASH + "__ " + BACKSLASH
+					+ "      " + BACKSLASH + " " + BACKSLASH + "    / /        *********"),
+			("//*********       | |             " + BACKSLASH + " " + BACKSLASH
+					+ "      " + BACKSLASH + " " + BACKSLASH + "  / /         *********"),
+			("//*********       | |_____    _____" + BACKSLASH + " "
+					+ BACKSLASH + "      " + BACKSLASH + " " + BACKSLASH + "/ /          *********"),
+			("//*********       |_______|  |_______/       " + BACKSLASH + "__/           *********"),
 			("//*********                                                 *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
