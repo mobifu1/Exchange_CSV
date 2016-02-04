@@ -12,17 +12,17 @@ import javax.swing.*;
 public class Chart3 extends JFrame {
 
 	static int i;
-	public static int xmaxWert;
-	static double ymaxWert = 100;
+	public static int xmaxvalue;
+	static double ymaxvalue = 100;
 	static double prozentwerte[] = new double[Calculation.max_stat_high];
 	static String titel;
 
 	public static class Diagramm extends JPanel {
 
-		private double listwerte[];
+		private double listvalues[];
 
 		private void setlistwerte(double listwerte[]) {
-			this.listwerte = listwerte;
+			this.listvalues = listwerte;
 			// ymaxWert =100;
 		}
 
@@ -46,29 +46,29 @@ public class Chart3 extends JFrame {
 			g2.setPaint(new GradientPaint(0f, 0f, Color.red, 0f, 85f,
 					Color.green));
 			// Säulen zeichnen
-			for (int i = 0; i < xmaxWert - 1; i++) {
-				g2.fill(new Rectangle2D.Double(7 * i, 0, 7, listwerte[i]
-						/ ymaxWert * 85));
+			for (int i = 0; i < xmaxvalue - 1; i++) {
+				g2.fill(new Rectangle2D.Double(7 * i, 0, 7, listvalues[i]
+						/ ymaxvalue * 85));
 			}
 			// konstante Farbe dunkelgrau
 			g2.setPaint(Color.darkGray);
 			// Rahmen um Säulen zeichnen
-			for (int i = 0; i < xmaxWert - 1; i++) {
-				g2.draw(new Rectangle2D.Double(7 * i, 0, 7, listwerte[i]
-						/ ymaxWert * 85));
+			for (int i = 0; i < xmaxvalue - 1; i++) {
+				g2.draw(new Rectangle2D.Double(7 * i, 0, 7, listvalues[i]
+						/ ymaxvalue * 85));
 			}
 			// y-Invertierung rückgängig machen
 			g2.scale(1, -1);
 			// Beschriftung x-Achse
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
-			for (int i = 0; i < xmaxWert - 1; i++) {
+			for (int i = 0; i < xmaxvalue - 1; i++) {
 				g2.drawString(String.valueOf(i + 1), (i * 7) + 2, +5);
 			}
 			// Beschriftung Legende mit Beschriftung und Prozentzahlen
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
-			for (int i = 0; i < xmaxWert - 1; i++) {
+			for (int i = 0; i < xmaxvalue - 1; i++) {
 				// g2.drawString(cal.Calculation.chartlist3[0][i+1], i * 7,
 				// +10);
 				int length = cal.Calculation.chartlist3[0][i + 1].length();
@@ -90,9 +90,9 @@ public class Chart3 extends JFrame {
 			// Beschriftung y-Achse
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
-			for (int i = 0; i < ymaxWert; i = i + 10) {
+			for (int i = 0; i < ymaxvalue; i = i + 10) {
 				g2.drawString(i + "%", -10,
-						-Math.round(((double) i) / ymaxWert * 85));
+						-Math.round(((double) i) / ymaxvalue * 85));
 			}
 		}
 	}
@@ -110,8 +110,8 @@ public class Chart3 extends JFrame {
 
 	private double[] testwerte() {
 		// Erzeugen der Werte
-		double testwerte[] = new double[xmaxWert];
-		for (int i = 0; i < xmaxWert - 1; i++) {
+		double testwerte[] = new double[xmaxvalue];
+		for (int i = 0; i < xmaxvalue - 1; i++) {
 			testwerte[i] = Double
 					.parseDouble(cal.Calculation.chartlist3[2][i + 1]);
 			//System.out.println("Prozent " + (i) + ": " + testwerte[i]);
@@ -122,7 +122,7 @@ public class Chart3 extends JFrame {
 	public static void main() {
 		String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
 				.format(new Date());
-		titel = "Chart: " + Calculation.CHARTLIST_HEADER3 + "  " + now;
+		titel = "Chart: " + Calculation.chartlist_header3 + "  " + now;
 		int x = 900;
 		int y = 600;
 		int w = 1200;
@@ -134,9 +134,9 @@ public class Chart3 extends JFrame {
 
 	public static void start(int chartlistcounter3) {
 
-		xmaxWert = chartlistcounter3;
-		if (xmaxWert > 13) {
-			xmaxWert = 13;
+		xmaxvalue = chartlistcounter3;
+		if (xmaxvalue > 13) {
+			xmaxvalue = 13;
 		}
 		main();
 		{

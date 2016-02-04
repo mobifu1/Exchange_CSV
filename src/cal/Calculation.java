@@ -40,24 +40,24 @@ public class Calculation {
 	public static String chartlist1[][] = new String[max_stat_width][max_stat_high];
 	public static String chartlist2[][] = new String[max_stat_width][max_stat_high];
 	public static String chartlist3[][] = new String[max_stat_width][max_stat_high];
-	public static String CHARTLIST_HEADER1 = "Chart";
-	public static String CHARTLIST_HEADER2 = "Chart";
-	public static String CHARTLIST_HEADER3 = "Chart";
+	public static String chartlist_header1 = "Chart";
+	public static String chartlist_header2 = "Chart";
+	public static String chartlist_header3 = "Chart";
 	public static int statlistcounter = 1;
 	public static int chartlistcounter1 = 1;
 	public static int chartlistcounter2 = 1;
 	public static int chartlistcounter3 = 1;
 	// ------------------------------------------------
 	static String outputpath = "";
-	static final String default_outputpath = "Exchange Output.csv";
-	static final String scriptpath = "Script-ExChange.txt";
-	static final String logfilepath = "LogFile-ExChangeCsv.log";
-	static final String date = "03.02.2016";// last Modify
+	static final String DEAFAULT_OUTPUPATH = "Exchange Output.csv";
+	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
+	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
+	static final String DATE = "03.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
-	static final int time_value_ms = 100;// wait time update progressbar
+	static final int TIME_VALUE_ms = 100;// wait time update progressbar
 	// ------------------------------------------------
-	// global constants
+	// global constants for Messages
 	static final String ERROR01 = "Error:";
 	static final String ERROR02 = "Fail:";
 	static final String MESSAGE01 = "Start Separator Autoscan";
@@ -159,7 +159,7 @@ public class Calculation {
 			("//http://www.eclipse.org/platform"),
 			("//http://www.cloudgarden.com/jigloo/"),
 			("//Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
-					+ ", last modify: " + date),
+					+ ", last modify: " + DATE),
 			("//V2.5-R-Stable New Feature:"),
 			("//Compare Column / Compare Instring Column / Log File"),
 			("//Find Move / Find Clear / Not Find Clear"),
@@ -427,7 +427,7 @@ public class Calculation {
 				if (loglevel >= 1) {
 					write_log(MESSAGE07);
 				} // standard = 1
-				outputpath = default_outputpath;
+				outputpath = DEAFAULT_OUTPUPATH;
 				// System.out.println("Open File:" + " i=" + i + " j=" +j);
 			}
 		} catch (Exception e) {
@@ -1115,7 +1115,7 @@ public class Calculation {
 					JFrame1.jProgressBar1.setValue(x);
 					JFrame1.jProgressBar1.paint(JFrame1.jProgressBar1
 							.getGraphics());// force to update
-					Thread.sleep(time_value_ms);
+					Thread.sleep(TIME_VALUE_ms);
 					// --------------
 					if (commands[x] != null) {
 						if (!commands[x].equals("")) {
@@ -2515,17 +2515,17 @@ public class Calculation {
 								}
 								// --------------------
 								if (b.equals("Chart1")) {
-									CHARTLIST_HEADER1 = (multicolumn[a][0]);
+									chartlist_header1 = (multicolumn[a][0]);
 									chartlistcounter1 = statlistcounter;
 									cal.Chart1.start(chartlistcounter1);
 								}
 								if (b.equals("Chart2")) {
-									CHARTLIST_HEADER2 = (multicolumn[a][0]);
+									chartlist_header2 = (multicolumn[a][0]);
 									chartlistcounter2 = statlistcounter;
 									cal.Chart2.start(chartlistcounter2);
 								}
 								if (b.equals("Chart3")) {
-									CHARTLIST_HEADER3 = (multicolumn[a][0]);
+									chartlist_header3 = (multicolumn[a][0]);
 									chartlistcounter3 = statlistcounter;
 									cal.Chart3.start(chartlistcounter3);
 								}
@@ -2600,7 +2600,7 @@ public class Calculation {
 	// *****************************************************************************************
 	public static void write_log(String line2) {
 		// ---------------------------------------------
-		String filename2 = "." + File.separator + logfilepath;
+		String filename2 = "." + File.separator + LOGFILEPATH;
 		// String directory = "./" + File.separator;
 		// *************************************************************************
 		try {
@@ -2680,7 +2680,7 @@ public class Calculation {
 
 	// *****************************************************************************************
 	public static void create_handlerfile() {
-		String filename = "." + File.separator + scriptpath;
+		String filename = "." + File.separator + SCRIPTFILEPATH;
 		@SuppressWarnings("unused")
 		char c = 34;
 		try {
