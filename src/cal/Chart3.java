@@ -114,7 +114,7 @@ public class Chart3 extends JFrame {
 		for (int i = 0; i < xmaxvalue - 1; i++) {
 			testwerte[i] = Double
 					.parseDouble(cal.Calculation.chartlist3[2][i + 1]);
-			//System.out.println("Prozent " + (i) + ": " + testwerte[i]);
+			// System.out.println("Prozent " + (i) + ": " + testwerte[i]);
 		}
 		return testwerte;
 	}

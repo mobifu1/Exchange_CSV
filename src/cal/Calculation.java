@@ -122,7 +122,7 @@ public class Calculation {
 	static final String MESSAGE60 = "****************Read File*******************";
 	static final String MESSAGE61 = "****************Write File******************";
 	static final String MESSAGE62 = "****************Script File*****************";
-	static final String MESSAGE63 = "****************Start Log File**************";	
+	static final String MESSAGE63 = "****************Start Log File**************";
 	static final String MESSAGE64 = "Data Min";
 	static final String MESSAGE65 = "Data Max";
 	static final String MESSAGE66 = "ASCII: ,=44 / ;=59 / :=58";
