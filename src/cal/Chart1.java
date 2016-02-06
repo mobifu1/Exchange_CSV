@@ -1,7 +1,7 @@
 package cal;
 
 import cal.Calculation;
-import cal.Chart1.Diagramm;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -12,8 +12,11 @@ import javax.swing.border.BevelBorder;
 
 public class Chart1 extends javax.swing.JFrame {
 
-	private static int Y_HIGH = 800;
-	private static int X_WIDE = 1200;
+	private static int X_FRAME = 900;
+	private static int Y_FRAME = 600;
+	private static int X_CHART = 1200;
+	private static int Y_CHART = 800;
+
 	static int i;
 	public static int xmaxvalue;
 	static double ymaxvalue = 100;
@@ -24,15 +27,15 @@ public class Chart1 extends javax.swing.JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
-				.format(new Date());
-		titel = "Chart: " + Calculation.chartlist_header1 + "  " + now;
-		Chart1 f = new Chart1();
-		f.dgramm.setlistwerte(f.testwerte());
-		f.setVisible(true);
-		f.setLocationRelativeTo(null);
-		f.setResizable(false);// Maximized=false
-		f.setPreferredSize(new java.awt.Dimension(X_WIDE, Y_HIGH));
-		f.setSize(X_WIDE, Y_HIGH);
+						.format(new Date());
+				titel = "Chart: " + Calculation.chartlist_header1 + "  " + now;
+				Chart1 f = new Chart1(titel, X_FRAME, Y_FRAME, X_CHART, Y_CHART);
+				f.dgramm.setlistwerte(f.testwerte());
+				f.setVisible(true);
+				f.setLocationRelativeTo(null);
+				f.setResizable(false);// Maximized=false
+				f.setPreferredSize(new java.awt.Dimension(X_CHART, Y_CHART));
+				f.setSize(X_CHART, Y_CHART);
 			}
 		});
 	}
@@ -47,17 +50,18 @@ public class Chart1 extends javax.swing.JFrame {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 			getContentPane().setLayout(null);
 			this.setTitle(titel);
-			this.setPreferredSize(new java.awt.Dimension(X_WIDE, Y_HIGH));
+			this.setPreferredSize(new java.awt.Dimension(X_CHART, Y_CHART));
 
 			pack();
-			this.setSize(X_WIDE, Y_HIGH);
+			this.setSize(X_CHART, Y_CHART);
 
 		} catch (Exception e) {
 			// add your error handling code here
 			e.printStackTrace();
 		}
 	}
-	//---------------------------------------------------------------------
+
+	// ---------------------------------------------------------------------
 	public static class Diagramm extends JPanel {
 
 		private double listvalues[];
@@ -105,7 +109,7 @@ public class Chart1 extends javax.swing.JFrame {
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
 			for (int i = 0; i < xmaxvalue - 1; i++) {
-				g2.drawString(String.valueOf(i + 1), (i * 7) + 2, +5);
+				g2.drawString(Integer.toString(i + 1), (i * 7) + 2, +5);
 			}
 			// Beschriftung Legende mit Beschriftung und Prozentzahlen
 			// Fontgröße für Beschriftung ändern
@@ -123,7 +127,7 @@ public class Chart1 extends javax.swing.JFrame {
 					cal.Calculation.chartlist1[2][i + 1] = cal.Calculation.chartlist1[2][i + 1]
 							.substring(0, 4);
 				}
-				g2.drawString(String.valueOf(i + 1) + ". "
+				g2.drawString(Integer.toString(i + 1) + ". "
 						+ cal.Calculation.chartlist1[0][i + 1] + " / "
 						+ cal.Calculation.chartlist1[2][i + 1] + "% / "
 						+ cal.Calculation.chartlist1[1][i + 1], 35,
@@ -141,8 +145,8 @@ public class Chart1 extends javax.swing.JFrame {
 
 	private Diagramm dgramm;
 
-	public Chart1 String titel, int x, int y, int w, int h) {
-		//super(titel);
+	public Chart1(java.lang.String titel2, int x, int y, int w, int h) {
+		// super(titel1);
 		this.setSize(w, h);
 		this.setLocation(x, y);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -160,8 +164,6 @@ public class Chart1 extends javax.swing.JFrame {
 		}
 		return testwerte;
 	}
-
-
 
 	public static void start(int chartlistcounter1) {
 
