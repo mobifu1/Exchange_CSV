@@ -8,8 +8,8 @@ import java.awt.geom.Rectangle2D;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
 
+@SuppressWarnings("serial")
 public class Chart1 extends javax.swing.JFrame {
 
 	private static int X_FRAME = 900;
@@ -21,44 +21,26 @@ public class Chart1 extends javax.swing.JFrame {
 	public static int xmaxvalue;
 	static double ymaxvalue = 100;
 	static double prozentwerte[] = new double[Calculation.max_stat_high];
-	static String titel;
+	static String title_chart1;
 
 	public static void main() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
 						.format(new Date());
-				titel = "Chart: " + Calculation.chartlist_header1 + "  " + now;
-				Chart1 f = new Chart1(titel, X_FRAME, Y_FRAME, X_CHART, Y_CHART);
+				title_chart1 = "Chart: " + Calculation.chartlist_header1 + "  "
+						+ now;
+				Chart1 f = new Chart1(title_chart1, X_FRAME, Y_FRAME, X_CHART,
+						Y_CHART);
 				f.dgramm.setlistwerte(f.testwerte());
 				f.setVisible(true);
 				f.setLocationRelativeTo(null);
-				f.setResizable(false);// Maximized=false
+				f.setResizable(true);// Maximized=false
 				f.setPreferredSize(new java.awt.Dimension(X_CHART, Y_CHART));
 				f.setSize(X_CHART, Y_CHART);
+				f.setTitle(title_chart1);
 			}
 		});
-	}
-
-	public Chart1() {
-		super();
-		initchart();
-	}
-
-	private void initchart() {
-		try {
-			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-			getContentPane().setLayout(null);
-			this.setTitle(titel);
-			this.setPreferredSize(new java.awt.Dimension(X_CHART, Y_CHART));
-
-			pack();
-			this.setSize(X_CHART, Y_CHART);
-
-		} catch (Exception e) {
-			// add your error handling code here
-			e.printStackTrace();
-		}
 	}
 
 	// ---------------------------------------------------------------------
@@ -145,8 +127,8 @@ public class Chart1 extends javax.swing.JFrame {
 
 	private Diagramm dgramm;
 
-	public Chart1(java.lang.String titel2, int x, int y, int w, int h) {
-		// super(titel1);
+	public Chart1(java.lang.String titel1, int x, int y, int w, int h) {
+		super(titel1);
 		this.setSize(w, h);
 		this.setLocation(x, y);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

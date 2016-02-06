@@ -1,22 +1,49 @@
 package cal;
 
+import cal.Calculation;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.*;
 
 @SuppressWarnings("serial")
-public class Chart2 extends JFrame {
+public class Chart2 extends javax.swing.JFrame {
+
+	private static int X_FRAME = 900;
+	private static int Y_FRAME = 600;
+	private static int X_CHART = 1200;
+	private static int Y_CHART = 800;
 
 	static int i;
 	public static int xmaxvalue;
 	static double ymaxvalue = 100;
 	static double prozentwerte[] = new double[Calculation.max_stat_high];
-	static String titel;
+	static String title_chart2;
 
+	public static void main() {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
+						.format(new Date());
+				title_chart2 = "Chart: " + Calculation.chartlist_header2 + "  "
+						+ now;
+				Chart2 f = new Chart2(title_chart2, X_FRAME, Y_FRAME, X_CHART,
+						Y_CHART);
+				f.dgramm.setlistwerte(f.testwerte());
+				f.setVisible(true);
+				f.setLocationRelativeTo(null);
+				f.setResizable(false);// Maximized=false
+				f.setPreferredSize(new java.awt.Dimension(X_CHART, Y_CHART));
+				f.setSize(X_CHART, Y_CHART);
+				f.setTitle(title_chart2);
+			}
+		});
+	}
+
+	// ---------------------------------------------------------------------
 	public static class Diagramm extends JPanel {
 
 		private double listvalues[];
@@ -47,6 +74,7 @@ public class Chart2 extends JFrame {
 					Color.green));
 			// Säulen zeichnen
 			for (int i = 0; i < xmaxvalue - 1; i++) {
+				// g2.draw(new Rectangle2D.Double(x, y,rectWidth,rectHeight));
 				g2.fill(new Rectangle2D.Double(7 * i, 0, 7, listvalues[i]
 						/ ymaxvalue * 85));
 			}
@@ -63,13 +91,13 @@ public class Chart2 extends JFrame {
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
 			for (int i = 0; i < xmaxvalue - 1; i++) {
-				g2.drawString(String.valueOf(i + 1), (i * 7) + 2, +5);
+				g2.drawString(Integer.toString(i + 1), (i * 7) + 2, +5);
 			}
 			// Beschriftung Legende mit Beschriftung und Prozentzahlen
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
 			for (int i = 0; i < xmaxvalue - 1; i++) {
-				// g2.drawString(cal.Calculation.chartlist1[0][i+1], i * 7,
+				// g2.drawString(cal.Calculation.chartlist2[0][i+1], i * 7,
 				// +10);
 				int length = cal.Calculation.chartlist2[0][i + 1].length();
 				if (length > 14) {
@@ -81,7 +109,7 @@ public class Chart2 extends JFrame {
 					cal.Calculation.chartlist2[2][i + 1] = cal.Calculation.chartlist2[2][i + 1]
 							.substring(0, 4);
 				}
-				g2.drawString(String.valueOf(i + 1) + ". "
+				g2.drawString(Integer.toString(i + 1) + ". "
 						+ cal.Calculation.chartlist2[0][i + 1] + " / "
 						+ cal.Calculation.chartlist2[2][i + 1] + "% / "
 						+ cal.Calculation.chartlist2[1][i + 1], 35,
@@ -99,8 +127,8 @@ public class Chart2 extends JFrame {
 
 	private Diagramm dgramm;
 
-	public Chart2(String titel, int x, int y, int w, int h) {
-		super(titel);
+	public Chart2(java.lang.String titel2, int x, int y, int w, int h) {
+		super(titel2);
 		this.setSize(w, h);
 		this.setLocation(x, y);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,19 +145,6 @@ public class Chart2 extends JFrame {
 			// System.out.println("Prozent " + (i) + ": " + testwerte[i]);
 		}
 		return testwerte;
-	}
-
-	public static void main() {
-		String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
-				.format(new Date());
-		titel = "Chart: " + Calculation.chartlist_header2 + "  " + now;
-		int x = 900;
-		int y = 600;
-		int w = 1200;
-		int h = 800;
-		Chart2 f = new Chart2(titel, x, y, w, h);
-		f.dgramm.setlistwerte(f.testwerte());
-		f.setVisible(true);
 	}
 
 	public static void start(int chartlistcounter2) {
