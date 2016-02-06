@@ -56,6 +56,7 @@ public class Calculation {
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 100;// wait time update progressbar
+	static int useheaderline = 1;
 	// ------------------------------------------------
 	// global constants for Messages
 	static final String ERROR01 = "Error:";
@@ -169,6 +170,7 @@ public class Calculation {
 			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
+			("Use Header Line: 0, dont use Header Line / default=1"),
 			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
 			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
 			("//Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
@@ -209,6 +211,7 @@ public class Calculation {
 			("//Stats: 0, Percent Output of Column 0, Chart1/2/3: Grafical Output, max. 3 Charts"),
 			("//------------------------------------------------------"),
 			("//SCRIPT-COMMANDS:"),// --------------------------------
+			("Use Header Line,1,"), // -------------------------------
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
@@ -353,6 +356,7 @@ public class Calculation {
 							jmax = jdata;
 						}
 					}
+					//Use Header Line = 1 > copy Line 0 to Line 1
 					for (x = 0; x < j; x++) {
 						multicolumn[x][i] = splitrow[x];
 						// System.out.println(multicolumn[x][i]);
@@ -478,6 +482,7 @@ public class Calculation {
 				int x = 0;
 				int p = 0;
 				while (x < y) {
+					//Use Header Line = 1 > no Print Line 0
 					String line = "";
 					for (p = 0; p < z; p++) {
 						if (multicolumn[p][x] == null) {
@@ -557,6 +562,7 @@ public class Calculation {
 					if (row.length() >= 2) {
 						if (row.indexOf("//") == -1) {
 							if ((row.indexOf("Filename,") != -1)
+									|| (row.indexOf("Use Header Line,") != -1)
 									|| (row.indexOf("Separator,") != -1)
 									|| (row.indexOf("Spalten,") != -1)// german,useforoldscriptfiles
 									|| (row.indexOf("Columns,") != -1)// english
@@ -597,6 +603,20 @@ public class Calculation {
 								// --------------------------------------------
 								if (row.length() >= 9) {
 									if (row.substring(0, 9).equals("Filename,")) {
+										commands[x] = (row);
+										JFrame1.jList1(MESSAGE71 + MESSAGE99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(MESSAGE71 + MESSAGE99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// --------------------------------------------
+								if (row.length() >= 16) {
+									if (row.substring(0, 16).equals(
+											"Use Header Line,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1202,6 +1222,21 @@ public class Calculation {
 								}
 								outputpath = outputpath + ".csv";
 								// System.out.println(outputpath);
+							}
+							// -----------------------------------
+							if (command.equals("Use Header Line")) {
+								// --------------------------------------------------
+								JFrame1.jList1(MESSAGE72 + MESSAGE99
+										+ "Header Line");
+								if (loglevel >= 1) {
+									write_log(MESSAGE72 + MESSAGE99
+											+ "Header Line");
+								} // standard = 1
+									// --------------------------------------------------
+								int a;
+								a = Integer.parseInt(attribute1);
+								useheaderline = a;
+								// System.out.println(d);
 							}
 							// -----------------------------------
 							if (command.equals("Separator")) {
