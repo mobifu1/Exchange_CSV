@@ -1,22 +1,63 @@
 package cal;
 
+import cal.Calculation;
+import cal.Chart1.Diagramm;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 
-@SuppressWarnings("serial")
-public class Chart1 extends JFrame {
+public class Chart1 extends javax.swing.JFrame {
 
+	private static int Y_HIGH = 800;
+	private static int X_WIDE = 1200;
 	static int i;
 	public static int xmaxvalue;
 	static double ymaxvalue = 100;
 	static double prozentwerte[] = new double[Calculation.max_stat_high];
 	static String titel;
 
+	public static void main() {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
+				.format(new Date());
+		titel = "Chart: " + Calculation.chartlist_header1 + "  " + now;
+		Chart1 f = new Chart1();
+		f.dgramm.setlistwerte(f.testwerte());
+		f.setVisible(true);
+		f.setLocationRelativeTo(null);
+		f.setResizable(false);// Maximized=false
+		f.setPreferredSize(new java.awt.Dimension(X_WIDE, Y_HIGH));
+		f.setSize(X_WIDE, Y_HIGH);
+			}
+		});
+	}
+
+	public Chart1() {
+		super();
+		initchart();
+	}
+
+	private void initchart() {
+		try {
+			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			getContentPane().setLayout(null);
+			this.setTitle(titel);
+			this.setPreferredSize(new java.awt.Dimension(X_WIDE, Y_HIGH));
+
+			pack();
+			this.setSize(X_WIDE, Y_HIGH);
+
+		} catch (Exception e) {
+			// add your error handling code here
+			e.printStackTrace();
+		}
+	}
+	//---------------------------------------------------------------------
 	public static class Diagramm extends JPanel {
 
 		private double listvalues[];
@@ -100,8 +141,8 @@ public class Chart1 extends JFrame {
 
 	private Diagramm dgramm;
 
-	public Chart1(String titel, int x, int y, int w, int h) {
-		super(titel);
+	public Chart1 String titel, int x, int y, int w, int h) {
+		//super(titel);
 		this.setSize(w, h);
 		this.setLocation(x, y);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -120,18 +161,7 @@ public class Chart1 extends JFrame {
 		return testwerte;
 	}
 
-	public static void main() {
-		String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
-				.format(new Date());
-		titel = "Chart: " + Calculation.chartlist_header1 + "  " + now;
-		int x = 900;
-		int y = 600;
-		int w = 1200;
-		int h = 800;
-		Chart1 f = new Chart1(titel, x, y, w, h);
-		f.dgramm.setlistwerte(f.testwerte());
-		f.setVisible(true);
-	}
+
 
 	public static void start(int chartlistcounter1) {
 
