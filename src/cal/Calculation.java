@@ -170,7 +170,7 @@ public class Calculation {
 			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
-			("Use Header Line: 0, dont use Header Line / default=1"),
+			("Use Header Line: 0, dont use Header Line in Output-File / default=1"),
 			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
 			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
 			("//Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
@@ -356,7 +356,6 @@ public class Calculation {
 							jmax = jdata;
 						}
 					}
-					//Use Header Line = 1 > copy Line 0 to Line 1
 					for (x = 0; x < j; x++) {
 						multicolumn[x][i] = splitrow[x];
 						// System.out.println(multicolumn[x][i]);
@@ -482,12 +481,11 @@ public class Calculation {
 				int x = 0;
 				int p = 0;
 				while (x < y) {
-					//Use Header Line = 1 > no Print Line 0
 					String line = "";
 					for (p = 0; p < z; p++) {
 						if (multicolumn[p][x] == null) {
-							multicolumn[p][x] = "";
-						}// init mit""
+							multicolumn[p][x] = "";// init_with""
+						}
 						if (p == 0) {
 							line = (line + multicolumn[p][x]);
 						}
@@ -495,18 +493,34 @@ public class Calculation {
 							line = (line + d + multicolumn[p][x]);
 						}
 					}
-					bw.write(line);
+					if (x == 0 && useheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
+						bw.write(line);
+						// System.out.println("x=" + x + " p=" + p + " :" +
+						// line);
+					}
+					if (x > 0) {
+						bw.write(line);
+						// System.out.println("x=" + x + " p=" + p + " :" +
+						// line);
+					}
 					bw.newLine();
 					// System.out.println(line);
 					if (outputcounter < 10) {
-						JFrame1.jList1(line);
-						if (loglevel >= 1) {
-							write_log(line);
-						} // standard = 1
+						if (x == 0 && useheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
+							JFrame1.jList1(line);
+							if (loglevel >= 1) {
+								write_log(line);
+							} // standard = 1
+						}
+						if (x > 0) {
+							JFrame1.jList1(line);
+							if (loglevel >= 1) {
+								write_log(line);
+							} // standard = 1
+						}
 					}
 					outputcounter++;
 					x++;
-
 				}
 				bw.flush();
 				bw.close();
@@ -1236,7 +1250,7 @@ public class Calculation {
 								int a;
 								a = Integer.parseInt(attribute1);
 								useheaderline = a;
-								// System.out.println(d);
+								// System.out.println(a);
 							}
 							// -----------------------------------
 							if (command.equals("Separator")) {
