@@ -56,7 +56,7 @@ public class Calculation {
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 100;// wait time update progressbar
-	static int useheaderline = 1;
+	static int outputheaderline = 1;// default=1 hide header line
 	// ------------------------------------------------
 	// global constants for Messages
 	static final String ERROR01 = "Error:";
@@ -170,7 +170,7 @@ public class Calculation {
 			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
-			("Use Header Line: 0, dont use Header Line in Output-File / default=1"),
+			("//Output Header Line: 0, hide Header Line in Output-File / default=1"),
 			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
 			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
 			("//Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
@@ -211,7 +211,7 @@ public class Calculation {
 			("//Stats: 0, Percent Output of Column 0, Chart1/2/3: Grafical Output, max. 3 Charts"),
 			("//------------------------------------------------------"),
 			("//SCRIPT-COMMANDS:"),// --------------------------------
-			("Use Header Line,1,"), // -------------------------------
+			("Output Header Line,1,"), // -------------------------------
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
@@ -493,7 +493,7 @@ public class Calculation {
 							line = (line + d + multicolumn[p][x]);
 						}
 					}
-					if (x == 0 && useheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
+					if (x == 0 && outputheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
 						bw.write(line);
 						// System.out.println("x=" + x + " p=" + p + " :" +
 						// line);
@@ -506,7 +506,7 @@ public class Calculation {
 					bw.newLine();
 					// System.out.println(line);
 					if (outputcounter < 10) {
-						if (x == 0 && useheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
+						if (x == 0 && outputheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
 							JFrame1.jList1(line);
 							if (loglevel >= 1) {
 								write_log(line);
@@ -576,7 +576,7 @@ public class Calculation {
 					if (row.length() >= 2) {
 						if (row.indexOf("//") == -1) {
 							if ((row.indexOf("Filename,") != -1)
-									|| (row.indexOf("Use Header Line,") != -1)
+									|| (row.indexOf("Output Header Line,") != -1)
 									|| (row.indexOf("Separator,") != -1)
 									|| (row.indexOf("Spalten,") != -1)// german,useforoldscriptfiles
 									|| (row.indexOf("Columns,") != -1)// english
@@ -628,9 +628,9 @@ public class Calculation {
 									}
 								}
 								// --------------------------------------------
-								if (row.length() >= 16) {
-									if (row.substring(0, 16).equals(
-											"Use Header Line,")) {
+								if (row.length() >= 19) {
+									if (row.substring(0, 19).equals(
+											"Output Header Line,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1238,18 +1238,18 @@ public class Calculation {
 								// System.out.println(outputpath);
 							}
 							// -----------------------------------
-							if (command.equals("Use Header Line")) {
+							if (command.equals("Output Header Line")) {
 								// --------------------------------------------------
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
-										+ "Header Line");
+										+ "Output Header Line");
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
-											+ "Header Line");
+											+ "Output Header Line");
 								} // standard = 1
 									// --------------------------------------------------
 								int a;
 								a = Integer.parseInt(attribute1);
-								useheaderline = a;
+								outputheaderline = a;
 								// System.out.println(a);
 							}
 							// -----------------------------------
