@@ -20,11 +20,11 @@ import java.util.Date;
 
 public class Calculation {
 	// global variable
-	static char d = 59; // ,=44/;=59/:=58
-	static int i = 0; // Csv input length
-	static int j = 0; // Csv input width
-	static int y = 0; // Csv output length
-	static int z = 0; // Csv output width
+	static char separator_character = 59; // ,=44/;=59/:=58
+	static int csv_input_lines = 0; // Csv input length
+	static int csv_input_columns = 0; // Csv input width
+	static int csv_output_lines = 0; // Csv output length
+	static int csv_output_columns = 0; // Csv output width
 	static int mc = 0; // migrate counter
 	static int max_width = 100; // maximum width
 	static int max_high = 10000;// maximum lines
@@ -52,18 +52,19 @@ public class Calculation {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output.csv";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "03.02.2016";// last Modify
+	static final String DATE = "08.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
-	static final int TIME_VALUE_ms = 100;// wait time update progressbar
-	static int outputheaderline = 1;// default=1 hide header line
+	static final int TIME_VALUE_ms = 100;// wait time to update progressbar
+	static int inputheaderline = 1;// default=1 Input-file use a Header-line
+	static int outputheaderline = 1;// default=1 Output-file use a Header-line
 	// ------------------------------------------------
 	// global constants for Messages
 	static final String ERROR01 = "Error:";
 	static final String ERROR02 = "Fail:";
 	static final String MESSAGE01 = "Start Separator Autoscan";
 	static final String MESSAGE02 = "Read Separator Done:";
-	static final String MESSAGE03 = "Header / 1st. Line:";
+	static final String MESSAGE03 = "First CSV-Line:";
 	static final String MESSAGE04 = "Open File:";
 	static final String MESSAGE05 = "CSV Format OK: Count of Header Columns = Data Columns";
 	static final String MESSAGE06 = "Work With:";
@@ -170,6 +171,7 @@ public class Calculation {
 			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
+			("//Input Header Line: 0, Input-File has no Header Line / default=1"),
 			("//Output Header Line: 0, hide Header Line in Output-File / default=1"),
 			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
 			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
@@ -211,7 +213,8 @@ public class Calculation {
 			("//Stats: 0, Percent Output of Column 0, Chart1/2/3: Grafical Output, max. 3 Charts"),
 			("//------------------------------------------------------"),
 			("//SCRIPT-COMMANDS:"),// --------------------------------
-			("Output Header Line,1,"), // -------------------------------
+			("Input Header Line,1,"), // -----------------------------
+			("Output Header Line,1,"), // ----------------------------
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
@@ -325,7 +328,13 @@ public class Calculation {
 				if (loglevel >= 1) {
 					write_log(MESSAGE04 + MESSAGE99 + path1);
 				} // standard = 1
-				i = 0; // length
+
+				if (inputheaderline == 0) {// inputfile has no header-line
+					csv_input_lines = 1; // length
+				} else {
+					csv_input_lines = 1;
+				}
+
 				int x = 0;// counter
 				boolean isValidFirstLine = true;// first line
 				int jheader = 0;
@@ -334,12 +343,13 @@ public class Calculation {
 				int jdata = 0;
 				FileReader fr2 = new FileReader(path1);
 				BufferedReader br2 = new BufferedReader(fr2);
+
 				while ((row = br2.readLine()) != null) {
 					String splitrow[] = row.split(c);
 					if (isValidFirstLine == true) {
 						jheader = splitrow.length; // Header width ermitteln
 													// nur in der 1. Zeile
-						j = jheader;
+						csv_input_columns = jheader;
 						jmin = jheader;
 						jmax = jheader;
 						isValidFirstLine = false;
@@ -347,22 +357,24 @@ public class Calculation {
 					if (isValidFirstLine == false) {
 						jdata = splitrow.length; // Data width ermitteln ab der
 													// 2. Zeile
-						if (jdata < j) {
+						if (jdata < csv_input_columns) {
 							jmin = jdata;
-							j = jdata;
-							z = j;
+							csv_input_columns = jdata;
+							csv_output_columns = csv_input_columns;
 						}
 						if (jdata > jmax) {
 							jmax = jdata;
 						}
 					}
-					for (x = 0; x < j; x++) {
-						multicolumn[x][i] = splitrow[x];
-						// System.out.println(multicolumn[x][i]);
+					for (x = 0; x < csv_input_columns; x++) {
+						multicolumn[x][csv_input_lines] = splitrow[x];
+						// System.out.println("csv_input_line=" +
+						// csv_input_lines + " " +
+						// multicolumn[x][csv_input_lines]);
 					}
 					// JFrame1.jList1(row);
 					// JFrame1.jList1(String.valueOf(j));
-					i++;
+					csv_input_lines++;
 				}
 				fr2.close();
 				//
@@ -409,22 +421,24 @@ public class Calculation {
 								+ jmax + MESSAGE68 + MESSAGE99 + MESSAGE09);
 					} // standard = 1
 				}
-				JFrame1.jList1(MESSAGE06 + MESSAGE99 + (j) + MESSAGE99
-						+ MESSAGE09);// column
+				JFrame1.jList1(MESSAGE06 + MESSAGE99 + (csv_input_columns)
+						+ MESSAGE99 + MESSAGE09);// column
 				if (loglevel >= 1) {
-					write_log(MESSAGE06 + MESSAGE99 + (j) + MESSAGE99
-							+ MESSAGE09);
+					write_log(MESSAGE06 + MESSAGE99 + (csv_input_columns)
+							+ MESSAGE99 + MESSAGE09);
 				} // standard = 1
-				JFrame1.jList1(MESSAGE06 + MESSAGE99 + (i) + MESSAGE99
-						+ MESSAGE10); // Zeile
+				JFrame1.jList1(MESSAGE06 + MESSAGE99 + (csv_input_lines)
+						+ MESSAGE99 + MESSAGE10); // Zeile
 				if (loglevel >= 1) {
-					write_log(MESSAGE06 + MESSAGE99 + (i) + MESSAGE99
-							+ MESSAGE10);
+					write_log(MESSAGE06 + MESSAGE99 + (csv_input_lines)
+							+ MESSAGE99 + MESSAGE10);
 				} // standard = 1
-				JFrame1.jList1(MESSAGE06 + MESSAGE99 + (i * j) + MESSAGE99
+				JFrame1.jList1(MESSAGE06 + MESSAGE99
+						+ (csv_input_lines * csv_input_columns) + MESSAGE99
 						+ MESSAGE11);
 				if (loglevel >= 1) {
-					write_log(MESSAGE06 + MESSAGE99 + (i * j) + MESSAGE99
+					write_log(MESSAGE06 + MESSAGE99
+							+ (csv_input_lines * csv_input_columns) + MESSAGE99
 							+ MESSAGE11);
 				} // standard = 1
 				JFrame1.jList1(MESSAGE07);
@@ -447,7 +461,7 @@ public class Calculation {
 	public static void writefile() {
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
-		y = i;
+		csv_output_lines = csv_input_lines;
 		int outputcounter = 0;
 		// z = 30; // width der csv Datei
 		// ---------------------------------------------
@@ -480,9 +494,9 @@ public class Calculation {
 				} // standard = 1
 				int x = 0;
 				int p = 0;
-				while (x < y) {
+				while (x < csv_output_lines) {
 					String line = "";
-					for (p = 0; p < z; p++) {
+					for (p = 0; p < csv_output_columns; p++) {
 						if (multicolumn[p][x] == null) {
 							multicolumn[p][x] = "";// init_with""
 						}
@@ -490,7 +504,7 @@ public class Calculation {
 							line = (line + multicolumn[p][x]);
 						}
 						if (p > 0) {
-							line = (line + d + multicolumn[p][x]);
+							line = (line + separator_character + multicolumn[p][x]);
 						}
 					}
 					if (x == 0 && outputheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
@@ -576,6 +590,7 @@ public class Calculation {
 					if (row.length() >= 2) {
 						if (row.indexOf("//") == -1) {
 							if ((row.indexOf("Filename,") != -1)
+									|| (row.indexOf("Input Header Line,") != -1)
 									|| (row.indexOf("Output Header Line,") != -1)
 									|| (row.indexOf("Separator,") != -1)
 									|| (row.indexOf("Spalten,") != -1)// german,useforoldscriptfiles
@@ -617,6 +632,20 @@ public class Calculation {
 								// --------------------------------------------
 								if (row.length() >= 9) {
 									if (row.substring(0, 9).equals("Filename,")) {
+										commands[x] = (row);
+										JFrame1.jList1(MESSAGE71 + MESSAGE99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(MESSAGE71 + MESSAGE99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// --------------------------------------------
+								if (row.length() >= 18) {
+									if (row.substring(0, 18).equals(
+											"Input Header Line,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1238,6 +1267,23 @@ public class Calculation {
 								// System.out.println(outputpath);
 							}
 							// -----------------------------------
+							if (command.equals("Input Header Line")) {
+								// --------------------------------------------------
+								JFrame1.jList1(MESSAGE72 + MESSAGE99
+										+ "Input Header Line");
+								if (loglevel >= 1) {
+									write_log(MESSAGE72 + MESSAGE99
+											+ "Input Header Line");
+								} // standard = 1
+									// --------------------------------------------------
+								int a;
+								a = Integer.parseInt(attribute1);
+								if (a == 0 || a == 1) {
+									inputheaderline = a;
+									// System.out.println(a);
+								}
+							}
+							// -----------------------------------
 							if (command.equals("Output Header Line")) {
 								// --------------------------------------------------
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
@@ -1249,8 +1295,10 @@ public class Calculation {
 									// --------------------------------------------------
 								int a;
 								a = Integer.parseInt(attribute1);
-								outputheaderline = a;
-								// System.out.println(a);
+								if (a == 0 || a == 1) {
+									outputheaderline = a;
+									// System.out.println(a);
+								}
 							}
 							// -----------------------------------
 							if (command.equals("Separator")) {
@@ -1262,7 +1310,8 @@ public class Calculation {
 											+ "Separator");
 								} // standard = 1
 									// --------------------------------------------------
-								d = (char) Integer.parseInt(attribute1);
+								separator_character = (char) Integer
+										.parseInt(attribute1);
 								// System.out.println(d);
 							}
 							// -----------------------------------
@@ -1275,7 +1324,8 @@ public class Calculation {
 									write_log(MESSAGE72 + MESSAGE99 + "Columns");
 								} // standard = 1
 									// --------------------------------------------------
-								z = Integer.parseInt(attribute1);
+								csv_output_columns = Integer
+										.parseInt(attribute1);
 								// System.out.println(z);
 							}
 							// -----------------------------------
@@ -1294,7 +1344,7 @@ public class Calculation {
 								int b;
 								a = Integer.parseInt(attribute1);
 								b = Integer.parseInt(attribute2);
-								for (v = 0; v < i; v++) {
+								for (v = 0; v < csv_input_lines; v++) {
 									multicolumn[b][v] = multicolumn[a][v];
 								}
 								// System.out.println(a + " " + b);
@@ -1335,7 +1385,7 @@ public class Calculation {
 								String b;
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									multicolumn[a][v] = b;
 								}
 								// System.out.println(a + " " + b);
@@ -1355,7 +1405,7 @@ public class Calculation {
 								int b;
 								a = Integer.parseInt(attribute1);
 								b = Integer.parseInt(attribute2);
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									multicolumn[a][v] = Integer.toString(b);
 									b++;
 								}
@@ -1412,7 +1462,7 @@ public class Calculation {
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
 								c = attribute3;
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									if (multicolumn[a][v].equals(b)) {
 										multicolumn[a][v] = (c);
 									}
@@ -1438,7 +1488,7 @@ public class Calculation {
 								b = attribute2;
 								c = Integer.parseInt(attribute3);
 								d = attribute4;
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									if (multicolumn[a][v].equals(b)) {
 										multicolumn[c][v] = (d);
 									}
@@ -1467,18 +1517,20 @@ public class Calculation {
 									// System.out.println("Searchstring=" + b);
 									if (multicolumn[a][v].equals(b)) {
 										// clear Line: change Position
-										for (int h = v; h < i; h++) { // i =
-																		// Csvinputlength
-											for (int g = 0; g < j; g++) {
+										for (int h = v; h < csv_input_lines; h++) { // i
+																					// =
+											// Csvinputlength
+											for (int g = 0; g < csv_input_columns; g++) {
 												multicolumn[g][h] = multicolumn[g][h + 1];
 											}
 										}
-										i--;
+										csv_input_lines--;
 									} else {
 										v++;
 									}
 									// }
-								} while (v < i); // result while true > do
+								} while (v < csv_input_lines); // result while
+																// true > do
 								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
@@ -1504,19 +1556,22 @@ public class Calculation {
 									// System.out.println("Searchstring=" + b);
 									if (!multicolumn[a][v].equals(b)) {
 										// clear Line: change Position
-										for (int h = v; h < i; h++) { // i = Csv
-																		// input
-																		// length
-											for (int g = 0; g < j; g++) {
+										for (int h = v; h < csv_input_lines; h++) { // i
+																					// =
+																					// Csv
+											// input
+											// length
+											for (int g = 0; g < csv_input_columns; g++) {
 												multicolumn[g][h] = multicolumn[g][h + 1];
 											}
 										}
-										i--;
+										csv_input_lines--;
 									} else {
 										v++;
 									}
 									// }
-								} while (v < i); // result while ein true > do
+								} while (v < csv_input_lines); // result while
+																// ein true > do
 								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
@@ -1536,8 +1591,10 @@ public class Calculation {
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
 								c = attribute3;
-								for (v = 1; v < i; v++) { // i = Csv input
-															// length
+								for (v = 1; v < csv_input_lines; v++) { // i =
+																		// Csv
+																		// input
+									// length
 									if (multicolumn[a][v].indexOf(b) != -1) {
 										// --------------------------------
 										String splitmulticolumn[] = multicolumn[a][v]
@@ -1591,7 +1648,10 @@ public class Calculation {
 								b = attribute2; // up
 								c = Integer.parseInt(attribute3);// 1
 								d = attribute4; // ap
-								for (v = 1; v < i; v++) {// i = Csv input length
+								for (v = 1; v < csv_input_lines; v++) {// i =
+																		// Csv
+																		// input
+																		// length
 									if (multicolumn[a][v].indexOf(b) != -1) {
 										// --------------------------------
 										String splitmulticolumn[] = multicolumn[a][v]
@@ -1635,19 +1695,22 @@ public class Calculation {
 									if (multicolumn[a][v].contains(b)) {
 										// Lösche Line: change aktuelle
 										// Position durch hoch kopieren
-										for (int h = v; h < i; h++) { // i = Csv
-																		// input
-																		// length
-											for (int g = 0; g < j; g++) {
+										for (int h = v; h < csv_input_lines; h++) { // i
+																					// =
+																					// Csv
+											// input
+											// length
+											for (int g = 0; g < csv_input_columns; g++) {
 												multicolumn[g][h] = multicolumn[g][h + 1];
 											}
 										}
-										i--;
+										csv_input_lines--;
 									} else {
 										v++;
 									}
 									// }
-								} while (v < i); // result while ein true > do
+								} while (v < csv_input_lines); // result while
+																// ein true > do
 								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
@@ -1674,19 +1737,22 @@ public class Calculation {
 									if (!multicolumn[a][v].contains(b)) {
 										// Lösche Line: change aktuelle
 										// Position durch hoch kopieren
-										for (int h = v; h < i; h++) { // i = Csv
-																		// input
-																		// length
-											for (int g = 0; g < j; g++) {
+										for (int h = v; h < csv_input_lines; h++) { // i
+																					// =
+																					// Csv
+											// input
+											// length
+											for (int g = 0; g < csv_input_columns; g++) {
 												multicolumn[g][h] = multicolumn[g][h + 1];
 											}
 										}
-										i--;
+										csv_input_lines--;
 									} else {
 										v++;
 									}
 									// }
-								} while (v < i); // result while ein true > do
+								} while (v < csv_input_lines); // result while
+																// ein true > do
 								// System.out.println(a + " " + b + " " + i);
 							}
 							// -----------------------------------
@@ -1704,7 +1770,7 @@ public class Calculation {
 								String b = "";
 								a = Integer.parseInt(attribute1);
 								b = (attribute2);
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									multicolumn[a][v] = (b + multicolumn[a][v]);
 								}
 								// System.out.println(a + " " + b);
@@ -1724,7 +1790,7 @@ public class Calculation {
 								String b = "";
 								a = Integer.parseInt(attribute1);
 								b = (attribute2);
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									multicolumn[a][v] = (multicolumn[a][v] + b);
 								}
 								// System.out.println(a + " " + b);
@@ -1743,7 +1809,7 @@ public class Calculation {
 								int a;
 								String b = "";
 								a = Integer.parseInt(attribute1);
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									b = multicolumn[a][v].toUpperCase();
 									multicolumn[a][v] = b;
 								}
@@ -1763,7 +1829,7 @@ public class Calculation {
 								int a;
 								String b = "";
 								a = Integer.parseInt(attribute1);
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									b = multicolumn[a][v].toLowerCase();
 									multicolumn[a][v] = b;
 								}
@@ -1789,7 +1855,10 @@ public class Calculation {
 								if (!b.equals("pos") && !b.equals("neg")) {
 									b = "pos";
 								}
-								for (v = 1; v < i; v++) {// i = Csv input length
+								for (v = 1; v < csv_input_lines; v++) {// i =
+																		// Csv
+																		// input
+																		// length
 									if (b.equals("pos")) {
 										if (multicolumn[a][v]
 												.equals(multicolumn[c][v])) {
@@ -1854,7 +1923,10 @@ public class Calculation {
 								if (!b.equals("pos") && !b.equals("neg")) {
 									b = "pos";
 								}
-								for (v = 1; v < i; v++) {// i = Csv input length
+								for (v = 1; v < csv_input_lines; v++) {// i =
+																		// Csv
+																		// input
+																		// length
 									if (b.equals("pos")) {
 										if (multicolumn[a][v]
 												.contains(multicolumn[c][v])) {
@@ -1911,7 +1983,7 @@ public class Calculation {
 								int a;
 								String b = "";
 								a = Integer.parseInt(attribute1);
-								for (v = 1; v < i; v++) {
+								for (v = 1; v < csv_input_lines; v++) {
 									b = multicolumn[a][v].trim();
 									multicolumn[a][v] = b;
 								}
@@ -1938,7 +2010,10 @@ public class Calculation {
 								b = Integer.parseInt(attribute3);// 3 End
 																	// Position
 																	// + 1
-								for (c = 1; c < i; c++) {// i = Csv input length
+								for (c = 1; c < csv_input_lines; c++) {// i =
+																		// Csv
+																		// input
+																		// length
 									d = multicolumn[v][c];
 									if (a <= d.length() && b <= d.length()
 											&& a < b) {// && = AND
@@ -1964,14 +2039,17 @@ public class Calculation {
 								int a;
 								int c;
 								String d = "";
-								mc = i;
+								mc = csv_input_lines;
 								// System.out.println("migrate in length = " +
 								// mc);
 								v = Integer.parseInt(attribute1);// 0 column
 																	// Quelle
 								a = Integer.parseInt(attribute2);// 0 column
 																	// Ziel
-								for (c = 1; c < i; c++) {// i = Csv input length
+								for (c = 1; c < csv_input_lines; c++) {// i =
+																		// Csv
+																		// input
+																		// length
 									d = multicolumn[v][c];
 									migrate[a][c] = d;
 									if (c == 1) {
@@ -2041,8 +2119,11 @@ public class Calculation {
 															// length todo!
 									d = migrate[v][c];
 
-									for (l = 1; l < i; l++) {// i = Csv input
-																// length
+									for (l = 1; l < csv_input_lines; l++) {// i
+																			// =
+																			// Csv
+																			// input
+										// length
 										// System.out.println("migout compare:"
 										// + migrate[v][c] + "," +
 										// multicolumn[a][l]);
@@ -2127,7 +2208,8 @@ public class Calculation {
 								String copy;
 								int w;
 								int f;
-								w = i - 1; // i-1 , vorletzter index
+								w = csv_input_lines - 1; // i-1 , vorletzter
+															// index
 								// System.out.println(MESSAGE24+ MESSAGE99 +
 								// "a=" + a
 								// + " b= " + b + " c=" + c);
@@ -2141,9 +2223,10 @@ public class Calculation {
 								// static int y = 0; // Csv output length
 								// static int z = 0; // Csv output width
 
-								for (f = 1; f < i; f++) { // outside loop
-															// 0-i = Csv input
-															// length
+								for (f = 1; f < csv_input_lines; f++) { // outside
+																		// loop
+									// 0-i = Csv input
+									// length
 									for (v = 1; v < w; v++) { // innere loop
 																// 0-i, eachr
 																// Round 1
@@ -2161,7 +2244,7 @@ public class Calculation {
 
 											if (c.equals("up")) {
 												if (numberscompare1 > numberscompare2) {
-													for (int g = 0; g < j; g++) {
+													for (int g = 0; g < csv_input_columns; g++) {
 														copy = multicolumn[g][v];
 														multicolumn[g][v] = multicolumn[g][index];
 														multicolumn[g][index] = copy;
@@ -2171,7 +2254,7 @@ public class Calculation {
 											}
 											if (c.equals("down")) {
 												if (numberscompare1 < numberscompare2) {
-													for (int g = 0; g < j; g++) {
+													for (int g = 0; g < csv_input_columns; g++) {
 														copy = multicolumn[g][v];
 														multicolumn[g][v] = multicolumn[g][index];
 														multicolumn[g][index] = copy;
@@ -2189,7 +2272,7 @@ public class Calculation {
 											if (c.equals("up")) {
 												if (stringcompare1
 														.compareTo(stringcompare2) > 0) {
-													for (int g = 0; g < j; g++) {
+													for (int g = 0; g < csv_input_columns; g++) {
 														copy = multicolumn[g][v];
 														multicolumn[g][v] = multicolumn[g][index];
 														multicolumn[g][index] = copy;
@@ -2200,7 +2283,7 @@ public class Calculation {
 											if (c.equals("down")) {
 												if (stringcompare1
 														.compareTo(stringcompare2) < 0) {
-													for (int g = 0; g < j; g++) {
+													for (int g = 0; g < csv_input_columns; g++) {
 														copy = multicolumn[g][v];
 														multicolumn[g][v] = multicolumn[g][index];
 														multicolumn[g][index] = copy;
@@ -2245,9 +2328,11 @@ public class Calculation {
 								c = attribute3; // up/down
 								sort_count = 0;
 								if (b.equals("Numbers") || b.equals("numbers"))
-									Quicksort_numbers(1, i - 1, a, c);
+									Quicksort_numbers(1, csv_input_lines - 1,
+											a, c);
 								if (b.equals("Strings") || b.equals("strings"))
-									Quicksort_strings(1, i - 1, a, c);
+									Quicksort_strings(1, csv_input_lines - 1,
+											a, c);
 								JFrame1.jList1(MESSAGE26 + MESSAGE99
 										+ MESSAGE25 + MESSAGE99 + sort_count
 										+ MESSAGE99 + MESSAGE27);
@@ -2300,7 +2385,7 @@ public class Calculation {
 								min = Integer.parseInt(multicolumn[a][1]);
 								max = Integer.parseInt(multicolumn[a][1]);
 
-								for (f = 1; f < i; f++) {
+								for (f = 1; f < csv_input_lines; f++) {
 									if (min > Integer
 											.parseInt(multicolumn[a][f])) {
 										min = Integer
@@ -2328,7 +2413,7 @@ public class Calculation {
 
 								for (f = min; f <= max; f++) {
 									isValidFollower = false;
-									for (g = 1; g < i; g++) {
+									for (g = 1; g < csv_input_lines; g++) {
 										if (f + 1 == Integer
 												.parseInt(multicolumn[a][g])) {
 											isValidFollower = true;
@@ -2368,18 +2453,20 @@ public class Calculation {
 								int dupelistcounter = 1;
 								boolean isValidDupeListFound = false;
 
-								for (v = 1; v < i; v++) { // i = Csv input
-															// length
+								for (v = 1; v < csv_input_lines; v++) { // i =
+																		// Csv
+																		// input
+									// length
 									c = (multicolumn[a][v]);
 
-									for (f = 1; f < i; f++) {
+									for (f = 1; f < csv_input_lines; f++) {
 										g = (multicolumn[a][f]);
 
 										if (c.equals(g) && v != f) {
 											isValidDupe = true;
 											// -----------------------
 											isValidDupeListFound = false;
-											for (dj = 1; dj < i; dj++) {
+											for (dj = 1; dj < csv_input_lines; dj++) {
 												if (c.equals(dupelist[dj])) {
 													isValidDupeListFound = true;
 												}
@@ -2425,26 +2512,30 @@ public class Calculation {
 								statlistcounter = 1;
 								a = Integer.parseInt(attribute1);// column
 								b = (attribute2);// Chart
-								int hundert_prozent = i - 1;
+								int hundert_prozent = csv_input_lines - 1;
 
 								// System.out.println(MESSAGE37+ MESSAGE99
 								// + (multicolumn[a][0]) + " / " + (i - 1)
 								// + MESSAGE99+MESSAGE38+MESSAGE99);
 								// Format statlist
-								for (v = 1; v < i; v++) { // i = Csv input
-															// length
+								for (v = 1; v < csv_input_lines; v++) { // i =
+																		// Csv
+																		// input
+									// length
 									statlist[0][v] = "";
 									statlist[1][v] = "";
 									statlist[2][v] = "";
 								}
 								// ----------------
 
-								for (v = 1; v < i; v++) { // i = Csv input
-															// length
+								for (v = 1; v < csv_input_lines; v++) { // i =
+																		// Csv
+																		// input
+									// length
 									c = (multicolumn[a][v]);
 									// -----------------------
 									isValidStatListFound = false;
-									for (sj = 1; sj < i; sj++) {
+									for (sj = 1; sj < csv_input_lines; sj++) {
 										if (c.equals(statlist[0][sj])) {
 											isValidStatListFound = true;
 											k = Integer
@@ -2746,8 +2837,8 @@ public class Calculation {
 				BufferedWriter bw;
 				bw = new BufferedWriter(new FileWriter(file1, true));// True=Append
 				// -----------------------------------------------
-				for (i = 0; i < TEXTARRAY.length; i++) {
-					bw.write(TEXTARRAY[i]);
+				for (csv_input_lines = 0; csv_input_lines < TEXTARRAY.length; csv_input_lines++) {
+					bw.write(TEXTARRAY[csv_input_lines]);
 					bw.newLine();
 				}
 				// ------------------------------------------------
@@ -2775,10 +2866,10 @@ public class Calculation {
 
 		// System.out.println(textarray.length);
 		// -----------------------------------------------
-		for (i = 0; i < TEXTARRAY.length; i++) {
-			JFrame1.jList1(TEXTARRAY[i]);
+		for (csv_input_lines = 0; csv_input_lines < TEXTARRAY.length; csv_input_lines++) {
+			JFrame1.jList1(TEXTARRAY[csv_input_lines]);
 			if (loglevel >= 1) {
-				write_log(TEXTARRAY[i]);
+				write_log(TEXTARRAY[csv_input_lines]);
 			} // standard = 1
 		}
 		// System.out.println(MESSAGE51);
@@ -2826,7 +2917,7 @@ public class Calculation {
 						// System.out.println("Quicksort Change1: " +
 						// multicolumn[column][ii] + " " +
 						// multicolumn[column][jj]);
-						for (int g = 0; g < j; g++) {
+						for (int g = 0; g < csv_input_columns; g++) {
 							help = multicolumn[g][ii];
 							multicolumn[g][ii] = multicolumn[g][jj];
 							multicolumn[g][jj] = help;
@@ -2839,7 +2930,7 @@ public class Calculation {
 				// change array [ii] und array [end]
 				// System.out.println("Quicksort Change2: " +
 				// multicolumn[column][ii] + " " + multicolumn[column][end]);
-				for (int g = 0; g < j; g++) {
+				for (int g = 0; g < csv_input_columns; g++) {
 					help = multicolumn[g][ii];
 					multicolumn[g][ii] = multicolumn[g][end];
 					multicolumn[g][end] = help;
@@ -2854,7 +2945,7 @@ public class Calculation {
 						// System.out.println("Quicksort Change1: " +
 						// multicolumn[column][ii] + " " +
 						// multicolumn[column][jj]);
-						for (int g = 0; g < j; g++) {
+						for (int g = 0; g < csv_input_columns; g++) {
 							help = multicolumn[g][ii];
 							multicolumn[g][ii] = multicolumn[g][jj];
 							multicolumn[g][jj] = help;
@@ -2867,7 +2958,7 @@ public class Calculation {
 				// change array [ii] und array [end]
 				// System.out.println("Quicksort Change2: " +
 				// multicolumn[column][ii] + " " + multicolumn[column][end]);
-				for (int g = 0; g < j; g++) {
+				for (int g = 0; g < csv_input_columns; g++) {
 					help = multicolumn[g][ii];
 					multicolumn[g][ii] = multicolumn[g][end];
 					multicolumn[g][end] = help;
@@ -2927,7 +3018,7 @@ public class Calculation {
 						// System.out.println("Quicksort Change1: " +
 						// multicolumn[column][ii] + " " +
 						// multicolumn[column][jj]);
-						for (int g = 0; g < j; g++) {
+						for (int g = 0; g < csv_input_columns; g++) {
 							help = multicolumn[g][ii];
 							multicolumn[g][ii] = multicolumn[g][jj];
 							multicolumn[g][jj] = help;
@@ -2940,7 +3031,7 @@ public class Calculation {
 				// change array [ii] und array [end]
 				// System.out.println("Quicksort Change2: " +
 				// multicolumn[column][ii] + " " + multicolumn[column][end]);
-				for (int g = 0; g < j; g++) {
+				for (int g = 0; g < csv_input_columns; g++) {
 					help = multicolumn[g][ii];
 					multicolumn[g][ii] = multicolumn[g][end];
 					multicolumn[g][end] = help;
@@ -2955,7 +3046,7 @@ public class Calculation {
 						// System.out.println("Quicksort Change1: " +
 						// multicolumn[column][ii] + " " +
 						// multicolumn[column][jj]);
-						for (int g = 0; g < j; g++) {
+						for (int g = 0; g < csv_input_columns; g++) {
 							help = multicolumn[g][ii];
 							multicolumn[g][ii] = multicolumn[g][jj];
 							multicolumn[g][jj] = help;
@@ -2968,7 +3059,7 @@ public class Calculation {
 				// change array [ii] und array [end]
 				// System.out.println("Quicksort Change2: " +
 				// multicolumn[column][ii] + " " + multicolumn[column][end]);
-				for (int g = 0; g < j; g++) {
+				for (int g = 0; g < csv_input_columns; g++) {
 					help = multicolumn[g][ii];
 					multicolumn[g][ii] = multicolumn[g][end];
 					multicolumn[g][end] = help;
