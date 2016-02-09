@@ -408,12 +408,13 @@ public class JFrame1 extends javax.swing.JFrame {
 		Calculation.writetext();
 	}
 
-	Runnable runnable = new Runnable() {// will not realy god updated
+	Runnable runnable = new Runnable() {// will not realy god work
 		public void run() {
 			boolean loop = true;
 			while (loop == true) {//endless loop
 				//jProgressBar1.setIndeterminate(true);
 				jProgressBar1.setValue(progressbarvalue1);
+				//jProgressBar1.paint(jProgressBar1.getGraphics());// force to update
 				//System.out.println("progressbarvalue=" + progressbarvalue1);
 			}
 		}
