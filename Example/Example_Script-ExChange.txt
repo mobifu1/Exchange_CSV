@@ -23,8 +23,7 @@
 //Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100
 //------------------------------------------------------
 //TRANSFORM-COMMANDS:
-//Input Header Line: 0, Input-File has no Header Line / default=1
-//Output Header Line: 0, hide Header Line in Output-File / default=1
+//Output Header Line: 0 = Hide Header Line in Output-File / default=1
 //Set Maximum CSV Lines: Integer, maximum of the OS
 //Set Maximum CSV Columns: Integer, maximum of the OS
 //Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back
@@ -65,7 +64,6 @@
 //Stats: 0, Percent Output of Column 0, Chart1/2/3: Grafical Output, max. 3 Charts
 //------------------------------------------------------
 //SCRIPT-COMMANDS:
-Input Header Line,1,
 Output Header Line,1,
 Log File,1,
 Filename,Output Filename,Date,Front,

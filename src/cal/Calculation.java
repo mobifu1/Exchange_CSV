@@ -56,7 +56,6 @@ public class Calculation {
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 100;// wait time to update progressbar
-	static int inputheaderline = 1;// default=1 Input-file use a Header-line
 	static int outputheaderline = 1;// default=1 Output-file use a Header-line
 	// ------------------------------------------------
 	// global constants for Messages
@@ -92,8 +91,8 @@ public class Calculation {
 	static final String MESSAGE28 = "Press Button:";
 	static final String MESSAGE29 = "Writefile";
 	static final String MESSAGE30 = "Numerical Gaps:";
-	static final String MESSAGE31 = "Max=";
-	static final String MESSAGE32 = "Min=";
+	static final String MESSAGE31 = "Max =";
+	static final String MESSAGE32 = "Min =";
 	static final String MESSAGE33 = "Gaps:";
 	// static final String MESSAGE34 = "";
 	static final String MESSAGE35 = "Found Dupes:";
@@ -171,8 +170,7 @@ public class Calculation {
 			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
-			("//Input Header Line: 0, Input-File has no Header Line / default=1"),
-			("//Output Header Line: 0, hide Header Line in Output-File / default=1"),
+			("//Output Header Line: 0, Hide Header Line in Output-File / default=1"),
 			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
 			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
 			("//Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
@@ -213,7 +211,6 @@ public class Calculation {
 			("//Stats: 0, Percent Output of Column 0, Chart1/2/3: Grafical Output, max. 3 Charts"),
 			("//------------------------------------------------------"),
 			("//SCRIPT-COMMANDS:"),// --------------------------------
-			("Input Header Line,1,"), // -----------------------------
 			("Output Header Line,1,"), // ----------------------------
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
@@ -328,13 +325,7 @@ public class Calculation {
 				if (loglevel >= 1) {
 					write_log(MESSAGE04 + MESSAGE99 + path1);
 				} // standard = 1
-
-				if (inputheaderline == 0) {// inputfile has no header-line
-					csv_input_lines = 1; // length
-				} else {
-					csv_input_lines = 1;
-				}
-
+				csv_input_lines = 0;// line-position=0(first-line)
 				int x = 0;// counter
 				boolean isValidFirstLine = true;// first line
 				int jheader = 0;
@@ -590,7 +581,6 @@ public class Calculation {
 					if (row.length() >= 2) {
 						if (row.indexOf("//") == -1) {
 							if ((row.indexOf("Filename,") != -1)
-									|| (row.indexOf("Input Header Line,") != -1)
 									|| (row.indexOf("Output Header Line,") != -1)
 									|| (row.indexOf("Separator,") != -1)
 									|| (row.indexOf("Spalten,") != -1)// german,useforoldscriptfiles
@@ -632,20 +622,6 @@ public class Calculation {
 								// --------------------------------------------
 								if (row.length() >= 9) {
 									if (row.substring(0, 9).equals("Filename,")) {
-										commands[x] = (row);
-										JFrame1.jList1(MESSAGE71 + MESSAGE99
-												+ commands[x]);
-										if (loglevel >= 1) {
-											write_log(MESSAGE71 + MESSAGE99
-													+ commands[x]);
-										} // standard = 1
-										x++;
-									}
-								}
-								// --------------------------------------------
-								if (row.length() >= 18) {
-									if (row.substring(0, 18).equals(
-											"Input Header Line,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1267,23 +1243,6 @@ public class Calculation {
 								// System.out.println(outputpath);
 							}
 							// -----------------------------------
-							if (command.equals("Input Header Line")) {
-								// --------------------------------------------------
-								JFrame1.jList1(MESSAGE72 + MESSAGE99
-										+ "Input Header Line");
-								if (loglevel >= 1) {
-									write_log(MESSAGE72 + MESSAGE99
-											+ "Input Header Line");
-								} // standard = 1
-									// --------------------------------------------------
-								int a;
-								a = Integer.parseInt(attribute1);
-								if (a == 0 || a == 1) {
-									inputheaderline = a;
-									// System.out.println(a);
-								}
-							}
-							// -----------------------------------
 							if (command.equals("Output Header Line")) {
 								// --------------------------------------------------
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
@@ -1297,7 +1256,7 @@ public class Calculation {
 								a = Integer.parseInt(attribute1);
 								if (a == 0 || a == 1) {
 									outputheaderline = a;
-									// System.out.println(a);
+									//System.out.println("outputheaderline=" + a);
 								}
 							}
 							// -----------------------------------
@@ -2401,14 +2360,13 @@ public class Calculation {
 								// "Min="
 								// + min + " Max=" + max);
 								JFrame1.jList1(MESSAGE30 + MESSAGE99
-										+ MESSAGE99 + MESSAGE32 + MESSAGE99
-										+ min + MESSAGE99 + MESSAGE31
-										+ MESSAGE99 + max);
+										+ MESSAGE32 + MESSAGE99 + min
+										+ MESSAGE99 + MESSAGE31 + MESSAGE99
+										+ max);
 								if (loglevel >= 1) {
-									write_log(MESSAGE30 + MESSAGE99 + MESSAGE99
-											+ MESSAGE32 + MESSAGE99 + min
-											+ MESSAGE99 + MESSAGE31 + MESSAGE99
-											+ max);
+									write_log(MESSAGE30 + MESSAGE99 + MESSAGE32
+											+ MESSAGE99 + min + MESSAGE99
+											+ MESSAGE31 + MESSAGE99 + max);
 								} // standard = 1
 
 								for (f = min; f <= max; f++) {
