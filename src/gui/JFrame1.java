@@ -39,6 +39,7 @@ import cal.Calculation;
 public class JFrame1 extends javax.swing.JFrame {
 	private static int Y_HIGH = 340;
 	private static int X_WIDE = 650;
+	public static int progressbarvalue1 = 0;
 	private JButton jButton1;
 	public static JProgressBar jProgressBar1;
 	public static JTextPane jTextPane1;
@@ -362,6 +363,8 @@ public class JFrame1 extends javax.swing.JFrame {
 		Calculation.writefile();
 	}
 
+	@SuppressWarnings("deprecation")
+	// thread.stop(); but this is running
 	private void jButton3ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton3.actionPerformed, event=" + evt);
 		JFileChooser fc1 = new JFileChooser();
@@ -371,7 +374,13 @@ public class JFrame1 extends javax.swing.JFrame {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			String path2 = (selFile.getPath());
+			// Start new thread
+			Thread thread = new Thread(runnable);
+			thread.start();
+			// ----------------
 			Calculation.script(path2);
+			// Stop new thread
+			thread.stop();
 		}
 	}
 
@@ -398,4 +407,15 @@ public class JFrame1 extends javax.swing.JFrame {
 		// System.out.println("jButton6.actionPerformed, event=" + evt);
 		Calculation.writetext();
 	}
+
+	Runnable runnable = new Runnable() {// will not realy god updated
+		public void run() {
+			boolean loop = true;
+			while (loop == true) {//endless loop
+				//jProgressBar1.setIndeterminate(true);
+				jProgressBar1.setValue(progressbarvalue1);
+				//System.out.println("progressbarvalue=" + progressbarvalue1);
+			}
+		}
+	};
 }

@@ -55,7 +55,7 @@ public class Calculation {
 	static final String DATE = "08.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
-	static final int TIME_VALUE_ms = 100;// wait time to update progressbar
+	static final int TIME_VALUE_ms = 0;// delay time in working process ,100ms
 	static int outputheaderline = 1;// default=1 Output-file use a Header-line
 	// ------------------------------------------------
 	// global constants for Messages
@@ -1151,10 +1151,8 @@ public class Calculation {
 				}
 
 				for (x = 0; x < found_commands; x++) {
-					// Progressbar
-					JFrame1.jProgressBar1.setValue(x);
-					JFrame1.jProgressBar1.paint(JFrame1.jProgressBar1
-							.getGraphics());// force to update
+					// Progressbar-Update
+					JFrame1.progressbarvalue1 = x;
 					Thread.sleep(TIME_VALUE_ms);
 					// --------------
 					if (commands[x] != null) {
