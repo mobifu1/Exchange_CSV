@@ -50,8 +50,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	private JScrollPane jScrollPane1;
 	private JLabel jLabel1;
 	private JSeparator jSeparator1;
-	@SuppressWarnings("rawtypes")
-	private JList jList1;
+	private JList<String> jList1;
 	private JButton jButton2;
 	static DefaultListModel<String> listModel = new DefaultListModel<String>();
 	public static String TITEL = "Exchange CSV V2.5"; // V2.x
@@ -109,7 +108,6 @@ public class JFrame1 extends javax.swing.JFrame {
 		initGUI();
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void initGUI() {
 		try {
 			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -290,7 +288,7 @@ public class JFrame1 extends javax.swing.JFrame {
 				jScrollPane1.getHorizontalScrollBar().setEnabled(true);
 				{
 
-					jList1 = new JList();
+					jList1 = new JList<String>();
 					jScrollPane1.setViewportView(jList1);
 					jList1.setModel(listModel);
 					jList1.setBounds(109, 109, 395, 152);
