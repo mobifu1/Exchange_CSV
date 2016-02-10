@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
+//import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 
@@ -39,7 +40,6 @@ import cal.Calculation;
 public class JFrame1 extends javax.swing.JFrame {
 	private static int Y_HIGH = 340;
 	private static int X_WIDE = 650;
-	public static int progressbarvalue1 = 0;
 	private JButton jButton1;
 	public static JProgressBar jProgressBar1;
 	public static JTextPane jTextPane1;
@@ -53,13 +53,12 @@ public class JFrame1 extends javax.swing.JFrame {
 	@SuppressWarnings("rawtypes")
 	private JList jList1;
 	private JButton jButton2;
-	@SuppressWarnings("rawtypes")
-	static DefaultListModel listModel = new DefaultListModel();
+	static DefaultListModel<String> listModel = new DefaultListModel<String>();
 	public static String TITEL = "Exchange CSV V2.5"; // V2.x
 
 	// titel+substring = Version
 	// public static String subversion = ".1-Alpha"; // Subversion
-	public static String SUBVERSION = ".2-Beta"; // Subversion
+	public static String SUBVERSION = ".3-Beta"; // Subversion
 	// public static String subversion = ".8-RC"; // Subversion
 	// public static String subversion = "-R-Stable"; // Subversion
 	// public static String subversion = "-R-Final"; // Subversion
@@ -353,18 +352,15 @@ public class JFrame1 extends javax.swing.JFrame {
 		if (status == JFileChooser.APPROVE_OPTION) {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
-			String path1 = (selFile.getPath());
-			Calculation.readfile(path1);
+			Calculation.main("readfile", selFile.getPath());
 		}
 	}
 
 	private void jButton2ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton2.actionPerformed, event=" + evt);
-		Calculation.writefile();
+		Calculation.main("writefile", "");
 	}
 
-	@SuppressWarnings("deprecation")
-	// thread.stop(); but this is running
 	private void jButton3ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton3.actionPerformed, event=" + evt);
 		JFileChooser fc1 = new JFileChooser();
@@ -373,23 +369,15 @@ public class JFrame1 extends javax.swing.JFrame {
 		if (status == JFileChooser.APPROVE_OPTION) {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
-			String path2 = (selFile.getPath());
-			// Start new thread
-			Thread thread = new Thread(runnable);
-			thread.start();
-			// ----------------
-			Calculation.script(path2);
-			// Stop new thread
-			thread.stop();
+			Calculation.main("script", selFile.getPath());
 		}
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton4.actionPerformed, event=" + evt);
-		Calculation.create_handlerfile();
+		Calculation.main("create_handlerfile", "");
 	}
 
-	@SuppressWarnings("unchecked")
 	public static void jList1(String row) {
 		JFrame1.listModel.addElement(row);
 
@@ -398,25 +386,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	private void jButton5ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton5.actionPerformed, event=" + evt);
 		listModel.clear();
-		Calculation.clearall();
+		Calculation.main("clearall", "");
 		jProgressBar1.setValue(0);
 		jTextPane1.setText(MASSAGE02);
 	}
 
 	private void jButton6ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton6.actionPerformed, event=" + evt);
-		Calculation.writetext();
+		Calculation.main("writetext", "");
 	}
-
-	Runnable runnable = new Runnable() {// will not realy god work
-		public void run() {
-			boolean loop = true;
-			while (loop == true) {//endless loop
-				//jProgressBar1.setIndeterminate(true);
-				jProgressBar1.setValue(progressbarvalue1);
-				//jProgressBar1.paint(jProgressBar1.getGraphics());// force to update
-				//System.out.println("progressbarvalue=" + progressbarvalue1);
-			}
-		}
-	};
 }

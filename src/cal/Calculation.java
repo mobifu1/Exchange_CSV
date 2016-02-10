@@ -18,7 +18,40 @@ import java.util.Date;
 //import org.w3c.dom.Element;
 //import org.w3c.dom.NodeList;
 
-public class Calculation {
+public class Calculation implements Runnable {
+
+	private static String subcall;
+	private static String parameter;
+
+	public void run() {
+		// System.out.println("Hello from a thread Calculation");
+		// System.out.println(subcall + "/" + parameter);
+		if (subcall.equals("readfile")) {
+			readfile(parameter);
+		}
+		if (subcall.equals("script")) {
+			script(parameter);
+		}
+		if (subcall.equals("writefile")) {
+			writefile();
+		}
+		if (subcall.equals("writetext")) {
+			writetext();
+		}
+		if (subcall.equals("create_handlerfile")) {
+			create_handlerfile();
+		}
+		if (subcall.equals("clearall")) {
+			clearall();
+		}
+	}
+
+	public static void main(String input1, String input2) {
+		subcall = input1;
+		parameter = input2;
+		(new Thread(new Calculation())).start();
+	}
+
 	// global variable
 	static char separator_character = 59; // ,=44/;=59/:=58
 	static int csv_input_lines = 0; // Csv input length
@@ -52,10 +85,10 @@ public class Calculation {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output.csv";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "08.02.2016";// last Modify
+	static final String DATE = "10.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
-	static final int TIME_VALUE_ms = 0;// delay time in working process ,100ms
+	static final int TIME_VALUE_ms = 50;// delay time in working process ,100ms
 	static int outputheaderline = 1;// default=1 Output-file use a Header-line
 	// ------------------------------------------------
 	// global constants for Messages
@@ -325,7 +358,6 @@ public class Calculation {
 				if (loglevel >= 1) {
 					write_log(MESSAGE04 + MESSAGE99 + path1);
 				} // standard = 1
-				csv_input_lines = 0;// line-position=0(first-line)
 				int x = 0;// counter
 				boolean isValidFirstLine = true;// first line
 				int jheader = 0;
@@ -334,7 +366,7 @@ public class Calculation {
 				int jdata = 0;
 				FileReader fr2 = new FileReader(path1);
 				BufferedReader br2 = new BufferedReader(fr2);
-
+				csv_input_lines = 0;// line-position=0(first-line)
 				while ((row = br2.readLine()) != null) {
 					String splitrow[] = row.split(c);
 					if (isValidFirstLine == true) {
@@ -1152,7 +1184,7 @@ public class Calculation {
 
 				for (x = 0; x < found_commands; x++) {
 					// Progressbar-Update
-					JFrame1.progressbarvalue1 = x;
+					JFrame1.jProgressBar1.setValue(x);
 					Thread.sleep(TIME_VALUE_ms);
 					// --------------
 					if (commands[x] != null) {
@@ -1254,7 +1286,8 @@ public class Calculation {
 								a = Integer.parseInt(attribute1);
 								if (a == 0 || a == 1) {
 									outputheaderline = a;
-									//System.out.println("outputheaderline=" + a);
+									// System.out.println("outputheaderline=" +
+									// a);
 								}
 							}
 							// -----------------------------------
@@ -2820,16 +2853,15 @@ public class Calculation {
 	// *****************************************************************************************
 	public static void writetext() {
 
-		// System.out.println(textarray.length);
+		// System.out.println(TEXTARRAY.length);
 		// -----------------------------------------------
-		for (csv_input_lines = 0; csv_input_lines < TEXTARRAY.length; csv_input_lines++) {
-			JFrame1.jList1(TEXTARRAY[csv_input_lines]);
+		for (int count = 0; count < TEXTARRAY.length; count++) {
+			JFrame1.jList1(TEXTARRAY[count]);
+			// System.out.println(TEXTARRAY[count]);
 			if (loglevel >= 1) {
-				write_log(TEXTARRAY[csv_input_lines]);
+				write_log(TEXTARRAY[count]);
 			} // standard = 1
 		}
-		// System.out.println(MESSAGE51);
-		// System.out.println(MESSAGE50+ MESSAGE99 + textarray.length);
 	}
 
 	// -----------------------------------------------------------------------
