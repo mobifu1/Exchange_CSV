@@ -2756,6 +2756,7 @@ public class Calculation implements Runnable {
 				bw2.write(now2);
 				bw2.newLine();
 				bw2.write(MESSAGE48 + MESSAGE99 + filename2);
+				bw2.newLine();
 				bw2.flush();
 				bw2.close();
 				// -----------------------------------------------------------------------------
