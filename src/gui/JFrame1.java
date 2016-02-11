@@ -35,6 +35,7 @@ import cal.Calculation;
 public class JFrame1 extends javax.swing.JFrame {
 	private static int Y_HIGH = 340;
 	private static int X_WIDE = 650;
+	private static int TIME_VALUE_ms = 100;
 	private JButton jButton1;
 	public static JTextPane jTextPane1;
 	public static JProgressBar jProgressBar1;
@@ -52,7 +53,7 @@ public class JFrame1 extends javax.swing.JFrame {
 
 	// titel+substring = Version
 	// public static String subversion = ".1-Alpha"; // Subversion
-	public static String SUBVERSION = ".3-Beta"; // Subversion
+	public static String SUBVERSION = ".4-Beta"; // Subversion
 	// public static String subversion = ".8-RC"; // Subversion
 	// public static String subversion = "-R-Stable"; // Subversion
 	// public static String subversion = "-R-Final"; // Subversion
@@ -344,7 +345,6 @@ public class JFrame1 extends javax.swing.JFrame {
 			e.printStackTrace();
 			// System.out.println(e);
 			JFrame1.jList1.updateUI();
-			jList1.repaint();
 		}
 	}
 
@@ -358,16 +358,14 @@ public class JFrame1 extends javax.swing.JFrame {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			Calculation.main("readfile", selFile.getPath());
-			JFrame1.jList1.updateUI();
-			jList1.repaint();
+			refresh_jlist();
 		}
 	}
 
 	private void jButton2ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton2.actionPerformed, event=" + evt);
 		Calculation.main("writefile", "");
-		JFrame1.jList1.updateUI();
-		jList1.repaint();
+		refresh_jlist();
 	}
 
 	private void jButton3ActionPerformed(ActionEvent evt) {
@@ -379,16 +377,14 @@ public class JFrame1 extends javax.swing.JFrame {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			Calculation.main("script", selFile.getPath());
-			JFrame1.jList1.updateUI();
-			jList1.repaint();
+			refresh_jlist();
 		}
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton4.actionPerformed, event=" + evt);
 		Calculation.main("create_handlerfile", "");
-		JFrame1.jList1.updateUI();
-		jList1.repaint();
+		refresh_jlist();
 	}
 
 	public static void jList1(String row) {
@@ -398,7 +394,6 @@ public class JFrame1 extends javax.swing.JFrame {
 			// add your error handling code here
 			// System.out.println("jList1:"+e);
 			JFrame1.jList1.updateUI();
-			jList1.repaint();
 		}
 	}
 
@@ -406,8 +401,7 @@ public class JFrame1 extends javax.swing.JFrame {
 		// System.out.println("jButton5.actionPerformed, event=" + evt);
 		listModel.clear();
 		Calculation.main("clearall", "");
-		JFrame1.jList1.updateUI();
-		jList1.repaint();
+		refresh_jlist();
 		jProgressBar1.setValue(0);
 		jTextPane1.setText(MASSAGE02);
 	}
@@ -415,7 +409,20 @@ public class JFrame1 extends javax.swing.JFrame {
 	private void jButton6ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton6.actionPerformed, event=" + evt);
 		Calculation.main("writetext", "");
-		JFrame1.jList1.updateUI();
-		jList1.repaint();
+		refresh_jlist();
+	}
+
+	private void refresh_jlist() {
+		try {
+			// Swing components are NOT thread-safe and may
+			// sometimes-throw exceptions.
+			// http://stackoverflow.com/questions/3440360/jlist-throws-arrayindexoutofboundsexceptions-randomly
+			// this is a workaround for the problem
+			Thread.sleep(TIME_VALUE_ms);
+			JFrame1.jList1.updateUI();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
