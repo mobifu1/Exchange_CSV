@@ -86,7 +86,7 @@ public class Calculation implements Runnable {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output.csv";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "10.02.2016";// last Modify
+	static final String DATE = "11.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 50;// delay time in working process ,100ms

@@ -344,6 +344,7 @@ public class JFrame1 extends javax.swing.JFrame {
 			e.printStackTrace();
 			// System.out.println(e);
 			JFrame1.jList1.updateUI();
+			jList1.repaint();
 		}
 	}
 
@@ -357,12 +358,16 @@ public class JFrame1 extends javax.swing.JFrame {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			Calculation.main("readfile", selFile.getPath());
+			JFrame1.jList1.updateUI();
+			jList1.repaint();
 		}
 	}
 
 	private void jButton2ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton2.actionPerformed, event=" + evt);
 		Calculation.main("writefile", "");
+		JFrame1.jList1.updateUI();
+		jList1.repaint();
 	}
 
 	private void jButton3ActionPerformed(ActionEvent evt) {
@@ -374,12 +379,16 @@ public class JFrame1 extends javax.swing.JFrame {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
 			Calculation.main("script", selFile.getPath());
+			JFrame1.jList1.updateUI();
+			jList1.repaint();
 		}
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton4.actionPerformed, event=" + evt);
 		Calculation.main("create_handlerfile", "");
+		JFrame1.jList1.updateUI();
+		jList1.repaint();
 	}
 
 	public static void jList1(String row) {
@@ -389,6 +398,7 @@ public class JFrame1 extends javax.swing.JFrame {
 			// add your error handling code here
 			// System.out.println("jList1:"+e);
 			JFrame1.jList1.updateUI();
+			jList1.repaint();
 		}
 	}
 
@@ -396,6 +406,8 @@ public class JFrame1 extends javax.swing.JFrame {
 		// System.out.println("jButton5.actionPerformed, event=" + evt);
 		listModel.clear();
 		Calculation.main("clearall", "");
+		JFrame1.jList1.updateUI();
+		jList1.repaint();
 		jProgressBar1.setValue(0);
 		jTextPane1.setText(MASSAGE02);
 	}
@@ -403,5 +415,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	private void jButton6ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton6.actionPerformed, event=" + evt);
 		Calculation.main("writetext", "");
+		JFrame1.jList1.updateUI();
+		jList1.repaint();
 	}
 }
