@@ -25,6 +25,7 @@ public class Chart3 extends javax.swing.JFrame {
 
 	public static void main() {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				String now = new SimpleDateFormat("dd.MM.yyy hh:mm:ss")
 						.format(new Date());
@@ -53,6 +54,7 @@ public class Chart3 extends javax.swing.JFrame {
 			// ymaxWert =100;
 		}
 
+		@Override
 		public void paintComponent(Graphics g) {
 			Graphics2D g2 = (Graphics2D) g;
 			super.paintComponent(g2);
@@ -120,7 +122,7 @@ public class Chart3 extends javax.swing.JFrame {
 			g2.setFont(g2.getFont().deriveFont(3f));
 			for (int i = 0; i < ymaxvalue; i = i + 10) {
 				g2.drawString(i + "%", -10,
-						-Math.round(((double) i) / ymaxvalue * 85));
+						-Math.round((i) / ymaxvalue * 85));
 			}
 		}
 	}

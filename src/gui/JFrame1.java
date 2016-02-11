@@ -1,15 +1,11 @@
 package gui;
 
-//import java.awt.Toolkit;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-//import java.net.URL;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-//import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -20,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
-//import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
 
@@ -41,8 +36,9 @@ public class JFrame1 extends javax.swing.JFrame {
 	private static int Y_HIGH = 340;
 	private static int X_WIDE = 650;
 	private JButton jButton1;
-	public static JProgressBar jProgressBar1;
 	public static JTextPane jTextPane1;
+	public static JProgressBar jProgressBar1;
+	public static JList<String> jList1;
 	private JButton jButton6;
 	private JButton jButton5;
 	private JButton jButton4;
@@ -50,7 +46,6 @@ public class JFrame1 extends javax.swing.JFrame {
 	private JScrollPane jScrollPane1;
 	private JLabel jLabel1;
 	private JSeparator jSeparator1;
-	private JList<String> jList1;
 	private JButton jButton2;
 	static DefaultListModel<String> listModel = new DefaultListModel<String>();
 	public static String TITEL = "Exchange CSV V2.5"; // V2.x
@@ -91,6 +86,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				JFrame1 inst = new JFrame1();
 				inst.setLocationRelativeTo(null);
@@ -207,6 +203,7 @@ public class JFrame1 extends javax.swing.JFrame {
 						.createBevelBorder(BevelBorder.RAISED));
 				jButton1.setToolTipText(MASSAGE04);
 				jButton1.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						jButton1ActionPerformed(evt);
 					}
@@ -221,6 +218,7 @@ public class JFrame1 extends javax.swing.JFrame {
 						.createBevelBorder(BevelBorder.RAISED));
 				jButton2.setToolTipText(MASSAGE06);
 				jButton2.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						jButton2ActionPerformed(evt);
 					}
@@ -235,6 +233,7 @@ public class JFrame1 extends javax.swing.JFrame {
 						.createBevelBorder(BevelBorder.RAISED));
 				jButton3.setToolTipText(MASSAGE08);
 				jButton3.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						jButton3ActionPerformed(evt);
 					}
@@ -249,6 +248,7 @@ public class JFrame1 extends javax.swing.JFrame {
 						.createBevelBorder(BevelBorder.RAISED));
 				jButton4.setToolTipText(MASSAGE10);
 				jButton4.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						jButton4ActionPerformed(evt);
 					}
@@ -262,6 +262,7 @@ public class JFrame1 extends javax.swing.JFrame {
 						.createBevelBorder(BevelBorder.RAISED));
 				jButton5.setToolTipText(MASSAGE11);
 				jButton5.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						jButton5ActionPerformed(evt);
 					}
@@ -276,6 +277,7 @@ public class JFrame1 extends javax.swing.JFrame {
 				jButton6.setText(MASSAGE12);
 				jButton6.setToolTipText(MASSAGE13);
 				jButton6.addActionListener(new ActionListener() {
+					@Override
 					public void actionPerformed(ActionEvent evt) {
 						jButton6ActionPerformed(evt);
 					}
@@ -287,7 +289,9 @@ public class JFrame1 extends javax.swing.JFrame {
 				jScrollPane1.setBounds(29, 13, 466, 250);
 				jScrollPane1.getHorizontalScrollBar().setEnabled(true);
 				{
-
+					// Swing components are NOT thread-safe and may
+					// sometimes-throw exceptions.
+					// http://stackoverflow.com/questions/3440360/jlist-throws-arrayindexoutofboundsexceptions-randomly
 					jList1 = new JList<String>();
 					jScrollPane1.setViewportView(jList1);
 					jList1.setModel(listModel);
@@ -338,6 +342,8 @@ public class JFrame1 extends javax.swing.JFrame {
 		} catch (Exception e) {
 			// add your error handling code here
 			e.printStackTrace();
+			// System.out.println(e);
+			JFrame1.jList1.updateUI();
 		}
 	}
 
@@ -377,8 +383,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	}
 
 	public static void jList1(String row) {
-		JFrame1.listModel.addElement(row);
-
+		try {
+			JFrame1.listModel.addElement(row);
+		} catch (Exception e) {
+			// add your error handling code here
+			// System.out.println("jList1:"+e);
+			JFrame1.jList1.updateUI();
+		}
 	}
 
 	private void jButton5ActionPerformed(ActionEvent evt) {

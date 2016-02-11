@@ -23,6 +23,7 @@ public class Calculation implements Runnable {
 	private static String subcall;
 	private static String parameter;
 
+	@Override
 	public void run() {
 		// System.out.println("Hello from a thread Calculation");
 		// System.out.println(subcall + "/" + parameter);
@@ -47,9 +48,9 @@ public class Calculation implements Runnable {
 	}
 
 	public static void main(String input1, String input2) {
+		(new Thread(new Calculation())).start();
 		subcall = input1;
 		parameter = input2;
-		(new Thread(new Calculation())).start();
 	}
 
 	// global variable
@@ -127,7 +128,7 @@ public class Calculation implements Runnable {
 	static final String MESSAGE31 = "Max =";
 	static final String MESSAGE32 = "Min =";
 	static final String MESSAGE33 = "Gaps:";
-	// static final String MESSAGE34 = "";
+	static final String MESSAGE34 = "Start Read File";
 	static final String MESSAGE35 = "Found Dupes:";
 	static final String MESSAGE36 = "No Dupes";
 	static final String MESSAGE37 = "Change Value:";
@@ -311,7 +312,10 @@ public class Calculation implements Runnable {
 		String line = "";
 		try {
 			if (path1 != null) {
-
+				JFrame1.jList1(MESSAGE34);
+				if (loglevel >= 1) {
+					write_log(MESSAGE34);
+				} // standard = 1
 				JFrame1.jList1(MESSAGE01);
 				if (loglevel >= 1) {
 					write_log(MESSAGE01);
@@ -2602,7 +2606,7 @@ public class Calculation implements Runnable {
 								for (sj = 1; sj < statlistcounter; sj++) {
 									k = Integer.parseInt(statlist[1][sj]);
 									p = (float) k / (float) hundert_prozent
-											* (float) 100; // %
+											* 100; // %
 									statlist[2][sj] = Float.toString(p);
 									if (b.equals("Chart1")) {
 										chartlist1[0][sj] = statlist[0][sj];
