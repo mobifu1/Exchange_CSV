@@ -421,7 +421,6 @@ public class JFrame1 extends javax.swing.JFrame {
 			Thread.sleep(TIME_VALUE_ms);
 			JFrame1.jList1.updateUI();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
