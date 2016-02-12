@@ -3,7 +3,13 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -72,7 +78,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	static String MASSAGE12 = "Help";
 	static String MASSAGE13 = "Help In Listbox";
 	static String MASSAGE14 = "Progress";
-	static String MASSAGE15 = "Logo";
+	static String MASSAGE15 = "Wiki CSV";
 	static String MASSAGE16 = "File Choose OK";
 
 	// static String MASSAGE17 = ;
@@ -330,16 +336,30 @@ public class JFrame1 extends javax.swing.JFrame {
 				jLabel1 = new JLabel();
 				getContentPane().add(jLabel1);
 				jLabel1.setBounds(550, 9, 32, 32);
+				pack();
+				this.setSize(X_WIDE, Y_HIGH);
+				// Set Icon-----
+				jLabel1.setToolTipText(MASSAGE15);
+				jLabel1.setText(MASSAGE15);
+				jLabel1.setIcon(new ImageIcon(getClass().getClassLoader()
+						.getResource("gui/csv.gif")));
+
+				jLabel1.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent e) {
+						try {
+							try {
+								openUrl(Calculation.url);
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						} catch (URISyntaxException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});
 			}
-
-			pack();
-			this.setSize(X_WIDE, Y_HIGH);
-			// Set Icon-----
-			jLabel1.setToolTipText(MASSAGE15);
-			jLabel1.setText(MASSAGE15);
-			jLabel1.setIcon(new ImageIcon(getClass().getClassLoader()
-					.getResource("gui/csv.gif")));
-
 		} catch (Exception e) {
 			// add your error handling code here
 			e.printStackTrace();
@@ -410,6 +430,17 @@ public class JFrame1 extends javax.swing.JFrame {
 		// System.out.println("jButton6.actionPerformed, event=" + evt);
 		Calculation.main("writetext", "");
 		refresh_jlist();
+	}
+
+	public void openUrl(String url) throws IOException, URISyntaxException {
+		if (java.awt.Desktop.isDesktopSupported()) {
+			java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+
+			if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+				java.net.URI uri = new java.net.URI(url);
+				desktop.browse(uri);
+			}
+		}
 	}
 
 	private void refresh_jlist() {

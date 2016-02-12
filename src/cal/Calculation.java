@@ -93,6 +93,7 @@ public class Calculation implements Runnable {
 	static int outputheaderline = 1;// default=1 Output-file use a Header-line
 	// ------------------------------------------------
 	// global constants for Messages
+	public static final String url = "https://en.wikipedia.org/wiki/Comma-separated_values";
 	static final String ERROR01 = "Error:";
 	static final String ERROR02 = "Fail:";
 	static final String MESSAGE01 = "Start Separator Autoscan";
@@ -191,6 +192,7 @@ public class Calculation implements Runnable {
 			("//*********                                                 *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
+			("//"+ url),
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
 			("//http://www.eclipse.org/platform"),
 			("//http://www.cloudgarden.com/jigloo/"),
