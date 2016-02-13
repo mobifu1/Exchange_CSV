@@ -9,8 +9,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 //import java.io.IOException;
 import java.lang.Exception;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Stack;
+
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.events.XMLEvent;
+import javax.xml.transform.stream.StreamSource;
 
 //import javax.xml.parsers.DocumentBuilder;
 //import javax.xml.parsers.DocumentBuilderFactory;
@@ -28,6 +36,9 @@ public class Calculation implements Runnable {
 		// System.out.println(subcall + "/" + parameter);
 		if (subcall.equals("readcsvfile")) {
 			readcsvfile(parameter);
+		}
+		if (subcall.equals("readxmlfile")) {
+			readxmlfile(parameter);
 		}
 		if (subcall.equals("scriptfile")) {
 			scriptfile(parameter);
@@ -114,7 +125,7 @@ public class Calculation implements Runnable {
 	static final String MESSAGE13 = "Open Script File:";
 	static final String MESSAGE14 = "> Found:";
 	static final String MESSAGE15 = "Script Commands";
-	// static final String MESSAGE16 = "";
+	static final String MESSAGE16 = "Open XML File:";
 	static final String MESSAGE17 = "> To Many Commands In Script File";
 	static final String MESSAGE18 = "> Compare Instring Result Pos: Line";
 	static final String MESSAGE19 = "> Compare Instring Result Neg: Line";
@@ -215,7 +226,7 @@ public class Calculation implements Runnable {
 			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
-			("//Output Header Line: 0, Hide Header Line in Output-File / default=1"),
+			("//Output Header Line: 0, Hide Header Line in Output-CSV, Set default Fields in XML / default=1"),
 			("//Set Maximum CSV Lines: Integer, maximum of the OS"),
 			("//Set Maximum CSV Columns: Integer, maximum of the OS"),
 			("//Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back"),
@@ -499,7 +510,66 @@ public class Calculation implements Runnable {
 			} // error = 2
 		}
 	}
+	// *****************************************************************************************
+	public static void readxmlfile(String path1) {
+		// Init table
+		JFrame1.jTextPane1.setText("");
+		clearall();
+		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
+		if (loglevel >= 1) {
+			write_log(MESSAGE59);
+			write_log(MESSAGE60);
+			write_log(MESSAGE59);
+			write_log(now2);
+		} // standard = 1
+			// Autoscan separator
+		JFrame1.jList1(MESSAGE16 + MESSAGE99 + path1);
+		if (loglevel >= 1) {
+			write_log(MESSAGE16 + MESSAGE99 + path1);
+		} // standard = 1
 
+		try {
+			if (path1 != null) {
+				JFrame1.jList1(MESSAGE34);
+				if (loglevel >= 1) {
+					write_log(MESSAGE34);
+				}
+				//---------------------------------
+				//http://www.torsten-horn.de/techdocs/java-xml.htm#Programmierbeispiel-SAX-Echo
+				
+			      XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+			      XMLEventReader  evRd = inputFactory.createXMLEventReader( new StreamSource( path1 ) );
+			      Stack<String>   stck = new Stack<String>();
+			      while( evRd.hasNext() ) {
+			         XMLEvent ev = evRd.nextEvent();
+			         if( ev.isStartElement() ) {
+			            stck.push( ev.asStartElement().getName().getLocalPart() );
+			            Iterator<Attribute> iter = ev.asStartElement().getAttributes();
+			            while( iter.hasNext() ) {
+			               Attribute a = iter.next();
+//		               System.out.println( buildXPathString( stck, "/@" + a.getName().getLocalPart() + "=\"" + a.getValue() + "\"" ) );
+			           a.
+			            }
+			         }
+			         if( ev.isCharacters() ) {
+			            String s = ev.asCharacters().getData();
+			            if( s.trim().length() > 0 ){
+//			               System.out.println( buildXPathString( stck, "=\"" + s + "\"" ) );
+			         }
+			         if( ev.isEndElement() ) stck.pop();
+			      }
+			   }
+				//---------------------------------
+			}
+		} catch (Exception e) {
+
+			JFrame1.jTextPane1.setText(ERROR01 + MESSAGE99 + e);
+			e.printStackTrace();
+			if (loglevel >= 2) {
+				write_log(ERROR01 + MESSAGE99 + e);
+			} // debug = 2
+		}
+	}
 	// *****************************************************************************************
 	public static void writecsvfile() {
 		JFrame1.jTextPane1.setText("");
@@ -676,12 +746,12 @@ public class Calculation implements Runnable {
 						if (multicolumn[p][x] == null) {
 							multicolumn[p][x] = "";// init_with""
 						}
-						if (multicolumn[p][0] != "") {
+						if (multicolumn[p][0] != "" && outputheaderline == 1) {
 							line = ("    " + "<" + multicolumn[p][0] + ">"
 									+ multicolumn[p][x] + "</"
 									+ multicolumn[p][0] + ">");
 						}
-						if (multicolumn[p][0] == "") {
+						if (outputheaderline == 0) {
 							line = (FIELDOPEN + multicolumn[p][x] + FIELDCLOSE);
 						}
 						bw.write(line);
