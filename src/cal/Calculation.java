@@ -27,20 +27,23 @@ public class Calculation implements Runnable {
 	public void run() {
 		// System.out.println("Hello from a thread Calculation");
 		// System.out.println(subcall + "/" + parameter);
-		if (subcall.equals("readfile")) {
-			readfile(parameter);
+		if (subcall.equals("readcsvfile")) {
+			readcsvfile(parameter);
 		}
-		if (subcall.equals("script")) {
-			script(parameter);
+		if (subcall.equals("scriptfile")) {
+			scriptfile(parameter);
 		}
-		if (subcall.equals("writefile")) {
-			writefile();
+		if (subcall.equals("writecsvfile")) {
+			writecsvfile();
+		}
+		if (subcall.equals("writexmlfile")) {
+			writexmlfile();
 		}
 		if (subcall.equals("writetext")) {
 			writetext();
 		}
-		if (subcall.equals("create_handlerfile")) {
-			create_handlerfile();
+		if (subcall.equals("createscriptfile")) {
+			createscriptfile();
 		}
 		if (subcall.equals("clearall")) {
 			clearall();
@@ -83,7 +86,8 @@ public class Calculation implements Runnable {
 	public static int chartlistcounter3 = 1;
 	// ------------------------------------------------
 	static String outputpath = "";
-	static final String DEAFAULT_OUTPUPATH = "Exchange Output.csv";
+	static final String DEAFAULT_CSV_OUTPUPATH = "Exchange Output.csv";
+	static final String DEAFAULT_XML_OUTPUPATH = "Exchange Output.xml";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
 	static final String DATE = "11.02.2016";// last Modify
@@ -99,7 +103,7 @@ public class Calculation implements Runnable {
 	static final String MESSAGE01 = "Start Separator Autoscan";
 	static final String MESSAGE02 = "> Read Separator Done:";
 	static final String MESSAGE03 = "> First CSV-Line:";
-	static final String MESSAGE04 = "Open File:";
+	static final String MESSAGE04 = "Open CSV File:";
 	static final String MESSAGE05 = "> CSV Format OK: Count of Header Columns = Data Columns";
 	static final String MESSAGE06 = "> Work With:";
 	static final String MESSAGE07 = "Read File Done";
@@ -108,10 +112,10 @@ public class Calculation implements Runnable {
 	static final String MESSAGE10 = "Lines, Inclusive Header";
 	static final String MESSAGE11 = "Fields";
 	static final String MESSAGE12 = "> Start Write File";
-	static final String MESSAGE13 = "Open Script File";
+	static final String MESSAGE13 = "Open Script File:";
 	static final String MESSAGE14 = "> Found:";
 	static final String MESSAGE15 = "Script Commands";
-	static final String MESSAGE16 = "Read Script File OK";
+	// static final String MESSAGE16 = "";
 	static final String MESSAGE17 = "> To Many Commands In Script File";
 	static final String MESSAGE18 = "> Compare Instring Result Pos: Line";
 	static final String MESSAGE19 = "> Compare Instring Result Neg: Line";
@@ -132,8 +136,8 @@ public class Calculation implements Runnable {
 	static final String MESSAGE34 = "Start Read File";
 	static final String MESSAGE35 = "> Found Dupes:";
 	static final String MESSAGE36 = "> No Dupes";
-	//static final String MESSAGE37 = "";
-	//static final String MESSAGE38 = "";
+	// static final String MESSAGE37 = "";
+	// static final String MESSAGE38 = "";
 	static final String MESSAGE39 = "> Stats Sort:";
 	static final String MESSAGE40 = "> Stats Result:";
 	static final String MESSAGE41 = "x";
@@ -141,15 +145,15 @@ public class Calculation implements Runnable {
 	static final String MESSAGE43 = "%";
 	static final String MESSAGE44 = "............................................";
 	static final String MESSAGE45 = "> AutoExit:";
-	//static final String MESSAGE46 = "";
+	// static final String MESSAGE46 = "";
 	static final String MESSAGE47 = "Execute Script: OK";
 	static final String MESSAGE48 = "Created File In:";
 	static final String MESSAGE49 = "Application Init: Done";
-	//static final String MESSAGE50 = "";
-	//static final String MESSAGE51 = "";
+	// static final String MESSAGE50 = "";
+	// static final String MESSAGE51 = "";
 	static final String MESSAGE52 = "Quicksort Numbers:";
 	static final String MESSAGE53 = "Quicksort Strings:";
-	//static final String MESSAGE54 = "";
+	// static final String MESSAGE54 = "";
 	static final String MESSAGE55 = "Compare Result Pos: Line";
 	static final String MESSAGE56 = "Compare Result Neg: Line";
 	static final String MESSAGE57 = ":EQUAL";
@@ -169,9 +173,14 @@ public class Calculation implements Runnable {
 	static final String MESSAGE71 = "Read Script Command:";
 	static final String MESSAGE72 = "Start Execute:";
 	static final String MESSAGE73 = "Header";
-	// static final String MESSAGE74 = "";
 	static final String MESSAGE99 = " ";
 	static final char BACKSLASH = 92;
+	static final char QUOTES = 34;
+	static final String XMLHEADER = "<?xml version=" + QUOTES + "1.0" + QUOTES
+			+ " encoding=" + QUOTES + "UTF-8" + QUOTES + "?>";
+	static final String TAG1OPEN = "<Dataset>";
+	static final String TAG1CLOSE = "</Dataset>";
+
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			// 2 backslashes are not allowed \\
@@ -192,7 +201,7 @@ public class Calculation implements Runnable {
 			("//*********                                                 *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
-			("//"+ url),
+			("//" + url),
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
 			("//http://www.eclipse.org/platform"),
 			("//http://www.cloudgarden.com/jigloo/"),
@@ -290,7 +299,7 @@ public class Calculation implements Runnable {
 	};
 
 	// *****************************************************************************************
-	public static void readfile(String path1) {
+	public static void readcsvfile(String path1) {
 		// Init table
 		JFrame1.jTextPane1.setText("");
 		clearall();
@@ -305,7 +314,7 @@ public class Calculation implements Runnable {
 			// Autoscan separator
 		JFrame1.jList1(MESSAGE04 + MESSAGE99 + path1);
 		if (loglevel >= 1) {
-			write_log(MESSAGE44 + MESSAGE99 + path1);
+			write_log(MESSAGE04 + MESSAGE99 + path1);
 		} // standard = 1
 		String c = ";";
 		String line = "";
@@ -319,6 +328,7 @@ public class Calculation implements Runnable {
 				if (loglevel >= 1) {
 					write_log(MESSAGE01);
 				} // standard = 1
+
 				FileReader fr1 = new FileReader(path1);
 				BufferedReader br1 = new BufferedReader(fr1);
 				if ((line = br1.readLine()) != null) {
@@ -472,7 +482,7 @@ public class Calculation implements Runnable {
 				if (loglevel >= 1) {
 					write_log(MESSAGE07);
 				} // standard = 1
-				outputpath = DEAFAULT_OUTPUPATH;
+				outputpath = DEAFAULT_CSV_OUTPUPATH;
 				// System.out.println("Open File:" + " i=" + i + " j=" +j);
 			}
 		} catch (Exception e) {
@@ -485,14 +495,14 @@ public class Calculation implements Runnable {
 	}
 
 	// *****************************************************************************************
-	public static void writefile() {
+	public static void writecsvfile() {
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
 		csv_output_lines = csv_input_lines;
 		int outputcounter = 0;
 		// z = 30; // width of csv file
 		// ---------------------------------------------
-		String filename = "." + File.separator + outputpath;
+		String filename = "." + File.separator + outputpath + ".csv";
 		// String directory = "./" + File.separator;
 		// *************************************************************************
 		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
@@ -584,7 +594,121 @@ public class Calculation implements Runnable {
 	}
 
 	// *****************************************************************************************
-	public static void script(String path2) {
+	public static void writexmlfile() {
+		JFrame1.jTextPane1.setText("");
+		// char d = 59;
+		csv_output_lines = csv_input_lines;
+		int outputcounter = 0;
+		// ---------------------------------------------
+		String filename = "." + File.separator + outputpath + ".xml";
+		// String directory = "./" + File.separator;
+		// *************************************************************************
+		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
+		if (loglevel >= 1) {
+			write_log(MESSAGE59);
+			write_log(MESSAGE61);
+			write_log(MESSAGE59);
+			write_log(now2);
+		} // standard = 1
+			// -----------------------------------------------------------------------------
+		try {
+
+			File file1 = new File(filename);
+			if (!file1.exists()) {
+				file1.createNewFile();
+			} else {
+				file1.delete();
+				file1.createNewFile();
+			}
+			if (file1.exists()) {
+				BufferedWriter bw;
+				bw = new BufferedWriter(new FileWriter(file1, true));// True=Append
+				JFrame1.jList1(MESSAGE12);
+				if (loglevel >= 1) {
+					write_log(MESSAGE12);
+				} // standard = 1
+				int x = 1; // start at datablock
+				int p = 0;
+				String line = "";
+				bw.write(XMLHEADER); // xml header
+				bw.newLine();
+				// ----------------------
+				JFrame1.jList1(XMLHEADER);
+				if (loglevel >= 1) {
+					write_log(XMLHEADER);
+				}
+				// ----------------------
+				bw.write(TAG1OPEN); // open tag,
+				bw.newLine();
+				// ----------------------
+				JFrame1.jList1(TAG1OPEN);
+				if (loglevel >= 1) {
+					write_log(TAG1OPEN);
+				}
+				// ----------------------
+				while (x < csv_output_lines) {
+					line = "";
+					bw.write("    <Object" + x + ">");
+					bw.newLine();
+					// ----------------------
+					if (outputcounter < 10) {
+						JFrame1.jList1("    <Object" + x + ">");
+						if (loglevel >= 1) {
+							write_log("    <Object" + x + ">");
+						} // standard = 1
+					}
+					// ----------------------
+					for (p = 0; p < csv_output_columns; p++) {
+						if (multicolumn[p][x] == null) {
+							multicolumn[p][x] = "";// init_with""
+						}
+						line = ("        <" + multicolumn[p][0] + ">"
+								+ multicolumn[p][x] + "</" + multicolumn[p][0] + ">");
+						bw.write(line);
+						bw.newLine();
+						// ----------------------
+						if (outputcounter < 10) {
+							JFrame1.jList1(line);
+							if (loglevel >= 1) {
+								write_log(line);
+							} // standard = 1
+						}
+						// ----------------------
+					}
+					bw.write("    </Object" + x + ">");
+					bw.newLine();
+					// ----------------------
+					if (outputcounter < 10) {
+						JFrame1.jList1("    </Object" + x + ">");
+						if (loglevel >= 1) {
+							write_log("    </Object" + x + ">");
+						}
+					}
+					// ----------------------
+					outputcounter++;
+					x++;
+				}
+				bw.write(TAG1CLOSE); // open tag
+				bw.flush();
+				bw.close();
+			}
+			JFrame1.jList1(MESSAGE44);
+			JFrame1.jList1(MESSAGE08 + MESSAGE99 + filename);
+			if (loglevel >= 1) {
+				write_log(MESSAGE44);
+				write_log(MESSAGE08 + MESSAGE99 + filename);
+			} // standard = 1
+		} catch (Exception e) {
+			JFrame1.jTextPane1.setText(ERROR01 + MESSAGE99 + e);
+			e.printStackTrace();
+			if (loglevel >= 2) {
+				write_log(ERROR01 + MESSAGE99 + e);
+			} // debug = 2
+		}
+	}
+
+	// *****************************************************************************************
+	public static void scriptfile(String path2) {
 		String commands[] = new String[max_commands];
 		String row = "";
 		// -----------------------------------------------------------------------------
@@ -596,16 +720,16 @@ public class Calculation implements Runnable {
 			write_log(now2);
 		} // standard = 1
 			// -----------------------------------------------------------------------------
-		JFrame1.jList1(MESSAGE04 + MESSAGE99 + path2);
+		JFrame1.jList1(MESSAGE13 + MESSAGE99 + path2);
 		if (loglevel >= 1) {
-			write_log(MESSAGE04 + MESSAGE99 + path2);
+			write_log(MESSAGE13 + MESSAGE99 + path2);
 		} // standard = 1
 		JFrame1.jTextPane1.setText("");
 		try {
 			if (path2 != null) {
-				JFrame1.jList1(MESSAGE13);
+				JFrame1.jList1(MESSAGE34);
 				if (loglevel >= 1) {
-					write_log(MESSAGE13);
+					write_log(MESSAGE34);
 				} // standard = 1
 				int x = 0;// counter
 				int m = 0; // counter
@@ -1172,9 +1296,9 @@ public class Calculation implements Runnable {
 				found_commands = x;
 				JFrame1.jProgressBar1.setMaximum(x - 1);
 				if (x <= max_commands) {
-					JFrame1.jList1(MESSAGE16);
+					JFrame1.jList1(MESSAGE07);
 					if (loglevel >= 1) {
-						write_log(MESSAGE16);
+						write_log(MESSAGE07);
 					} // standard = 1
 				}
 				if (x > max_commands) {
@@ -1271,7 +1395,7 @@ public class Calculation implements Runnable {
 										outputpath = outputpath + "_" + now;
 									}
 								}
-								outputpath = outputpath + ".csv";
+								// outputpath = outputpath + ".csv";,
 								// System.out.println(outputpath);
 							}
 							// -----------------------------------
@@ -2354,7 +2478,8 @@ public class Calculation implements Runnable {
 										write_log(MESSAGE28 + MESSAGE99
 												+ MESSAGE29);
 									} // standard = 1
-									writefile();
+									writecsvfile();
+									writexmlfile();
 								}
 							}
 							// ---------------------------------------------
@@ -2804,7 +2929,7 @@ public class Calculation implements Runnable {
 	}
 
 	// *****************************************************************************************
-	public static void create_handlerfile() {
+	public static void createscriptfile() {
 		String filename = "." + File.separator + SCRIPTFILEPATH;
 		@SuppressWarnings("unused")
 		char c = 34;

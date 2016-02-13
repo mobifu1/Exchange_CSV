@@ -46,6 +46,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	public static JTextPane jTextPane1;
 	public static JProgressBar jProgressBar1;
 	public static JList<String> jList1;
+	private JButton jButton7;
 	private JButton jButton6;
 	private JButton jButton5;
 	private JButton jButton4;
@@ -66,9 +67,9 @@ public class JFrame1 extends javax.swing.JFrame {
 
 	static String MASSAGE01 = "Application Started";
 	static String MASSAGE02 = "Application Init";
-	static String MASSAGE03 = "Read File";
+	static String MASSAGE03 = "Read CSV File";
 	static String MASSAGE04 = "Input File";
-	static String MASSAGE05 = "Write File";
+	static String MASSAGE05 = "Write CSV File";
 	static String MASSAGE06 = "Output File";
 	static String MASSAGE07 = "Load Script";
 	static String MASSAGE08 = "Load Script File";
@@ -80,8 +81,8 @@ public class JFrame1 extends javax.swing.JFrame {
 	static String MASSAGE14 = "Progress";
 	static String MASSAGE15 = "Wiki CSV";
 	static String MASSAGE16 = "File Choose OK";
+	static String MASSAGE17 = "Write XML File";
 
-	// static String MASSAGE17 = ;
 	// static String MASSAGE18 = ;
 	// static String MASSAGE19 = ;
 	// static String MASSAGE20 = ;
@@ -291,6 +292,20 @@ public class JFrame1 extends javax.swing.JFrame {
 				});
 			}
 			{
+				jButton7 = new JButton();
+				getContentPane().add(jButton7);
+				jButton7.setText(MASSAGE17);
+				jButton7.setBorder(BorderFactory
+						.createBevelBorder(BevelBorder.RAISED));
+				jButton7.setToolTipText(MASSAGE17);
+				jButton7.setBounds(507, 152, 115, 23);
+				jButton7.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent evt) {
+						jButton7ActionPerformed(evt);
+					}
+				});
+			}
+			{
 				jScrollPane1 = new JScrollPane();
 				getContentPane().add(jScrollPane1);
 				jScrollPane1.setBounds(29, 13, 466, 250);
@@ -330,7 +345,7 @@ public class JFrame1 extends javax.swing.JFrame {
 			{
 				jSeparator1 = new JSeparator();
 				getContentPane().add(jSeparator1);
-				jSeparator1.setBounds(507, 172, 115, 5);
+				jSeparator1.setBounds(507, 187, 115, 5);
 			}
 			{
 				jLabel1 = new JLabel();
@@ -377,14 +392,20 @@ public class JFrame1 extends javax.swing.JFrame {
 		if (status == JFileChooser.APPROVE_OPTION) {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
-			Calculation.main("readfile", selFile.getPath());
+			Calculation.main("readcsvfile", selFile.getPath());
 			refresh_jlist();
 		}
 	}
 
 	private void jButton2ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton2.actionPerformed, event=" + evt);
-		Calculation.main("writefile", "");
+		Calculation.main("writecsvfile", "");
+		refresh_jlist();
+	}
+
+	private void jButton7ActionPerformed(ActionEvent evt) {
+		// System.out.println("jButton2.actionPerformed, event=" + evt);
+		Calculation.main("writexmlfile", "");
 		refresh_jlist();
 	}
 
@@ -396,14 +417,14 @@ public class JFrame1 extends javax.swing.JFrame {
 		if (status == JFileChooser.APPROVE_OPTION) {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
-			Calculation.main("script", selFile.getPath());
+			Calculation.main("scriptfile", selFile.getPath());
 			refresh_jlist();
 		}
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton4.actionPerformed, event=" + evt);
-		Calculation.main("create_handlerfile", "");
+		Calculation.main("createscriptfile", "");
 		refresh_jlist();
 	}
 
