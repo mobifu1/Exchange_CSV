@@ -55,6 +55,10 @@
 //Writefile: 1, Press Button Writefile
 //Autoexit: 1, Application exit
 //Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error
+//------------------------------------------------------"),
+//XML-COMMANDS:
+//Set XML Rootelement : Data = <Data> & </Data>
+//Set XML Element: Object = <Object> & </Object>
 //------------------------------------------------------
 //CHECK-COMMANDS:
 //Find Numerical Gaps: 0, Find numerical Gaps between min and max value in Column 0 > Terminalresults
@@ -70,6 +74,8 @@ Filename,Output Filename,Date,Front,
 Separator,59,
 Set Maximum CSV Lines,10000,
 Set Maximum CSV Columns,100,
+Set XML Rootelement,Data,
+Set XML Element,Object,
 Spalten,6,
 Copy Spalte,2,3,
 Set Header,3,OtherDogs,
