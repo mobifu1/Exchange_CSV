@@ -178,8 +178,9 @@ public class Calculation implements Runnable {
 	// XML-Statements
 	static final String XMLHEADER = "<?xml version=" + QUOTES + "1.0" + QUOTES
 			+ " encoding=" + QUOTES + "UTF-8" + QUOTES + "?>";
-	private static String xmlrootelement = "xmlrootelement";
-	private static String xmlelement = "xmlelement";
+	private static String xmlrootelement = "rootelement";
+	private static String xmlelement = "element";
+	private static String xmlfield = "field";
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			// 2 backslashes are not allowed \\
@@ -603,8 +604,10 @@ public class Calculation implements Runnable {
 
 		String ROOTELEMENTOPEN = "<" + xmlrootelement + ">";
 		String ROOTELEMENTCLOSE = "</" + xmlrootelement + ">";
-		String ELEMEN1TOPEN = "<" + xmlelement + ">";
-		String ELEMENT1CLOSE = "</" + xmlelement + ">";
+		String ELEMENTOPEN = "  " + "<" + xmlelement + ">";
+		String ELEMENTCLOSE = "  " + "</" + xmlelement + ">";
+		String FIELDOPEN = "    " + "<" + xmlfield + ">";
+		String FIELDCLOSE = "</" + xmlfield + ">";
 
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
@@ -659,13 +662,13 @@ public class Calculation implements Runnable {
 				// ----------------------
 				while (x < csv_output_lines) {
 					line = "";
-					bw.write("  " + ELEMEN1TOPEN);
+					bw.write(ELEMENTOPEN);
 					bw.newLine();
 					// ----------------------
 					if (outputcounter < 10) {
-						JFrame1.jList1("  " + ELEMEN1TOPEN);
+						JFrame1.jList1(ELEMENTOPEN);
 						if (loglevel >= 1) {
-							write_log("  " + ELEMEN1TOPEN);
+							write_log(ELEMENTOPEN);
 						} // standard = 1
 					}
 					// ----------------------
@@ -673,8 +676,14 @@ public class Calculation implements Runnable {
 						if (multicolumn[p][x] == null) {
 							multicolumn[p][x] = "";// init_with""
 						}
-						line = ("    <" + multicolumn[p][0] + ">"
-								+ multicolumn[p][x] + "</" + multicolumn[p][0] + ">");
+						if (multicolumn[p][0] != "") {
+							line = ("    " + "<" + multicolumn[p][0] + ">"
+									+ multicolumn[p][x] + "</"
+									+ multicolumn[p][0] + ">");
+						}
+						if (multicolumn[p][0] == "") {
+							line = (FIELDOPEN + multicolumn[p][x] + FIELDCLOSE);
+						}
 						bw.write(line);
 						bw.newLine();
 						// ----------------------
@@ -686,13 +695,13 @@ public class Calculation implements Runnable {
 						}
 						// ----------------------
 					}
-					bw.write("  " + ELEMENT1CLOSE);
+					bw.write(ELEMENTCLOSE);
 					bw.newLine();
 					// ----------------------
 					if (outputcounter < 10) {
-						JFrame1.jList1("  " + ELEMENT1CLOSE);
+						JFrame1.jList1(ELEMENTCLOSE);
 						if (loglevel >= 1) {
-							write_log("  " + ELEMENT1CLOSE);
+							write_log(ELEMENTCLOSE);
 						}
 					}
 					// ----------------------
@@ -1610,12 +1619,11 @@ public class Calculation implements Runnable {
 								xmlrootelement = a;
 
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
-										+ "Set XML Rootelement" + MESSAGE99
-										+ a);
+										+ "Set XML Rootelement" + MESSAGE99 + a);
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
-											+ "Set XML Rootelement"
-											+ MESSAGE99 + a);
+											+ "Set XML Rootelement" + MESSAGE99
+											+ a);
 								} // standard = 1
 									// System.out.println(a);
 							}
@@ -1627,12 +1635,10 @@ public class Calculation implements Runnable {
 								xmlelement = a;
 
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
-										+ "Set XML Element" + MESSAGE99
-										+ a);
+										+ "Set XML Element" + MESSAGE99 + a);
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
-											+ "Set XML Element"
-											+ MESSAGE99 + a);
+											+ "Set XML Element" + MESSAGE99 + a);
 								} // standard = 1
 									// System.out.println(a);
 							}
