@@ -529,47 +529,45 @@ public class Calculation implements Runnable {
 				// ---------------------------------
 				// XML
 				// http://www.cs.hs-rm.de/~knauf/SWTProjekt2009/xml/
-				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
-						.newInstance();
-				DocumentBuilder documentBuilder = documentBuilderFactory
-						.newDocumentBuilder();
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 				File xmlfile = new File(path1);
 				Document xmldoc = documentBuilder.parse(xmlfile);
-
-				NodeList listRoot = xmldoc.getElementsByTagName("Data");
-				Element Rootelement = (Element) listRoot.item(0);
-				String TagRoot = Rootelement.getTagName();
-				JFrame1.jList1("Name Rootelement:" + TagRoot);
-				// running over childs:
-				NodeList listElement = Rootelement
-						.getElementsByTagName("Object");
-				Element Firstelement = (Element) listElement.item(0);
-				String TagFirstElement = Firstelement.getTagName();
-				JFrame1.jList1("Name 1.Element:" + TagFirstElement);
-
-				JFrame1.jList1("Count 1.Elements:"
-						+ Integer.toString(listElement.getLength()));
+				
+				
+                // read root element------------------------------------------------
+				NodeList readlistRoot = xmldoc.getElementsByTagName("*");//Data
+				Element readrootElement = (Element) readlistRoot.item(0);
+			    JFrame1.jList1("Read Root Element:" + readrootElement.getNodeName());
+			    // read with rootelement
+				NodeList listRoot = xmldoc.getElementsByTagName(readrootElement.getNodeName());//Data
+				Element rootElement = (Element) listRoot.item(0);
+				
+				
+				// read child element:----------------------------------------------
+				NodeList readlistElement = rootElement.getElementsByTagName("*");//Object
+				Element readchildElement = (Element) readlistElement.item(0);
+				String readTagFirstElement = readchildElement.getTagName();
+				JFrame1.jList1("Read Child Element:" + readTagFirstElement);
+				// read with child element
+				NodeList listElement = rootElement.getElementsByTagName(readTagFirstElement);//Object
+				Element childElement = (Element) listElement.item(0);	
+				//-----------------------------------------------------------------
+     			JFrame1.jList1("Count Objects:" + Integer.toString(listElement.getLength()));
 
 				for (int intIndex = 0; intIndex < listElement.getLength(); intIndex++) {
-					Element elementAttributes = (Element) listElement
-							.item(intIndex);
+					
+					Element childAttributes = (Element) listElement.item(intIndex);
+					//count of attributes
+					//code for count attributes
+					
+					//List of Elements with Attributes
+					JFrame1.jList1("Value:" + childAttributes.getElementsByTagName("*").item(0).getChildNodes().item(0).getNodeValue());
+					JFrame1.jList1("Value:" + childAttributes.getElementsByTagName("*").item(1).getChildNodes().item(0).getNodeValue());
+					JFrame1.jList1("Value:" + childAttributes.getElementsByTagName("*").item(2).getChildNodes().item(0).getNodeValue());
 
-					String AttributeContent1 = elementAttributes
-							.getElementsByTagName("Alphabet").item(0)
-							.getChildNodes().item(0).getNodeValue();
-					String AttributeContent2 = elementAttributes
-							.getElementsByTagName("Numbers").item(0)
-							.getChildNodes().item(0).getNodeValue();
-					String AttributeContent3 = elementAttributes
-							.getElementsByTagName("Dogs").item(0)
-							.getChildNodes().item(0).getNodeValue();
-
-					JFrame1.jList1("Attributes:" + AttributeContent1 + "/"
-							+ AttributeContent2 + "/" + AttributeContent3);
-
-					// String AttributeContent = elementAttributes
-					// .getTextContent();
-					// JFrame1.jList1("Attributes:" + AttributeContent);
+					//String AttributeContent = childAttributes.getTextContent();
+                    //JFrame1.jList1("Attributes:" + AttributeContent);
 				}
 				// ---------------------------------
 			}
