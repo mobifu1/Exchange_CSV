@@ -554,16 +554,22 @@ public class Calculation implements Runnable {
 					Element elementAttributes = (Element) listElement
 							.item(intIndex);
 
-					// JFrame1.jList1("Index=" + intIndex + ":" +
-					// elementAttributes.getAttribute("Alphabet"));
-					// JFrame1.jList1("Index=" + intIndex + ":" +
-					// elementAttributes.getAttribute("Numbers"));
-					// JFrame1.jList1("Index=" + intIndex + ":" +
-					// elementAttributes.getAttribute("Dogs"));
+					String AttributeContent1 = elementAttributes
+							.getElementsByTagName("Alphabet").item(0)
+							.getChildNodes().item(0).getNodeValue();
+					String AttributeContent2 = elementAttributes
+							.getElementsByTagName("Numbers").item(0)
+							.getChildNodes().item(0).getNodeValue();
+					String AttributeContent3 = elementAttributes
+							.getElementsByTagName("Dogs").item(0)
+							.getChildNodes().item(0).getNodeValue();
 
-					String AttributeContent = elementAttributes
-							.getTextContent();
-					JFrame1.jList1("Attributes:" + AttributeContent);
+					JFrame1.jList1("Attributes:" + AttributeContent1 + "/"
+							+ AttributeContent2 + "/" + AttributeContent3);
+
+					// String AttributeContent = elementAttributes
+					// .getTextContent();
+					// JFrame1.jList1("Attributes:" + AttributeContent);
 				}
 				// ---------------------------------
 			}
