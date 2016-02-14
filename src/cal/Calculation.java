@@ -7,24 +7,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-//import java.io.IOException;
 import java.lang.Exception;
-import java.text.AttributedCharacterIterator.Attribute;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.Stack;
 
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.events.XMLEvent;
-import javax.xml.transform.stream.StreamSource;
-
-//import javax.xml.parsers.DocumentBuilder;
-//import javax.xml.parsers.DocumentBuilderFactory;
-//import org.w3c.dom.Document;
-//import org.w3c.dom.Element;
-//import org.w3c.dom.NodeList;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Calculation implements Runnable {
 
@@ -40,8 +31,8 @@ public class Calculation implements Runnable {
 		if (subcall.equals("readxmlfile")) {
 			readxmlfile(parameter);
 		}
-		if (subcall.equals("scriptfile")) {
-			scriptfile(parameter);
+		if (subcall.equals("readscriptfile")) {
+			readscriptfile(parameter);
 		}
 		if (subcall.equals("writecsvfile")) {
 			writecsvfile();
@@ -49,11 +40,11 @@ public class Calculation implements Runnable {
 		if (subcall.equals("writexmlfile")) {
 			writexmlfile();
 		}
-		if (subcall.equals("writetext")) {
-			writetext();
+		if (subcall.equals("writehelptext")) {
+			writehelptext();
 		}
-		if (subcall.equals("createscriptfile")) {
-			createscriptfile();
+		if (subcall.equals("writescriptfile")) {
+			writescriptfile();
 		}
 		if (subcall.equals("clearall")) {
 			clearall();
@@ -510,6 +501,7 @@ public class Calculation implements Runnable {
 			} // error = 2
 		}
 	}
+
 	// *****************************************************************************************
 	public static void readxmlfile(String path1) {
 		// Init table
@@ -534,32 +526,46 @@ public class Calculation implements Runnable {
 				if (loglevel >= 1) {
 					write_log(MESSAGE34);
 				}
-				//---------------------------------
-				//http://www.torsten-horn.de/techdocs/java-xml.htm#Programmierbeispiel-SAX-Echo
-				
-			      XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-			      XMLEventReader  evRd = inputFactory.createXMLEventReader( new StreamSource( path1 ) );
-			      Stack<String>   stck = new Stack<String>();
-			      while( evRd.hasNext() ) {
-			         XMLEvent ev = evRd.nextEvent();
-			         if( ev.isStartElement() ) {
-			            stck.push( ev.asStartElement().getName().getLocalPart() );
-			            Iterator<Attribute> iter = ev.asStartElement().getAttributes();
-			            while( iter.hasNext() ) {
-			               Attribute a = iter.next();
-//		               System.out.println( buildXPathString( stck, "/@" + a.getName().getLocalPart() + "=\"" + a.getValue() + "\"" ) );
-			           a.
-			            }
-			         }
-			         if( ev.isCharacters() ) {
-			            String s = ev.asCharacters().getData();
-			            if( s.trim().length() > 0 ){
-//			               System.out.println( buildXPathString( stck, "=\"" + s + "\"" ) );
-			         }
-			         if( ev.isEndElement() ) stck.pop();
-			      }
-			   }
-				//---------------------------------
+				// ---------------------------------
+				// XML
+				// http://www.cs.hs-rm.de/~knauf/SWTProjekt2009/xml/
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+						.newInstance();
+				DocumentBuilder documentBuilder = documentBuilderFactory
+						.newDocumentBuilder();
+				File xmlfile = new File(path1);
+				Document xmldoc = documentBuilder.parse(xmlfile);
+
+				NodeList listRoot = xmldoc.getElementsByTagName("Data");
+				Element Rootelement = (Element) listRoot.item(0);
+				String TagRoot = Rootelement.getTagName();
+				JFrame1.jList1("Name Rootelement:" + TagRoot);
+				// running over childs:
+				NodeList listElement = Rootelement
+						.getElementsByTagName("Object");
+				Element Firstelement = (Element) listElement.item(0);
+				String TagFirstElement = Firstelement.getTagName();
+				JFrame1.jList1("Name 1.Element:" + TagFirstElement);
+
+				JFrame1.jList1("Count 1.Elements:"
+						+ Integer.toString(listElement.getLength()));
+
+				for (int intIndex = 0; intIndex < listElement.getLength(); intIndex++) {
+					Element elementAttributes = (Element) listElement
+							.item(intIndex);
+
+					// JFrame1.jList1("Index=" + intIndex + ":" +
+					// elementAttributes.getAttribute("Alphabet"));
+					// JFrame1.jList1("Index=" + intIndex + ":" +
+					// elementAttributes.getAttribute("Numbers"));
+					// JFrame1.jList1("Index=" + intIndex + ":" +
+					// elementAttributes.getAttribute("Dogs"));
+
+					String AttributeContent = elementAttributes
+							.getTextContent();
+					JFrame1.jList1("Attributes:" + AttributeContent);
+				}
+				// ---------------------------------
 			}
 		} catch (Exception e) {
 
@@ -570,6 +576,7 @@ public class Calculation implements Runnable {
 			} // debug = 2
 		}
 	}
+
 	// *****************************************************************************************
 	public static void writecsvfile() {
 		JFrame1.jTextPane1.setText("");
@@ -798,7 +805,7 @@ public class Calculation implements Runnable {
 	}
 
 	// *****************************************************************************************
-	public static void scriptfile(String path2) {
+	public static void readscriptfile(String path2) {
 		String commands[] = new String[max_commands];
 		String row = "";
 		// -----------------------------------------------------------------------------
@@ -3080,7 +3087,7 @@ public class Calculation implements Runnable {
 	}
 
 	// *****************************************************************************************
-	public static void createscriptfile() {
+	public static void writescriptfile() {
 		String filename = "." + File.separator + SCRIPTFILEPATH;
 		@SuppressWarnings("unused")
 		char c = 34;
@@ -3120,7 +3127,7 @@ public class Calculation implements Runnable {
 	}
 
 	// *****************************************************************************************
-	public static void writetext() {
+	public static void writehelptext() {
 
 		// System.out.println(TEXTARRAY.length);
 		// -----------------------------------------------

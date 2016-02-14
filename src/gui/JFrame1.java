@@ -65,7 +65,7 @@ public class JFrame1 extends javax.swing.JFrame {
 
 	static String MASSAGE01 = "Application Started";
 	static String MASSAGE02 = "Application Init";
-	static String MASSAGE03 = "Read CSV File";
+	static String MASSAGE03 = "Read File";
 	static String MASSAGE04 = "Input File";
 	static String MASSAGE05 = "Write CSV File";
 	static String MASSAGE06 = "Output File";
@@ -390,7 +390,17 @@ public class JFrame1 extends javax.swing.JFrame {
 		if (status == JFileChooser.APPROVE_OPTION) {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
-			Calculation.main("readcsvfile", selFile.getPath());
+			int length = (selFile.getPath().length());// string.length of path
+
+			// System.out.println(selFile.getPath().substring(length -4,
+			// length));
+
+			if (selFile.getPath().substring(length - 4, length).equals(".csv")) {
+				Calculation.main("readcsvfile", selFile.getPath());
+			}
+			if (selFile.getPath().substring(length - 4, length).equals(".xml")) {
+				Calculation.main("readxmlfile", selFile.getPath());
+			}
 			refresh_jlist();
 		}
 	}
@@ -415,20 +425,20 @@ public class JFrame1 extends javax.swing.JFrame {
 		if (status == JFileChooser.APPROVE_OPTION) {
 			// System.out.println(MASSAGE16);
 			File selFile = fc1.getSelectedFile();
-			Calculation.main("scriptfile", selFile.getPath());
+			Calculation.main("readscriptfile", selFile.getPath());
 			refresh_jlist();
 		}
 	}
 
 	private void jButton4ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton4.actionPerformed, event=" + evt);
-		Calculation.main("createscriptfile", "");
+		Calculation.main("writescriptfile", "");
 		refresh_jlist();
 	}
 
-	public static void jList1(String row) {
+	public static void jList1(String oroww) {
 		try {
-			JFrame1.listModel.addElement(row);
+			JFrame1.listModel.addElement(oroww);
 		} catch (Exception e) {
 			// add your error handling code here
 			// System.out.println("jList1:"+e);
@@ -447,7 +457,7 @@ public class JFrame1 extends javax.swing.JFrame {
 
 	private void jButton6ActionPerformed(ActionEvent evt) {
 		// System.out.println("jButton6.actionPerformed, event=" + evt);
-		Calculation.main("writetext", "");
+		Calculation.main("writehelptext", "");
 		refresh_jlist();
 	}
 
