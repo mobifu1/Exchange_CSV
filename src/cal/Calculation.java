@@ -689,9 +689,9 @@ public class Calculation implements Runnable {
 		String ELEMENTOPEN = "  " + "<" + xmlelement + ">";
 		String ELEMENTCLOSE = "  " + "</" + xmlelement + ">";
 		// String ELEMENTEMPTY = "  " + "<" + xmlelement + "/>";
-		String FIELDOPEN = "    " + "<" + xmlfield + ">";
-		String FIELDCLOSE = "</" + xmlfield + ">";
-		String FIELDEMPTY = "<" + xmlfield + "/>";
+		String ATTRIBUTEOPEN = "    " + "<" + xmlfield + ">";
+		String ATTRIBUTECLOSE = "</" + xmlfield + ">";
+		String ATTRIBUTEEMPTY = "<" + xmlfield + "/>";
 
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
@@ -770,10 +770,10 @@ public class Calculation implements Runnable {
 						}
 						if (outputheaderline == 0) {
 							if (multicolumn[p][x] != ""){
-							    line = (FIELDOPEN + multicolumn[p][x] + FIELDCLOSE);
+							    line = (ATTRIBUTEOPEN + multicolumn[p][x] + ATTRIBUTECLOSE);
 							}
 							else {
-								line = (FIELDEMPTY); // empty tag
+								line = (ATTRIBUTEEMPTY); // empty tag
 							}
 						}
 						bw.write(line);
