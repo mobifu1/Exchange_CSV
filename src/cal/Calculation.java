@@ -529,11 +529,12 @@ public class Calculation implements Runnable {
 				// ---------------------------------
 				// XML
 				// http://www.cs.hs-rm.de/~knauf/SWTProjekt2009/xml/
+				// http://stackoverflow.com/questions/3273682/get-the-name-of-all-attributes-in-a-xml-file
+				// http://examples.javacodegeeks.com/core-java/xml/dom/list-all-attributes-of-dom-element/
 				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 				File xmlfile = new File(path1);
 				Document xmldoc = documentBuilder.parse(xmlfile);
-				
 				
                 // read root element------------------------------------------------
 				NodeList readlistRoot = xmldoc.getElementsByTagName("*");//Data
@@ -542,7 +543,6 @@ public class Calculation implements Runnable {
 			    // read with rootelement
 				NodeList listRoot = xmldoc.getElementsByTagName(readrootElement.getNodeName());//Data
 				Element rootElement = (Element) listRoot.item(0);
-				
 				
 				// read child element:----------------------------------------------
 				NodeList readlistElement = rootElement.getElementsByTagName("*");//Object
@@ -556,7 +556,7 @@ public class Calculation implements Runnable {
      			JFrame1.jList1("Count Objects:" + Integer.toString(listElement.getLength()));
 
 				for (int intIndex = 0; intIndex < listElement.getLength(); intIndex++) {
-					
+
 					Element childAttributes = (Element) listElement.item(intIndex);
 					//count of attributes
 					//code for count attributes
@@ -685,10 +685,13 @@ public class Calculation implements Runnable {
 
 		String ROOTELEMENTOPEN = "<" + xmlrootelement + ">";
 		String ROOTELEMENTCLOSE = "</" + xmlrootelement + ">";
+		// String ROOTELEMENTEMPTY = "<" + xmlrootelement + "/>";
 		String ELEMENTOPEN = "  " + "<" + xmlelement + ">";
 		String ELEMENTCLOSE = "  " + "</" + xmlelement + ">";
+		// String ELEMENTEMPTY = "  " + "<" + xmlelement + "/>";
 		String FIELDOPEN = "    " + "<" + xmlfield + ">";
 		String FIELDCLOSE = "</" + xmlfield + ">";
+		String FIELDEMPTY = "<" + xmlfield + "/>";
 
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
@@ -757,13 +760,21 @@ public class Calculation implements Runnable {
 						if (multicolumn[p][x] == null) {
 							multicolumn[p][x] = "";// init_with""
 						}
-						if (multicolumn[p][0] != "" && outputheaderline == 1) {
-							line = ("    " + "<" + multicolumn[p][0] + ">"
-									+ multicolumn[p][x] + "</"
-									+ multicolumn[p][0] + ">");
+						if (outputheaderline == 1) {
+							if (multicolumn[p][x] != ""){
+							    line = ("    " + "<" + multicolumn[p][0] + ">" + multicolumn[p][x] + "</" + multicolumn[p][0] + ">");
+							}
+							else {
+								line = ("    " + "<" + multicolumn[p][0] + "/>")	; // empty tag
+							}
 						}
 						if (outputheaderline == 0) {
-							line = (FIELDOPEN + multicolumn[p][x] + FIELDCLOSE);
+							if (multicolumn[p][x] != ""){
+							    line = (FIELDOPEN + multicolumn[p][x] + FIELDCLOSE);
+							}
+							else {
+								line = (FIELDEMPTY); // empty tag
+							}
 						}
 						bw.write(line);
 						bw.newLine();
