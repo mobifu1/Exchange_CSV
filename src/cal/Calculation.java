@@ -508,6 +508,7 @@ public class Calculation implements Runnable {
 		// Init table
 		JFrame1.jTextPane1.setText("");
 		clearall();
+		String attributenodearray[] = new String[max_width];
 		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
 		if (loglevel >= 1) {
 			write_log(MESSAGE59);
@@ -565,66 +566,56 @@ public class Calculation implements Runnable {
 				NodeList listElement = rootElement
 						.getElementsByTagName(readTagFirstElement);// Object
 				// Element childElement = (Element) listElement.item(0);
-				// -----------------------------------------------------------------
-				JFrame1.jList1("Count Child Nodes:"
-						+ Integer.toString(listElement.getLength()));
-				int attributes = 0;
-				int countallattributes = 0;
-				int line = 1;
-				for (int intIndex = 0; intIndex < listElement.getLength(); intIndex++) {
-					Element childAttributes = (Element) listElement
-							.item(intIndex);
-					// count of attributes
-					// String AttributeContent =
-					// childAttributes.getTextContent();
-					// JFrame1.jList1(" Counts Attributes:" + AttributeContent);
-					attributes = 0;
+				int objects = (listElement.getLength());
+				JFrame1.jList1("Count Child Nodes:"	+ Integer.toString(objects));
+				// -----------------------------------------------------------------			
+				// <read all attributes nodes to Array>	
+				int attributenodes = 0;
+				for (int intIndex = 0; intIndex < 1; intIndex++) {
+					Element childAttributes = (Element) listElement	.item(intIndex);
 					for (int attributeIndex = 0; attributeIndex < max_width; attributeIndex++) {// max_width
 						// List of Elements with Attributes
-						if (null != childAttributes.getElementsByTagName("*")
-								.item(attributeIndex)) {
-							String attributenode = "";
-							String attributenodevalue = "";
-							// problem to read this empty tag <msisdnList/>
-							attributenode = (childAttributes
-									.getElementsByTagName("*")
-									.item(attributeIndex).getNodeName()
-									.toString());
-
-							if (null != (childAttributes
-									.getElementsByTagName("*")
-									.item(attributeIndex).getChildNodes()
-									.item(0))) {
-								attributenodevalue = "";
-								attributenodevalue = (childAttributes
-										.getElementsByTagName("*")
-										.item(attributeIndex).getChildNodes()
-										.item(0).getNodeValue());
-							}
-							// -------------------------
-							if (intIndex == 0) {
-								JFrame1.jList1("Read Attribute Node:"
-										+ attributenode);
-								JFrame1.jList1("Read Attribute Value:"
-										+ attributenodevalue);
-								multicolumn[attributes][0] = attributenode;// set
-							}
-							// multicolumn[width][high];
-							multicolumn[attributes][line] = attributenodevalue;
-							attributes++;
-							countallattributes++;
+						if (null != childAttributes.getElementsByTagName("*").item(attributeIndex)) {
+							attributenodearray[attributeIndex] = (childAttributes.getElementsByTagName("*").item(attributeIndex).getNodeName().toString());
+							multicolumn[attributeIndex][0] = attributenodearray[attributeIndex];// set table line 0
+							JFrame1.jList1("Read Attribute Node:"+ attributenodearray[attributeIndex]);
+							attributenodes++;
 						}
 					}
-					line++;
 				}
-				csv_input_columns = attributes+1;
+				JFrame1.jList1("Count Attributes Nodes:" + Integer.toString(attributenodes));// nodes per object
+				// </read all attributes nodes to Array>
+				// -----------------------------------------------------------------
+				String attributenodevalue = "";	
+				int line=1;
+				for (int Index = 0; Index < listElement.getLength(); Index++) {
+						Element childAttributes = (Element) listElement.item(Index);
+						// String AttributeContent = childAttributes.getTextContent();
+						// JFrame1.jList1(" Counts Attributes:" + AttributeContent);
+					for (int attributeIndex = 0; attributeIndex < attributenodes; attributeIndex++) {
+   					    // problem to read this empty tag <msisdnList/>
+						// JFrame1.jList1("Attribute Node:"+ attributenodearray[attributeIndex]+"-index:" +attributeIndex);
+						if (attributenodearray[attributeIndex] == (childAttributes.getElementsByTagName("*").item(attributeIndex).getNodeName().toString())) {
+							//JFrame1.jList1("Attribute Node:"+ attributenodearray[attributeIndex]+"-index:" +attributeIndex);
+							if (null != (childAttributes.getElementsByTagName("*").item(attributeIndex).getChildNodes().item(0))) {
+				        	attributenodevalue = "";
+							attributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex).getChildNodes().item(0).getNodeValue());
+							// multicolumn[width][high];
+							multicolumn[attributeIndex][line] = attributenodevalue;
+							//JFrame1.jList1("Read Attribute Value:"+ attributenodevalue);
+							}
+					}
+				}
+					line++;
+			}
+				csv_input_columns = attributenodes;
 				csv_output_columns = csv_input_columns;
 				csv_input_lines = line;
 				csv_output_lines = csv_input_lines;
+				JFrame1.jList1("Count All Attribute Values:"	+ Integer.toString(attributenodes * line));
 				JFrame1.jList1("Convert To Table Columns:	" + csv_input_columns);
 				JFrame1.jList1("Convert To Table Lines:	" + csv_input_lines);
-				JFrame1.jList1("Count Attributes:"
-						+ Integer.toString(countallattributes));
+				//------------------------------------------------------------------------
 				JFrame1.jList1(MESSAGE07);
 				if (loglevel >= 1) {
 					write_log(MESSAGE07);
