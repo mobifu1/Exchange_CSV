@@ -545,6 +545,8 @@ public class Calculation implements Runnable {
 				Element readrootElement = (Element) readlistRoot.item(0);
 				JFrame1.jList1("Read Root Element:"
 						+ readrootElement.getNodeName());
+				xmlrootelement = readrootElement.getNodeName();
+
 				// read with rootelement
 				NodeList listRoot = xmldoc.getElementsByTagName(readrootElement
 						.getNodeName());// Data
@@ -557,6 +559,7 @@ public class Calculation implements Runnable {
 				Element readchildElement = (Element) readlistElement.item(0);
 				String readTagFirstElement = readchildElement.getTagName();
 				JFrame1.jList1("Read Child Node:" + readTagFirstElement);
+				xmlelement = readTagFirstElement;
 
 				// read with child element
 				NodeList listElement = rootElement
@@ -604,23 +607,17 @@ public class Calculation implements Runnable {
 										+ attributenode);
 								JFrame1.jList1("Read Attribute Value:"
 										+ attributenodevalue);
+								multicolumn[attributes][0] = attributenode;// set
 							}
 							// multicolumn[width][high];
-							multicolumn[attributes][0] = attributenode;// set
-																		// line0
-																		// of
-																		// table
-							multicolumn[attributes][line] = attributenodevalue;// set
-																				// lines
-																				// of
-																				// table
+							multicolumn[attributes][line] = attributenodevalue;
 							attributes++;
 							countallattributes++;
 						}
 					}
 					line++;
 				}
-				csv_input_columns = attributes;
+				csv_input_columns = attributes+1;
 				csv_output_columns = csv_input_columns;
 				csv_input_lines = line;
 				csv_output_lines = csv_input_lines;
