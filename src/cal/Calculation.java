@@ -183,7 +183,7 @@ public class Calculation implements Runnable {
 			+ " encoding=" + QUOTES + "UTF-8" + QUOTES + "?>";
 	private static String xmlrootelement = "rootelement";
 	private static String xmlelement = "element";
-	private static String xmlfield = "field";
+	private static String xmlfield = "attribute";
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			// 2 backslashes are not allowed \\
@@ -532,68 +532,105 @@ public class Calculation implements Runnable {
 				// http://www.cs.hs-rm.de/~knauf/SWTProjekt2009/xml/
 				// http://stackoverflow.com/questions/3273682/get-the-name-of-all-attributes-in-a-xml-file
 				// http://examples.javacodegeeks.com/core-java/xml/dom/list-all-attributes-of-dom-element/
-				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-				DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+				DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+						.newInstance();
+				DocumentBuilder documentBuilder = documentBuilderFactory
+						.newDocumentBuilder();
 				File xmlfile = new File(path1);
 				Document xmldoc = documentBuilder.parse(xmlfile);
-				
-                // read root element------------------------------------------------
-				NodeList readlistRoot = xmldoc.getElementsByTagName("*");//Data
+
+				// read root
+				// element------------------------------------------------
+				NodeList readlistRoot = xmldoc.getElementsByTagName("*");// Data
 				Element readrootElement = (Element) readlistRoot.item(0);
-			    JFrame1.jList1("Read Root Element:" + readrootElement.getNodeName());
-			    // read with rootelement
-				NodeList listRoot = xmldoc.getElementsByTagName(readrootElement.getNodeName());//Data
+				JFrame1.jList1("Read Root Element:"
+						+ readrootElement.getNodeName());
+				// read with rootelement
+				NodeList listRoot = xmldoc.getElementsByTagName(readrootElement
+						.getNodeName());// Data
 				Element rootElement = (Element) listRoot.item(0);
-				
-				// read child element:----------------------------------------------
-				NodeList readlistElement = rootElement.getElementsByTagName("*");//Object
+
+				// read child
+				// element:----------------------------------------------
+				NodeList readlistElement = rootElement
+						.getElementsByTagName("*");// Object
 				Element readchildElement = (Element) readlistElement.item(0);
 				String readTagFirstElement = readchildElement.getTagName();
 				JFrame1.jList1("Read Child Node:" + readTagFirstElement);
-				
+
 				// read with child element
-				NodeList listElement = rootElement.getElementsByTagName(readTagFirstElement);//Object
-				//Element childElement = (Element) listElement.item(0);	
-				//-----------------------------------------------------------------
-     			JFrame1.jList1("Count Child Nodes:" + Integer.toString(listElement.getLength()));
-				int attributes =0;
-				int countallattributes= 0;
-				int line =1;
+				NodeList listElement = rootElement
+						.getElementsByTagName(readTagFirstElement);// Object
+				// Element childElement = (Element) listElement.item(0);
+				// -----------------------------------------------------------------
+				JFrame1.jList1("Count Child Nodes:"
+						+ Integer.toString(listElement.getLength()));
+				int attributes = 0;
+				int countallattributes = 0;
+				int line = 1;
 				for (int intIndex = 0; intIndex < listElement.getLength(); intIndex++) {
-					Element childAttributes = (Element) listElement.item(intIndex);
-					//count of attributes
-					//String AttributeContent = childAttributes.getTextContent();
-                    //JFrame1.jList1(" Counts Attributes:" + AttributeContent);
-					attributes =0;
-   					for (int attributeIndex = 0; attributeIndex < max_width; attributeIndex++) {//max_width
-						//List of Elements with Attributes
-						if (null != childAttributes.getElementsByTagName("*").item(attributeIndex)){
-						    String attributenode = "";
-						    String attributenodevalue = "";
-						    attributenode = (childAttributes.getElementsByTagName("*").item(attributeIndex).getChildNodes().item(0).getParentNode().getNodeName());
-						    attributenodevalue= (childAttributes.getElementsByTagName("*").item(attributeIndex).getChildNodes().item(0).getNodeValue());
-						    if ( intIndex == 0){
-						    	JFrame1.jList1("Read Attribute Node:" + attributenode);
-							    JFrame1.jList1("Read Attribute Value:" + attributenodevalue);
-						    }
-					    	//multicolumn[width][high];
-							multicolumn[attributes][0] =  attributenode;//set in line0 of table
-							multicolumn[attributes][line] =  attributenodevalue;//set in lines of table
+					Element childAttributes = (Element) listElement
+							.item(intIndex);
+					// count of attributes
+					// String AttributeContent =
+					// childAttributes.getTextContent();
+					// JFrame1.jList1(" Counts Attributes:" + AttributeContent);
+					attributes = 0;
+					for (int attributeIndex = 0; attributeIndex < max_width; attributeIndex++) {// max_width
+						// List of Elements with Attributes
+						if (null != childAttributes.getElementsByTagName("*")
+								.item(attributeIndex)) {
+							String attributenode = "";
+							String attributenodevalue = "";
+							// problem to read this empty tag <msisdnList/>
+							attributenode = (childAttributes
+									.getElementsByTagName("*")
+									.item(attributeIndex).getNodeName()
+									.toString());
+
+							if (null != (childAttributes
+									.getElementsByTagName("*")
+									.item(attributeIndex).getChildNodes()
+									.item(0))) {
+								attributenodevalue = "";
+								attributenodevalue = (childAttributes
+										.getElementsByTagName("*")
+										.item(attributeIndex).getChildNodes()
+										.item(0).getNodeValue());
+							}
+							// -------------------------
+							if (intIndex == 0) {
+								JFrame1.jList1("Read Attribute Node:"
+										+ attributenode);
+								JFrame1.jList1("Read Attribute Value:"
+										+ attributenodevalue);
+							}
+							// multicolumn[width][high];
+							multicolumn[attributes][0] = attributenode;// set in
+																		// line0
+																		// of
+																		// table
+							multicolumn[attributes][line] = attributenodevalue;// set
+																				// in
+																				// lines
+																				// of
+																				// table
 							attributes++;
 							countallattributes++;
 						}
 					}
-   					line++;
+					line++;
 				}
-				csv_input_columns = attributes ;
+				csv_input_columns = attributes;
 				csv_output_columns = csv_input_columns;
 				csv_input_lines = line;
 				csv_output_lines = csv_input_lines;
-    			JFrame1.jList1("csv_input_columns:	" + csv_input_columns);
-    			JFrame1.jList1("csv_input_lines:	" + csv_input_lines);			
-    			JFrame1.jList1("Count Attributes:" + Integer.toString(countallattributes));
+				JFrame1.jList1("Convert To Table Columns:	" + csv_input_columns);
+				JFrame1.jList1("Convert To Table Linesines:	" + csv_input_lines);
+				JFrame1.jList1("Count Attributes:"
+						+ Integer.toString(countallattributes));
 				outputpath = DEAFAULT_CSV_OUTPUPATH;
-    			// ---------------------------------
+				// ---------------------------------
 			}
 		} catch (Exception e) {
 
@@ -785,18 +822,19 @@ public class Calculation implements Runnable {
 							multicolumn[p][x] = "";// init_with""
 						}
 						if (outputheaderline == 1) {
-							if (multicolumn[p][x] != ""){
-							    line = ("    " + "<" + multicolumn[p][0] + ">" + multicolumn[p][x] + "</" + multicolumn[p][0] + ">");
-							}
-							else {
-								line = ("    " + "<" + multicolumn[p][0] + "/>")	; // empty tag
+							if (multicolumn[p][x] != "") {
+								line = ("    " + "<" + multicolumn[p][0] + ">"
+										+ multicolumn[p][x] + "</"
+										+ multicolumn[p][0] + ">");
+							} else {
+								line = ("    " + "<" + multicolumn[p][0] + "/>"); // empty
+																					// tag
 							}
 						}
 						if (outputheaderline == 0) {
-							if (multicolumn[p][x] != ""){
-							    line = (ATTRIBUTEOPEN + multicolumn[p][x] + ATTRIBUTECLOSE);
-							}
-							else {
+							if (multicolumn[p][x] != "") {
+								line = (ATTRIBUTEOPEN + multicolumn[p][x] + ATTRIBUTECLOSE);
+							} else {
 								line = (ATTRIBUTEEMPTY); // empty tag
 							}
 						}
