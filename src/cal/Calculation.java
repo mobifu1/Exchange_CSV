@@ -13,6 +13,7 @@ import java.util.Date;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+//import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -548,28 +549,51 @@ public class Calculation implements Runnable {
 				NodeList readlistElement = rootElement.getElementsByTagName("*");//Object
 				Element readchildElement = (Element) readlistElement.item(0);
 				String readTagFirstElement = readchildElement.getTagName();
-				JFrame1.jList1("Read Child Element:" + readTagFirstElement);
+				JFrame1.jList1("Read Child Node:" + readTagFirstElement);
+				
 				// read with child element
 				NodeList listElement = rootElement.getElementsByTagName(readTagFirstElement);//Object
-				Element childElement = (Element) listElement.item(0);	
+				//Element childElement = (Element) listElement.item(0);	
 				//-----------------------------------------------------------------
-     			JFrame1.jList1("Count Objects:" + Integer.toString(listElement.getLength()));
-
+     			JFrame1.jList1("Count Child Nodes:" + Integer.toString(listElement.getLength()));
+				int attributes =0;
+				int countallattributes= 0;
+				int line =1;
 				for (int intIndex = 0; intIndex < listElement.getLength(); intIndex++) {
-
 					Element childAttributes = (Element) listElement.item(intIndex);
 					//count of attributes
-					//code for count attributes
-					
-					//List of Elements with Attributes
-					JFrame1.jList1("Value:" + childAttributes.getElementsByTagName("*").item(0).getChildNodes().item(0).getNodeValue());
-					JFrame1.jList1("Value:" + childAttributes.getElementsByTagName("*").item(1).getChildNodes().item(0).getNodeValue());
-					JFrame1.jList1("Value:" + childAttributes.getElementsByTagName("*").item(2).getChildNodes().item(0).getNodeValue());
-
 					//String AttributeContent = childAttributes.getTextContent();
-                    //JFrame1.jList1("Attributes:" + AttributeContent);
+                    //JFrame1.jList1(" Counts Attributes:" + AttributeContent);
+					attributes =0;
+   					for (int attributeIndex = 0; attributeIndex < max_width; attributeIndex++) {//max_width
+						//List of Elements with Attributes
+						if (null != childAttributes.getElementsByTagName("*").item(attributeIndex)){
+						    String attributenode = "";
+						    String attributenodevalue = "";
+						    attributenode = (childAttributes.getElementsByTagName("*").item(attributeIndex).getChildNodes().item(0).getParentNode().getNodeName());
+						    attributenodevalue= (childAttributes.getElementsByTagName("*").item(attributeIndex).getChildNodes().item(0).getNodeValue());
+						    if ( intIndex == 0){
+						    	JFrame1.jList1("Read Attribute Node:" + attributenode);
+							    JFrame1.jList1("Read Attribute Value:" + attributenodevalue);
+						    }
+					    	//multicolumn[width][high];
+							multicolumn[attributes][0] =  attributenode;//set in line0 of table
+							multicolumn[attributes][line] =  attributenodevalue;//set in lines of table
+							attributes++;
+							countallattributes++;
+						}
+					}
+   					line++;
 				}
-				// ---------------------------------
+				csv_input_columns = attributes ;
+				csv_output_columns = csv_input_columns;
+				csv_input_lines = line;
+				csv_output_lines = csv_input_lines;
+    			JFrame1.jList1("csv_input_columns:	" + csv_input_columns);
+    			JFrame1.jList1("csv_input_lines:	" + csv_input_lines);			
+    			JFrame1.jList1("Count Attributes:" + Integer.toString(countallattributes));
+				outputpath = DEAFAULT_CSV_OUTPUPATH;
+    			// ---------------------------------
 			}
 		} catch (Exception e) {
 
