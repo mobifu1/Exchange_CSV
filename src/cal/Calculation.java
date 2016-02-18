@@ -606,12 +606,11 @@ public class Calculation implements Runnable {
 										+ attributenodevalue);
 							}
 							// multicolumn[width][high];
-							multicolumn[attributes][0] = attributenode;// set in
+							multicolumn[attributes][0] = attributenode;// set
 																		// line0
 																		// of
 																		// table
 							multicolumn[attributes][line] = attributenodevalue;// set
-																				// in
 																				// lines
 																				// of
 																				// table
@@ -626,9 +625,13 @@ public class Calculation implements Runnable {
 				csv_input_lines = line;
 				csv_output_lines = csv_input_lines;
 				JFrame1.jList1("Convert To Table Columns:	" + csv_input_columns);
-				JFrame1.jList1("Convert To Table Linesines:	" + csv_input_lines);
+				JFrame1.jList1("Convert To Table Lines:	" + csv_input_lines);
 				JFrame1.jList1("Count Attributes:"
 						+ Integer.toString(countallattributes));
+				JFrame1.jList1(MESSAGE07);
+				if (loglevel >= 1) {
+					write_log(MESSAGE07);
+				} // standard = 1
 				outputpath = DEAFAULT_CSV_OUTPUPATH;
 				// ---------------------------------
 			}

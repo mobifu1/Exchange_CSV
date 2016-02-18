@@ -363,11 +363,11 @@ public class JFrame1 extends javax.swing.JFrame {
 							try {
 								openUrl(Calculation.url);
 							} catch (IOException e1) {
-								
+
 								e1.printStackTrace();
 							}
 						} catch (URISyntaxException e1) {
-							
+
 							e1.printStackTrace();
 						}
 					}
