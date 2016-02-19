@@ -411,7 +411,9 @@ public class Calculation implements Runnable {
 					}
 					for (x = 0; x < csv_input_columns; x++) {
 						multicolumn[x][csv_input_lines] = splitrow[x];
-						 //System.out.println("csv_input_line=" + csv_input_lines + " " + multicolumn[x][csv_input_lines]);
+						// System.out.println("csv_input_line=" +
+						// csv_input_lines + " " +
+						// multicolumn[x][csv_input_lines]);
 					}
 					// JFrame1.jList1(row);
 					// JFrame1.jList1(String.valueOf(j));
@@ -571,67 +573,97 @@ public class Calculation implements Runnable {
 						.getElementsByTagName(readTagFirstElement);// Object
 				// Element childElement = (Element) listElement.item(0);
 				int objects = (listElement.getLength());
-				JFrame1.jList1("Count Child Nodes:"	+ Integer.toString(objects));
-				// -----------------------------------------------------------------			
-				// <read all attributes nodes to Array>	
+				JFrame1.jList1("Count Child Nodes:" + Integer.toString(objects));
+				// -----------------------------------------------------------------
+				// <read all attributes nodes to Array>
 				int countattributenodes = 0;
 				for (int intIndex = 0; intIndex < 1; intIndex++) {
-					Element childAttributes = (Element) listElement	.item(intIndex);
+					Element childAttributes = (Element) listElement
+							.item(intIndex);
 					for (int attributeIndex = 0; attributeIndex < max_width; attributeIndex++) {// max_width
 						// List of Elements with Attributes
-						if (null != childAttributes.getElementsByTagName("*").item(attributeIndex)) {
-							attributenodearray[attributeIndex] = (childAttributes.getElementsByTagName("*").item(attributeIndex).getNodeName().toString());
-							multicolumn[attributeIndex][0] = attributenodearray[attributeIndex];// set table line 0
-							JFrame1.jList1("Read Attribute Node:"+ attributenodearray[attributeIndex]);
+						if (null != childAttributes.getElementsByTagName("*")
+								.item(attributeIndex)) {
+							attributenodearray[attributeIndex] = (childAttributes
+									.getElementsByTagName("*")
+									.item(attributeIndex).getNodeName()
+									.toString());
+							multicolumn[attributeIndex][0] = attributenodearray[attributeIndex];// set
+																								// table
+																								// line
+																								// 0
+							JFrame1.jList1("Read Attribute Node:"
+									+ attributenodearray[attributeIndex]);
 							countattributenodes++;
 						}
 					}
 				}
-				JFrame1.jList1("Count Attributes Nodes:" + Integer.toString(countattributenodes));// nodes per object
+				JFrame1.jList1("Count Attributes Nodes:"
+						+ Integer.toString(countattributenodes));// nodes per
+																	// object
 				// </read all attributes nodes to Array>
 				// -----------------------------------------------------------------
-				String attributearraynode = "";	
+				String attributearraynode = "";
 				String attributexmlnode = "";
-				String attributenodevalue = "";	
-				int line=1;
+				String attributenodevalue = "";
+				int line = 1;
 				for (int Index = 0; Index < listElement.getLength(); Index++) {
-						Element childAttributes = (Element) listElement.item(Index);
-						// String AttributeContent = childAttributes.getTextContent();
-						// JFrame1.jList1(" Counts Attributes:" + AttributeContent);
+					Element childAttributes = (Element) listElement.item(Index);
+					// String AttributeContent =
+					// childAttributes.getTextContent();
+					// JFrame1.jList1(" Counts Attributes:" + AttributeContent);
 					for (int attributeIndex1 = 0; attributeIndex1 < countattributenodes; attributeIndex1++) {
-   					    // problem to read this empty tag <msisdnList/>
+						// problem to read this empty tag <msisdnList/>
 						attributearraynode = attributenodearray[attributeIndex1];
 						errortag = attributearraynode;
-						//JFrame1.jList1("1.Attribute Array Node:"+ attributearraynode +"-index:" +attributeIndex1);
+						// JFrame1.jList1("1.Attribute Array Node:"+
+						// attributearraynode +"-index:" +attributeIndex1);
 						// problem
 						for (int attributeIndex2 = 0; attributeIndex2 < countattributenodes; attributeIndex2++) {
-							if (null != (childAttributes.getElementsByTagName("*").item(attributeIndex2).getNodeName())){
-						    	attributexmlnode = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getNodeName().toString());
-						           if (attributearraynode == attributexmlnode){
-					 	        	  //JFrame1.jList1("2.Attribute Xml Node:"+ attributearraynode +"-index:" +attributeIndex2);
-						             	if (null != (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0))) {
-				        	              attributenodevalue = "";
-							              attributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getNodeValue());
-							              // multicolumn[width][high];
-							              multicolumn[attributeIndex1][line] = attributenodevalue;
-							              //JFrame1.jList1("3.Read Attribute Xml Value:"+ attributenodevalue);
-							              // <comment>-</comment> fehlt in 5620224,5620425,5620204,5620304  > Exception
-							            }
-						           }
-						    }
-    				    }
-				    }
+							if (null != (childAttributes.getElementsByTagName(
+									"*").item(attributeIndex2).getNodeName())) {
+								attributexmlnode = (childAttributes
+										.getElementsByTagName("*")
+										.item(attributeIndex2).getNodeName()
+										.toString());
+								if (attributearraynode == attributexmlnode) {
+									// JFrame1.jList1("2.Attribute Xml Node:"+
+									// attributearraynode +"-index:"
+									// +attributeIndex2);
+									if (null != (childAttributes
+											.getElementsByTagName("*")
+											.item(attributeIndex2)
+											.getChildNodes().item(0))) {
+										attributenodevalue = "";
+										attributenodevalue = (childAttributes
+												.getElementsByTagName("*")
+												.item(attributeIndex2)
+												.getChildNodes().item(0)
+												.getNodeValue());
+										// multicolumn[width][high];
+										multicolumn[attributeIndex1][line] = attributenodevalue;
+										// JFrame1.jList1("3.Read Attribute Xml Value:"+
+										// attributenodevalue);
+										// <comment>-</comment> fehlt in
+										// 5620224,5620425,5620204,5620304 >
+										// Exception
+									}
+								}
+							}
+						}
+					}
 					errorline = Integer.toString(line);
 					line++;
-			    }
+				}
 				csv_input_columns = countattributenodes;
 				csv_output_columns = csv_input_columns;
 				csv_input_lines = line;
 				csv_output_lines = csv_input_lines;
-				JFrame1.jList1("Count All Attribute Values:"	+ Integer.toString(countattributenodes * (line-1)));
+				JFrame1.jList1("Count All Attribute Values:"
+						+ Integer.toString(countattributenodes * (line - 1)));
 				JFrame1.jList1("Convert To Table Columns:	" + csv_input_columns);
 				JFrame1.jList1("Convert To Table Lines:	" + csv_input_lines);
-				//------------------------------------------------------------------------
+				// ------------------------------------------------------------------------
 				JFrame1.jList1(MESSAGE07);
 				if (loglevel >= 1) {
 					write_log(MESSAGE07);
@@ -701,7 +733,7 @@ public class Calculation implements Runnable {
 						}
 						if (p > 0) {
 							line = (line + separator_character + multicolumn[p][x]);
-							//System.out.println(line);
+							// System.out.println(line);
 						}
 					}
 					if (x == 0 && outputheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
@@ -3157,13 +3189,15 @@ public class Calculation implements Runnable {
 			write_log(MESSAGE49);
 		} // standard = 1
 	}
+
 	// *****************************************************************************************
 	public static void showall() {
 		int x;
 		int y;
-		for (x = 0; x < csv_input_columns ; x++) {
-			for (y = 0; y < csv_input_lines ; y++) {
-				System.out.println("Column:" + x + " Line:"+ y + " Value:" + multicolumn[x][y]) ;
+		for (x = 0; x < csv_input_columns; x++) {
+			for (y = 0; y < csv_input_lines; y++) {
+				System.out.println("Column:" + x + " Line:" + y + " Value:"
+						+ multicolumn[x][y]);
 				// multicolumn[width][high];
 			}
 		}
