@@ -514,7 +514,8 @@ public class Calculation implements Runnable {
 		clearall();
 		String attributenodearray[] = new String[max_width];
 		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
-		String errorline = "";
+		int errorobject = 0;
+		int errorattributes = 0;
 		String errortag = "";
 		if (loglevel >= 1) {
 			write_log(MESSAGE59);
@@ -598,6 +599,7 @@ public class Calculation implements Runnable {
 						}
 					}
 				}
+				errorattributes = countattributenodes;
 				JFrame1.jList1("Count Attributes Nodes:"
 						+ Integer.toString(countattributenodes));// nodes per
 																	// object
@@ -652,7 +654,7 @@ public class Calculation implements Runnable {
 							}
 						}
 					}
-					errorline = Integer.toString(line);
+					errorobject = line;
 					line++;
 				}
 				csv_input_columns = countattributenodes;
@@ -672,14 +674,20 @@ public class Calculation implements Runnable {
 				// ---------------------------------
 			}
 		} catch (Exception e) {
-			JFrame1.jList1(ERROR01 + MESSAGE99 + "at xml Object > " + errorline);
+			JFrame1.jList1(ERROR01 + MESSAGE99 + "at xml Object > "
+					+ errorobject);
 			JFrame1.jList1(ERROR01 + MESSAGE99 + "at xml Tag > " + errortag);
+			JFrame1.jList1(ERROR01 + MESSAGE99 + "at xml Line > "
+					+ ((errorobject * (errorattributes + 2)) + 4));
 			JFrame1.jTextPane1.setText(ERROR01 + MESSAGE99 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
 				write_log(ERROR01 + MESSAGE99 + e);
-				write_log(ERROR01 + MESSAGE99 + "at xml Object > " + errorline);
+				write_log(ERROR01 + MESSAGE99 + "at xml Object > "
+						+ errorobject);
 				write_log(ERROR01 + MESSAGE99 + "at xml Tag > " + errortag);
+				write_log(ERROR01 + MESSAGE99 + "at xml Line > "
+						+ ((errorobject * (errorattributes + 2)) + 4));
 			} // debug = 2
 		}
 	}
