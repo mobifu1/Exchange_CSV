@@ -91,7 +91,7 @@ public class Calculation implements Runnable {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "11.02.2016";// last Modify
+	static final String DATE = "20.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 50;// delay time in working process ,100ms
@@ -201,6 +201,7 @@ public class Calculation implements Runnable {
 					+ BACKSLASH + "      " + BACKSLASH + " " + BACKSLASH + "/ /          *********"),
 			("//*********       |_______|  |_______/       " + BACKSLASH + "__/           *********"),
 			("//*********                                                 *********"),
+			("//*********                      XML                        *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
 			("//" + url),
@@ -210,6 +211,7 @@ public class Calculation implements Runnable {
 			("//Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
 					+ ", last modify: " + DATE),
 			("//V2.5-R-Stable New Feature:"),
+			("//XML Parser / XML Writer"),
 			("//Compare Column / Compare Instring Column / Log File"),
 			("//Find Move / Find Clear / Not Find Clear"),
 			("//Change: Set Maximum CSV Lines,100000,"),
@@ -510,6 +512,8 @@ public class Calculation implements Runnable {
 		clearall();
 		String attributenodearray[] = new String[max_width];
 		String now2 = new SimpleDateFormat("dd.MM.yyy").format(new Date());
+		String errorline = "";
+		String errortag = "";
 		if (loglevel >= 1) {
 			write_log(MESSAGE59);
 			write_log(MESSAGE60);
@@ -597,32 +601,34 @@ public class Calculation implements Runnable {
 					for (int attributeIndex1 = 0; attributeIndex1 < countattributenodes; attributeIndex1++) {
    					    // problem to read this empty tag <msisdnList/>
 						attributearraynode = attributenodearray[attributeIndex1];
-						JFrame1.jList1("1.Attribute Array Node:"+ attributearraynode +"-index:" +attributeIndex1);
+						errortag = attributearraynode;
+						//JFrame1.jList1("1.Attribute Array Node:"+ attributearraynode +"-index:" +attributeIndex1);
 						// problem
 						for (int attributeIndex2 = 0; attributeIndex2 < countattributenodes; attributeIndex2++) {
 							if (null != (childAttributes.getElementsByTagName("*").item(attributeIndex2).getNodeName())){
 						    	attributexmlnode = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getNodeName().toString());
 						           if (attributearraynode == attributexmlnode){
-					 	        	  JFrame1.jList1("2.Attribute Xml Node:"+ attributearraynode +"-index:" +attributeIndex2);
+					 	        	  //JFrame1.jList1("2.Attribute Xml Node:"+ attributearraynode +"-index:" +attributeIndex2);
 						             	if (null != (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0))) {
 				        	              attributenodevalue = "";
 							              attributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getNodeValue());
 							              // multicolumn[width][high];
 							              multicolumn[attributeIndex1][line] = attributenodevalue;
-							              JFrame1.jList1("3.Read Attribute Xml Value:"+ attributenodevalue);
-							              // <comment>-</comment> fehlt in 5620342  > Exception
+							              //JFrame1.jList1("3.Read Attribute Xml Value:"+ attributenodevalue);
+							              // <comment>-</comment> fehlt in 5620224,5620425,5620204,5620304  > Exception
 							            }
 						           }
 						    }
     				    }
 				    }
+					errorline = Integer.toString(line);
 					line++;
 			    }
 				csv_input_columns = countattributenodes;
 				csv_output_columns = csv_input_columns;
 				csv_input_lines = line;
 				csv_output_lines = csv_input_lines;
-				JFrame1.jList1("Count All Attribute Values:"	+ Integer.toString(countattributenodes * line));
+				JFrame1.jList1("Count All Attribute Values:"	+ Integer.toString(countattributenodes * (line-1)));
 				JFrame1.jList1("Convert To Table Columns:	" + csv_input_columns);
 				JFrame1.jList1("Convert To Table Lines:	" + csv_input_lines);
 				//------------------------------------------------------------------------
@@ -634,11 +640,14 @@ public class Calculation implements Runnable {
 				// ---------------------------------
 			}
 		} catch (Exception e) {
-
+			JFrame1.jList1(ERROR01 + MESSAGE99 + "at xml Object > " + errorline);
+			JFrame1.jList1(ERROR01 + MESSAGE99 + "at xml Tag > " + errortag);
 			JFrame1.jTextPane1.setText(ERROR01 + MESSAGE99 + e);
 			e.printStackTrace();
 			if (loglevel >= 2) {
 				write_log(ERROR01 + MESSAGE99 + e);
+				write_log(ERROR01 + MESSAGE99 + "at xml Object > " + errorline);
+				write_log(ERROR01 + MESSAGE99 + "at xml Tag > " + errortag);
 			} // debug = 2
 		}
 	}
