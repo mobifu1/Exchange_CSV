@@ -98,7 +98,8 @@ public class Calculation implements Runnable {
 	static int outputheaderline = 1;// default=1 Output-file use a Header-line
 	// ------------------------------------------------
 	// global constants for Messages
-	public static final String url = "https://en.wikipedia.org/wiki/Comma-separated_values";
+	public static final String url1 = "https://en.wikipedia.org/wiki/Comma-separated_values";
+	public static final String url2 = "https://en.wikipedia.org/wiki/XML";
 	static final String ERROR01 = "Error:";
 	static final String ERROR02 = "Fail:";
 	static final String MESSAGE01 = "Start Separator Autoscan";
@@ -204,7 +205,7 @@ public class Calculation implements Runnable {
 			("//*********                      XML                        *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
-			("//" + url),
+			("//" + url1),
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
 			("//http://www.eclipse.org/platform"),
 			("//http://www.cloudgarden.com/jigloo/"),
@@ -646,9 +647,14 @@ public class Calculation implements Runnable {
 										multicolumn[attributeIndex1][line] = attributenodevalue;
 										// JFrame1.jList1("3.Read Attribute Xml Value:"+
 										// attributenodevalue);
-										// <comment>-</comment> fehlt in
-										// 5620224,5620425,5620204,5620304 >
-										// Exception
+										// !!!!!if node not exist
+										// <comment>-</comment> gives
+										// exception!!!!!!
+										// to figured out
+										// String sComment =
+										// childAttributes.getTextContent();
+										// JFrame1.jList1("4.Read Attribute Xml Value:"+
+										// sComment);
 									}
 								}
 							}

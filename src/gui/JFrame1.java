@@ -361,7 +361,7 @@ public class JFrame1 extends javax.swing.JFrame {
 					public void mouseClicked(MouseEvent e) {
 						try {
 							try {
-								openUrl(Calculation.url);
+								openUrl(Calculation.url1);
 							} catch (IOException e1) {
 
 								e1.printStackTrace();
