@@ -88,8 +88,7 @@ public class Calculation implements Runnable {
 	public static int chartlistcounter3 = 1;
 	// ------------------------------------------------
 	static String outputpath = "";
-	static final String DEAFAULT_CSV_OUTPUPATH = "Exchange Output.csv";
-	static final String DEAFAULT_XML_OUTPUPATH = "Exchange Output.xml";
+	static final String DEAFAULT_OUTPUPATH = "Exchange Output";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
 	static final String DATE = "11.02.2016";// last Modify
@@ -410,9 +409,7 @@ public class Calculation implements Runnable {
 					}
 					for (x = 0; x < csv_input_columns; x++) {
 						multicolumn[x][csv_input_lines] = splitrow[x];
-						// System.out.println("csv_input_line=" +
-						// csv_input_lines + " " +
-						// multicolumn[x][csv_input_lines]);
+						 //System.out.println("csv_input_line=" + csv_input_lines + " " + multicolumn[x][csv_input_lines]);
 					}
 					// JFrame1.jList1(row);
 					// JFrame1.jList1(String.valueOf(j));
@@ -491,9 +488,12 @@ public class Calculation implements Runnable {
 				if (loglevel >= 1) {
 					write_log(MESSAGE07);
 				} // standard = 1
-				outputpath = DEAFAULT_CSV_OUTPUPATH;
+				csv_output_columns = csv_input_columns;
+				csv_output_lines = csv_input_lines;
+				outputpath = DEAFAULT_OUTPUPATH;
 				// System.out.println("Open File:" + " i=" + i + " j=" +j);
 			}
+
 		} catch (Exception e) {
 			JFrame1.jTextPane1.setText(ERROR01 + MESSAGE99 + e);
 			e.printStackTrace();
@@ -630,7 +630,7 @@ public class Calculation implements Runnable {
 				if (loglevel >= 1) {
 					write_log(MESSAGE07);
 				} // standard = 1
-				outputpath = DEAFAULT_CSV_OUTPUPATH;
+				outputpath = DEAFAULT_OUTPUPATH;
 				// ---------------------------------
 			}
 		} catch (Exception e) {
@@ -645,6 +645,7 @@ public class Calculation implements Runnable {
 
 	// *****************************************************************************************
 	public static void writecsvfile() {
+
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
 		csv_output_lines = csv_input_lines;
@@ -691,6 +692,7 @@ public class Calculation implements Runnable {
 						}
 						if (p > 0) {
 							line = (line + separator_character + multicolumn[p][x]);
+							//System.out.println(line);
 						}
 					}
 					if (x == 0 && outputheaderline == 1) {// UseHeaderLine=0>noPrint-Line0
@@ -3146,6 +3148,17 @@ public class Calculation implements Runnable {
 			write_log(MESSAGE49);
 		} // standard = 1
 	}
+	// *****************************************************************************************
+	public static void showall() {
+		int x;
+		int y;
+		for (x = 0; x < csv_input_columns ; x++) {
+			for (y = 0; y < csv_input_lines ; y++) {
+				System.out.println("Column:" + x + " Line:"+ y + " Value:" + multicolumn[x][y]) ;
+				// multicolumn[width][high];
+			}
+		}
+	}
 
 	// *****************************************************************************************
 	public static void clearall() {
@@ -3154,7 +3167,7 @@ public class Calculation implements Runnable {
 		for (x = 0; x < max_width; x++) {
 			for (y = 0; y < max_high; y++) {
 				multicolumn[x][y] = ("");
-
+				// multicolumn[width][high];
 			}
 		}
 		// System.out.println(MESSAGE49);
