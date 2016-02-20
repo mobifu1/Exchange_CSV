@@ -181,9 +181,10 @@ public class Calculation implements Runnable {
 	// XML-Statements
 	static final String XMLHEADER = "<?xml version=" + QUOTES + "1.0" + QUOTES
 			+ " encoding=" + QUOTES + "UTF-8" + QUOTES + "?>";
-	private static String xmlrootelement = "rootelement";
-	private static String xmlelement = "element";
+	private static String xmlrootelement = "objects";
+	private static String xmlelement = "object";
 	private static String xmlfield = "attribute";
+	private static String xselement = "";
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			// 2 backslashes are not allowed \\
@@ -254,8 +255,9 @@ public class Calculation implements Runnable {
 			("//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error"),
 			("//------------------------------------------------------"),
 			("//XML-COMMANDS:"),
-			("//Set XML Rootelement : Data = <Data> & </Data> "),
+			("//Set XML Rootelement : Objects = <Objects> & </Objects> "),
 			("//Set XML Element: Object = <Object> & </Object>"),
+			("//Set XS Element: xs = <Object+xs>"),
 			("//------------------------------------------------------"),
 			("//CHECK-COMMANDS:"),
 			("//Find Numerical Gaps: 0, Find numerical Gaps between min and max value in Column 0 > Terminalresults"),
@@ -268,14 +270,15 @@ public class Calculation implements Runnable {
 			("Output Header Line,1,"), // ----------------------------
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
-			("Set XML Rootelement,Data,"), // ----------------------------
-			("Set XML Element,Object,"),// -------------------------------
+			("Set XML Rootelement,Objects,"), // ------------------------
+			("Set XML Element,Object,"),// ---------------------------
+			("Set XS Element,xs,"),// --------------------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Columns,30,"), // --------------------------------------
-			("Copy Columns,2,3,"), // ---------------------------------
+			("Copy Columns,2,3,"), // --------------------------------
 			("Set Header,0,Test,"), // -------------------------------
-			("Set Columns,0,bla,"), // --------------------------------
+			("Set Columns,0,bla,"), // -------------------------------
 			("Set Block,0,2000,"), // --------------------------------
 			("Find Replace,0,bla,blupp,"), // ------------------------
 			("Find Move,0,up,1,ap,"), // -----------------------------
@@ -550,7 +553,7 @@ public class Calculation implements Runnable {
 
 				// read root
 				// element------------------------------------------------
-				NodeList readlistRoot = xmldoc.getElementsByTagName("*");// Data
+				NodeList readlistRoot = xmldoc.getElementsByTagName("*");// Objects
 				Element readrootElement = (Element) readlistRoot.item(0);
 				JFrame1.jList1("Read Root Element:"
 						+ readrootElement.getNodeName());
@@ -558,7 +561,7 @@ public class Calculation implements Runnable {
 
 				// read with rootelement
 				NodeList listRoot = xmldoc.getElementsByTagName(readrootElement
-						.getNodeName());// Data
+						.getNodeName());// Objects
 				Element rootElement = (Element) listRoot.item(0);
 
 				// read child
@@ -623,8 +626,9 @@ public class Calculation implements Runnable {
 						// attributearraynode +"-index:" +attributeIndex1);
 						// problem
 						for (int attributeIndex2 = 0; attributeIndex2 < countattributenodes; attributeIndex2++) {
-							if (null != (childAttributes.getElementsByTagName(
-									"*").item(attributeIndex2).getNodeName())) {
+							if (null != (childAttributes
+									.getElementsByTagName("*")
+									.item(attributeIndex2))) {
 								attributexmlnode = (childAttributes
 										.getElementsByTagName("*")
 										.item(attributeIndex2).getNodeName()
@@ -646,11 +650,6 @@ public class Calculation implements Runnable {
 										// multicolumn[width][high];
 										multicolumn[attributeIndex1][line] = attributenodevalue;
 										// JFrame1.jList1("3.Read Attribute Xml Value:"+
-										// attributenodevalue);
-										// !!!!!if node not exist
-										// <comment>-</comment> gives
-										// exception!!!!!!
-										// to figured out
 										// String sComment =
 										// childAttributes.getTextContent();
 										// JFrame1.jList1("4.Read Attribute Xml Value:"+
@@ -805,7 +804,7 @@ public class Calculation implements Runnable {
 		String ROOTELEMENTOPEN = "<" + xmlrootelement + ">";
 		String ROOTELEMENTCLOSE = "</" + xmlrootelement + ">";
 		// String ROOTELEMENTEMPTY = "<" + xmlrootelement + "/>";
-		String ELEMENTOPEN = "  " + "<" + xmlelement + ">";
+		String ELEMENTOPEN = "  " + "<" + xmlelement + xselement + ">";
 		String ELEMENTCLOSE = "  " + "</" + xmlelement + ">";
 		// String ELEMENTEMPTY = "  " + "<" + xmlelement + "/>";
 		String ATTRIBUTEOPEN = "    " + "<" + xmlfield + ">";
@@ -1009,6 +1008,7 @@ public class Calculation implements Runnable {
 									|| (row.indexOf("Set Block,") != -1)
 									|| (row.indexOf("Set XML Rootelement,") != -1)
 									|| (row.indexOf("Set XML Element,") != -1)
+									|| (row.indexOf("Set XS Element,") != -1)
 									|| (row.indexOf("Set Maximum CSV Lines,") != -1)
 									|| (row.indexOf("Set Maximum CSV Columns,") != -1)) {
 								// --------------------------------------------
@@ -1173,6 +1173,20 @@ public class Calculation implements Runnable {
 								if (row.length() >= 16) {
 									if (row.substring(0, 16).equals(
 											"Set XML Element,")) {
+										commands[x] = (row);
+										JFrame1.jList1(MESSAGE71 + MESSAGE99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(MESSAGE71 + MESSAGE99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// --------------------------------------------
+								if (row.length() >= 15) {
+									if (row.substring(0, 15).equals(
+											"Set XS Element,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1851,6 +1865,21 @@ public class Calculation implements Runnable {
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
 											+ "Set XML Element" + MESSAGE99 + a);
+								} // standard = 1
+									// System.out.println(a);
+							}
+							// -----------------------------------
+							if (command.equals("Set XS Element")) {
+								// --------------------------------------------------
+								String a;
+								a = attribute1;
+								xselement = a;
+
+								JFrame1.jList1(MESSAGE72 + MESSAGE99
+										+ "Set XS Element" + MESSAGE99 + a);
+								if (loglevel >= 1) {
+									write_log(MESSAGE72 + MESSAGE99
+											+ "Set XS Element" + MESSAGE99 + a);
 								} // standard = 1
 									// System.out.println(a);
 							}
