@@ -184,7 +184,7 @@ public class Calculation implements Runnable {
 	private static String xmlrootelement = "objects";
 	private static String xmlelement = "object";
 	private static String xmlfield = "attribute";
-	private static String xselement = "";
+	private static String namespace = "";// namespace-uri()
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
 			// 2 backslashes are not allowed \\
@@ -570,8 +570,18 @@ public class Calculation implements Runnable {
 						.getElementsByTagName("*");// Object
 				Element readchildElement = (Element) readlistElement.item(0);
 				String readTagFirstElement = readchildElement.getTagName();
-				JFrame1.jList1("Read Child Node:" + readTagFirstElement);
 				xmlelement = readTagFirstElement;
+				JFrame1.jList1("Read Child Node:" + readTagFirstElement);
+				// read <namespace>
+				// http://stackoverflow.com/questions/8939468/retrieving-namespaces-from-element-in-java-using-dom
+				if (null != readchildElement.getAttributes().item(0)
+						.getNamespaceURI()) {
+					String readNamespace = readchildElement.getAttributes()
+							.item(0).getNamespaceURI();
+					namespace = readNamespace;
+					JFrame1.jList1("Read Namespace:" + readNamespace);
+				}
+				// </namespace>
 
 				// read with child element
 				NodeList listElement = rootElement
@@ -804,7 +814,7 @@ public class Calculation implements Runnable {
 		String ROOTELEMENTOPEN = "<" + xmlrootelement + ">";
 		String ROOTELEMENTCLOSE = "</" + xmlrootelement + ">";
 		// String ROOTELEMENTEMPTY = "<" + xmlrootelement + "/>";
-		String ELEMENTOPEN = "  " + "<" + xmlelement + xselement + ">";
+		String ELEMENTOPEN = "  " + "<" + xmlelement + namespace + ">";
 		String ELEMENTCLOSE = "  " + "</" + xmlelement + ">";
 		// String ELEMENTEMPTY = "  " + "<" + xmlelement + "/>";
 		String ATTRIBUTEOPEN = "    " + "<" + xmlfield + ">";
@@ -1873,7 +1883,7 @@ public class Calculation implements Runnable {
 								// --------------------------------------------------
 								String a;
 								a = attribute1;
-								xselement = a;
+								namespace = a;
 
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
 										+ "Set XS Element" + MESSAGE99 + a);
