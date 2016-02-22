@@ -37,8 +37,8 @@ import cal.Calculation;
  */
 @SuppressWarnings("serial")
 public class JFrame1 extends javax.swing.JFrame {
-	private static int Y_HIGH = 340;
-	private static int X_WIDE = 650;
+	private static int Y_HIGH = 345; // default 340
+	private static int X_WIDE = 650; // default 650
 	private static int TIME_VALUE_ms = 100;
 	private JButton jButton1;
 	public static JTextPane jTextPane1;
@@ -58,7 +58,7 @@ public class JFrame1 extends javax.swing.JFrame {
 
 	// titel+substring = Version
 	// public static String subversion = ".1-Alpha"; // Subversion
-	public static String SUBVERSION = ".6-Beta"; // Subversion
+	public static String SUBVERSION = ".7-Beta"; // Subversion
 	// public static String subversion = ".8-RC"; // Subversion
 	// public static String subversion = "-R-Stable"; // Subversion
 	// public static String subversion = "-R-Final"; // Subversion

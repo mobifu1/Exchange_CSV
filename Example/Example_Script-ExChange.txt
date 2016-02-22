@@ -9,13 +9,16 @@
 //*********       | |_____    _____\ \      \ \/ /          *********
 //*********       |_______|  |_______/       \__/           *********
 //*********                                                 *********
+//*********                      XML                        *********
 //*******************************************************************
 //*******************************************************************
+//https://en.wikipedia.org/wiki/Comma-separated_values
 //Java Eclipse Version: 3.8.1 / Jigloo Version: 4.6.6
 //http://www.eclipse.org/platform
 //http://www.cloudgarden.com/jigloo/
-//Version: Exchange CSV V2.5.1-Beta, last modify: 03.02.2016
-//V2.5-R-Stable New Feature:
+//Version: Exchange CSV V2.5.7-Beta, last modify: 20.02.2016
+//V2.6-R-Stable New Feature:
+//XML Parser / XML Writer
 //Compare Column / Compare Instring Column / Log File
 //Find Move / Find Clear / Not Find Clear
 //Change: Set Maximum CSV Lines,100000,
@@ -23,7 +26,7 @@
 //Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100
 //------------------------------------------------------
 //TRANSFORM-COMMANDS:
-//Output Header Line: 0 = Hide Header Line in Output-File / default=1
+//Output Header Line: 0, Hide Header Line in Output-CSV, Set default Fields in XML / default=1
 //Set Maximum CSV Lines: Integer, maximum of the OS
 //Set Maximum CSV Columns: Integer, maximum of the OS
 //Filename: Output Name , Parameter: Date, Date/Time , Parameter: Front,Back
@@ -55,10 +58,11 @@
 //Writefile: 1, Press Button Writefile
 //Autoexit: 1, Application exit
 //Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error
-//------------------------------------------------------"),
+//------------------------------------------------------
 //XML-COMMANDS:
-//Set XML Rootelement : Data = <Data> & </Data>
+//Set XML Rootelement : Objects = <Objects> & </Objects>
 //Set XML Element: Object = <Object> & </Object>
+//Set XS Element: xs = <Object+xs>
 //------------------------------------------------------
 //CHECK-COMMANDS:
 //Find Numerical Gaps: 0, Find numerical Gaps between min and max value in Column 0 > Terminalresults

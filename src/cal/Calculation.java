@@ -255,7 +255,7 @@ public class Calculation implements Runnable {
 			("//Log File: Output Logfile > LogLevel 0-3, 0=off, 1=standard, 2=error"),
 			("//------------------------------------------------------"),
 			("//XML-COMMANDS:"),
-			("//Set XML Rootelement : Objects = <Objects> & </Objects> "),
+			("//Set XML Rootelement : Objects = <Objects> & </Objects>"),
 			("//Set XML Element: Object = <Object> & </Object>"),
 			("//Set XS Element: xs = <Object+xs>"),
 			("//------------------------------------------------------"),
