@@ -212,7 +212,7 @@ public class Calculation implements Runnable {
 			("//http://www.cloudgarden.com/jigloo/"),
 			("//Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
 					+ ", last modify: " + DATE),
-			("//V2.5-R-Stable New Feature:"),
+			("//V2.6-R-Stable New Feature:"),
 			("//XML Parser / XML Writer"),
 			("//Compare Column / Compare Instring Column / Log File"),
 			("//Find Move / Find Clear / Not Find Clear"),
