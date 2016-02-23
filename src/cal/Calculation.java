@@ -257,7 +257,7 @@ public class Calculation implements Runnable {
 			("//XML-COMMANDS:"),
 			("//Set XML Rootelement : Objects = <Objects> & </Objects>"),
 			("//Set XML Element: Object = <Object> & </Object>"),
-			("//Set XS Element: xs = <Object+xs>"),
+			("//Set XML Namespace: xs = <Object+xs>"),
 			("//------------------------------------------------------"),
 			("//CHECK-COMMANDS:"),
 			("//Find Numerical Gaps: 0, Find numerical Gaps between min and max value in Column 0 > Terminalresults"),
@@ -270,9 +270,9 @@ public class Calculation implements Runnable {
 			("Output Header Line,1,"), // ----------------------------
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
-			("Set XML Rootelement,Objects,"), // ------------------------
+			("Set XML Rootelement,Objects,"), // ---------------------
 			("Set XML Element,Object,"),// ---------------------------
-			("Set XS Element,xs,"),// --------------------------------
+			("Set XML Namespace,xs,"),// -----------------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Columns,30,"), // --------------------------------------
@@ -1018,7 +1018,7 @@ public class Calculation implements Runnable {
 									|| (row.indexOf("Set Block,") != -1)
 									|| (row.indexOf("Set XML Rootelement,") != -1)
 									|| (row.indexOf("Set XML Element,") != -1)
-									|| (row.indexOf("Set XS Element,") != -1)
+									|| (row.indexOf("Set XML Namespace,") != -1)
 									|| (row.indexOf("Set Maximum CSV Lines,") != -1)
 									|| (row.indexOf("Set Maximum CSV Columns,") != -1)) {
 								// --------------------------------------------
@@ -1194,9 +1194,9 @@ public class Calculation implements Runnable {
 									}
 								}
 								// --------------------------------------------
-								if (row.length() >= 15) {
-									if (row.substring(0, 15).equals(
-											"Set XS Element,")) {
+								if (row.length() >= 18) {
+									if (row.substring(0, 18).equals(
+											"Set XML Namespace,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1879,17 +1879,18 @@ public class Calculation implements Runnable {
 									// System.out.println(a);
 							}
 							// -----------------------------------
-							if (command.equals("Set XS Element")) {
+							if (command.equals("Set XML Namespace")) {
 								// --------------------------------------------------
 								String a;
 								a = attribute1;
 								namespace = a;
 
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
-										+ "Set XS Element" + MESSAGE99 + a);
+										+ "Set XML Namespace" + MESSAGE99 + a);
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
-											+ "Set XS Element" + MESSAGE99 + a);
+											+ "Set XML Namespace" + MESSAGE99
+											+ a);
 								} // standard = 1
 									// System.out.println(a);
 							}

@@ -62,7 +62,7 @@
 //XML-COMMANDS:
 //Set XML Rootelement : Objects = <Objects> & </Objects>
 //Set XML Element: Object = <Object> & </Object>
-//Set XS Element: xs = <Object+xs>
+//Set XML Namespace: xs = <Object+xs>
 //------------------------------------------------------
 //CHECK-COMMANDS:
 //Find Numerical Gaps: 0, Find numerical Gaps between min and max value in Column 0 > Terminalresults
@@ -78,8 +78,9 @@ Filename,Output Filename,Date,Front,
 Separator,59,
 Set Maximum CSV Lines,10000,
 Set Maximum CSV Columns,100,
-Set XML Rootelement,Data,
+Set XML Rootelement,Objects,
 Set XML Element,Object,
+Set XML Namespace, xmlns:xsi="www.w3.org/2001/XMLSchema-instance",
 Spalten,6,
 Copy Spalte,2,3,
 Set Header,3,OtherDogs,
