@@ -577,7 +577,7 @@ public class Calculation implements Runnable {
 				if (null != readchildElement.getAttributes().item(0)) {
 					String readNamespace = readchildElement.getAttributes()
 							.item(0).getTextContent();
-					namespace = readNamespace;
+					namespace = " xmlns:xsi=" + QUOTES + readNamespace + QUOTES;
 					JFrame1.jList1("Read Namespace:" + readNamespace);
 				}
 				// </namespace>
