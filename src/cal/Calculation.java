@@ -574,10 +574,9 @@ public class Calculation implements Runnable {
 				JFrame1.jList1("Read Child Node:" + readTagFirstElement);
 				// read <namespace>
 				// http://stackoverflow.com/questions/8939468/retrieving-namespaces-from-element-in-java-using-dom
-				if (null != readchildElement.getAttributes().item(0)
-						.getNamespaceURI()) {
+				if (null != readchildElement.getAttributes().item(0)) {
 					String readNamespace = readchildElement.getAttributes()
-							.item(0).getNamespaceURI();
+							.item(0).getTextContent();
 					namespace = readNamespace;
 					JFrame1.jList1("Read Namespace:" + readNamespace);
 				}
@@ -652,20 +651,20 @@ public class Calculation implements Runnable {
 											.item(attributeIndex2)
 											.getChildNodes().item(0))) {
 										attributenodevalue = "";
-										attributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getNodeValue());
+										// attributenodevalue =
+										// (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getNodeValue());
+										attributenodevalue = (childAttributes
+												.getElementsByTagName("*")
+												.item(attributeIndex2)
+												.getTextContent());
 										// multicolumn[width][high];
 										multicolumn[attributeIndex1][line] = attributenodevalue;
-										//JFrame1.jList1("3.Read Attribute Xml Value:" + attributenodevalue);
-										//Solution for read this Attribute value
-										//<name ssi="05620000"/>
-										String testattributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getTextContent());
-										JFrame1.jList1("4.Read Attribute Xml Value:"+ testattributenodevalue);
-//										 String sComment =
-//										 childAttributes.getTextContent();
-//										 JFrame1.jList1("5.Read Attribute Xml Value:"+
-//										 sComment);
-										//process each item node
-		    						}
+										// JFrame1.jList1("3.Read Attribute Xml Value:"
+										// + attributenodevalue);
+										// Solution for read this Attribute
+										// value
+										// <name ssi="05620000"/>
+									}
 								}
 							}
 						}
