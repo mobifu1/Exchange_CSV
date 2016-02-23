@@ -652,19 +652,20 @@ public class Calculation implements Runnable {
 											.item(attributeIndex2)
 											.getChildNodes().item(0))) {
 										attributenodevalue = "";
-										attributenodevalue = (childAttributes
-												.getElementsByTagName("*")
-												.item(attributeIndex2)
-												.getChildNodes().item(0)
-												.getNodeValue());
+										attributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getNodeValue());
 										// multicolumn[width][high];
 										multicolumn[attributeIndex1][line] = attributenodevalue;
-										// JFrame1.jList1("3.Read Attribute Xml Value:"+
-										// String sComment =
-										// childAttributes.getTextContent();
-										// JFrame1.jList1("4.Read Attribute Xml Value:"+
-										// sComment);
-									}
+										//JFrame1.jList1("3.Read Attribute Xml Value:" + attributenodevalue);
+										//Solution for read this Attribute value
+										//<name ssi="05620000"/>
+										String testattributenodevalue = (childAttributes.getElementsByTagName("*").item(attributeIndex2).getChildNodes().item(0).getTextContent());
+										JFrame1.jList1("4.Read Attribute Xml Value:"+ testattributenodevalue);
+//										 String sComment =
+//										 childAttributes.getTextContent();
+//										 JFrame1.jList1("5.Read Attribute Xml Value:"+
+//										 sComment);
+										//process each item node
+		    						}
 								}
 							}
 						}
