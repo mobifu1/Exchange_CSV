@@ -184,7 +184,7 @@ public class Calculation implements Runnable {
 	private static String xmlrootelement = "objects";
 	private static String xmlelement = "object";
 	private static String xmlfield = "attribute";
-	private static String rootnamespace = "";// namespace-uri()	
+	private static String rootnamespace = "";// namespace-uri()
 	private static String namespace = "";// namespace-uri()
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
@@ -258,6 +258,7 @@ public class Calculation implements Runnable {
 			("//XML-COMMANDS:"),
 			("//Set XML Rootelement : Objects = <Objects> & </Objects>"),
 			("//Set XML Element: Object = <Object> & </Object>"),
+			("//Set XML Rootnamespace: xs = <Objects+xs>"),
 			("//Set XML Namespace: xs = <Object+xs>"),
 			("//------------------------------------------------------"),
 			("//CHECK-COMMANDS:"),
@@ -273,8 +274,8 @@ public class Calculation implements Runnable {
 			("Set Maximum CSV Columns,100,"),// ----------------------
 			("Set XML Rootelement,Objects,"), // ---------------------
 			("Set XML Element,Object,"),// ---------------------------
+			("Set XML Rootnamespace,xs,"),// -------------------------
 			("Set XML Namespace,xs,"),// -----------------------------
-			("Set XML Rootnamespace,xs,"),// -----------------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Columns,30,"), // --------------------------------------
@@ -1021,7 +1022,7 @@ public class Calculation implements Runnable {
 									|| (row.indexOf("Set XML Rootelement,") != -1)
 									|| (row.indexOf("Set XML Element,") != -1)
 									|| (row.indexOf("Set XML Namespace,") != -1)
-									|| (row.indexOf("Set XML Rootnamespace,") != -1)									
+									|| (row.indexOf("Set XML Rootnamespace,") != -1)
 									|| (row.indexOf("Set Maximum CSV Lines,") != -1)
 									|| (row.indexOf("Set Maximum CSV Columns,") != -1)) {
 								// --------------------------------------------
@@ -1782,9 +1783,10 @@ public class Calculation implements Runnable {
 								String b;
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
-//								if (a == 0) {  //Workaround: Set Header,0,/name,
-//									b = "//" + b;
-//								}
+								// if (a == 0) { //Workaround: Set
+								// Header,0,/name,
+								// b = "//" + b;
+								// }
 								multicolumn[a][0] = b;
 								// System.out.println(a + " " + b);
 							}
@@ -1919,11 +1921,12 @@ public class Calculation implements Runnable {
 								rootnamespace = a;
 
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
-										+ "Set XML Rootnamespace" + MESSAGE99 + a);
+										+ "Set XML Rootnamespace" + MESSAGE99
+										+ a);
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
-											+ "Set XML Rootnamespace" + MESSAGE99
-											+ a);
+											+ "Set XML Rootnamespace"
+											+ MESSAGE99 + a);
 								} // standard = 1
 									// System.out.println(a);
 							}
