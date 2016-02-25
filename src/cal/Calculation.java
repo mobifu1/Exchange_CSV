@@ -836,7 +836,7 @@ public class Calculation implements Runnable {
 		String ATTRIBUTEOPEN = "    " + "<" + xmlfield + ">";
 		String ATTRIBUTECLOSE = "</" + xmlfield + ">";
 		String ATTRIBUTEEMPTY = "<" + xmlfield + "/>";
-
+		// ---------------------------------------
 		JFrame1.jTextPane1.setText("");
 		// char d = 59;
 		csv_output_lines = csv_input_lines;
@@ -1832,7 +1832,8 @@ public class Calculation implements Runnable {
 								String b;
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
-								// if (a == 0) { //function is go to write CSV file
+								// if (a == 0) { //function is go to write CSV
+								// file
 								// Header,0,/name,
 								// b = "//" + b;
 								// }
@@ -1969,7 +1970,16 @@ public class Calculation implements Runnable {
 								String a;
 								a = attribute1;
 								namespace = a;
-
+								// manipulate the string value of http:/ into
+								// http://
+								if (namespace != "") {
+									if (namespace.indexOf("http:/") != -1) {
+										// System.out.println("1" + namespace);
+										namespace = namespace.replaceAll(
+												"http:/", "http://");
+										// System.out.println("2" + namespace);
+									}
+								}
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
 										+ "Set XML Namespace" + MESSAGE99 + a);
 								if (loglevel >= 1) {
@@ -1985,7 +1995,19 @@ public class Calculation implements Runnable {
 								String a;
 								a = attribute1;
 								rootnamespace = a;
-
+								// -------------------------------------------------
+								// manipulate the string value of http:/ into
+								// http://
+								if (rootnamespace != "") {
+									if (rootnamespace.indexOf("http:/") != -1) {
+										// System.out.println("1" +
+										// rootnamespace);
+										rootnamespace = rootnamespace
+												.replaceAll("http:/", "http://");
+										// System.out.println("2" +
+										// rootnamespace);
+									}
+								}
 								JFrame1.jList1(MESSAGE72 + MESSAGE99
 										+ "Set XML Rootnamespace" + MESSAGE99
 										+ a);
