@@ -91,7 +91,7 @@ public class Calculation implements Runnable {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "20.02.2016";// last Modify
+	static final String DATE = "25.02.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 50;// delay time in working process ,100ms
@@ -182,6 +182,7 @@ public class Calculation implements Runnable {
 	static final String XMLHEADER = "<?xml version=" + QUOTES + "1.0" + QUOTES
 			+ " encoding=" + QUOTES + "UTF-8" + QUOTES + "?>";
 	private static String xmlrootelement = "objects";
+	private static String xmlrootchildelement = "";
 	private static String xmlelement = "object";
 	private static String xmlfield = "attribute";
 	private static String rootnamespace = "";// namespace-uri()
@@ -257,6 +258,7 @@ public class Calculation implements Runnable {
 			("//------------------------------------------------------"),
 			("//XML-COMMANDS:"),
 			("//Set XML Rootelement : Objects = <Objects> & </Objects>"),
+			("//Set XML Rootchildelement : Document = <Document> & </Document>"),
 			("//Set XML Element: Object = <Object> & </Object>"),
 			("//Set XML Rootnamespace: xs = <Objects+xs>"),
 			("//Set XML Namespace: xs = <Object+xs>"),
@@ -273,6 +275,7 @@ public class Calculation implements Runnable {
 			("Set Maximum CSV Lines,10000,"), // ---------------------
 			("Set Maximum CSV Columns,100,"),// ----------------------
 			("Set XML Rootelement,Objects,"), // ---------------------
+			("Set XML Rootchildelement,Document,"), // ---------------------
 			("Set XML Element,Object,"),// ---------------------------
 			("Set XML Rootnamespace,xs,"),// -------------------------
 			("Set XML Namespace,xs,"),// -----------------------------
@@ -817,6 +820,10 @@ public class Calculation implements Runnable {
 		String ROOTELEMENTOPEN = "<" + xmlrootelement + rootnamespace + ">";
 		String ROOTELEMENTCLOSE = "</" + xmlrootelement + ">";
 		// String ROOTELEMENTEMPTY = "<" + xmlrootelement + "/>";
+		String ROOTCHILDELEMENTOPEN = " " + "<" + xmlrootchildelement + ">";
+		String ROOTCHILDELEMENTCLOSE = " " + "</" + xmlrootchildelement + ">";
+		// String ROOTCHILDELEMENTEMPTY = "  " + "<" + xmlrootchildelement +
+		// "/>";
 		String ELEMENTOPEN = "  " + "<" + xmlelement + namespace + ">";
 		String ELEMENTCLOSE = "  " + "</" + xmlelement + ">";
 		// String ELEMENTEMPTY = "  " + "<" + xmlelement + "/>";
@@ -873,6 +880,16 @@ public class Calculation implements Runnable {
 				JFrame1.jList1(ROOTELEMENTOPEN);
 				if (loglevel >= 1) {
 					write_log(ROOTELEMENTOPEN);
+				}
+				// ----------------------
+				if (xmlrootchildelement != "") {
+					bw.write(ROOTCHILDELEMENTOPEN); // open tag,
+					bw.newLine();
+					// ----------------------
+					JFrame1.jList1(ROOTCHILDELEMENTOPEN);
+					if (loglevel >= 1) {
+						write_log(ROOTCHILDELEMENTOPEN);
+					}
 				}
 				// ----------------------
 				while (x < csv_output_lines) {
@@ -932,7 +949,18 @@ public class Calculation implements Runnable {
 					outputcounter++;
 					x++;
 				}
-				bw.write(ROOTELEMENTCLOSE); // open tag
+				// ----------------------
+				if (xmlrootchildelement != "") {
+					bw.write(ROOTCHILDELEMENTCLOSE); // close tag,
+					bw.newLine();
+					// ----------------------
+					JFrame1.jList1(ROOTCHILDELEMENTCLOSE);
+					if (loglevel >= 1) {
+						write_log(ROOTCHILDELEMENTCLOSE);
+					}
+				}
+				// ----------------------
+				bw.write(ROOTELEMENTCLOSE); // close tag
 				bw.flush();
 				bw.close();
 			}
@@ -1020,6 +1048,7 @@ public class Calculation implements Runnable {
 									|| (row.indexOf("Log File,") != -1)
 									|| (row.indexOf("Set Block,") != -1)
 									|| (row.indexOf("Set XML Rootelement,") != -1)
+									|| (row.indexOf("Set XML Rootchildelement,") != -1)
 									|| (row.indexOf("Set XML Element,") != -1)
 									|| (row.indexOf("Set XML Namespace,") != -1)
 									|| (row.indexOf("Set XML Rootnamespace,") != -1)
@@ -1173,6 +1202,20 @@ public class Calculation implements Runnable {
 								if (row.length() >= 20) {
 									if (row.substring(0, 20).equals(
 											"Set XML Rootelement,")) {
+										commands[x] = (row);
+										JFrame1.jList1(MESSAGE71 + MESSAGE99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(MESSAGE71 + MESSAGE99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// ---------------------------------------------
+								if (row.length() >= 25) {
+									if (row.substring(0, 25).equals(
+											"Set XML Rootchildelement,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1879,6 +1922,23 @@ public class Calculation implements Runnable {
 									write_log(MESSAGE72 + MESSAGE99
 											+ "Set XML Rootelement" + MESSAGE99
 											+ a);
+								} // standard = 1
+									// System.out.println(a);
+							}
+							// -----------------------------------
+							if (command.equals("Set XML Rootchildelement")) {
+								// --------------------------------------------------
+								String a;
+								a = attribute1;
+								xmlrootchildelement = a;
+
+								JFrame1.jList1(MESSAGE72 + MESSAGE99
+										+ "Set XML Rootchildelement"
+										+ MESSAGE99 + a);
+								if (loglevel >= 1) {
+									write_log(MESSAGE72 + MESSAGE99
+											+ "Set XML Rootchildelement"
+											+ MESSAGE99 + a);
 								} // standard = 1
 									// System.out.println(a);
 							}

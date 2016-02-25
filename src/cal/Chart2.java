@@ -121,8 +121,7 @@ public class Chart2 extends javax.swing.JFrame {
 			// Fontgröße für Beschriftung ändern
 			g2.setFont(g2.getFont().deriveFont(3f));
 			for (int i = 0; i < ymaxvalue; i = i + 10) {
-				g2.drawString(i + "%", -10,
-						-Math.round((i) / ymaxvalue * 85));
+				g2.drawString(i + "%", -10, -Math.round((i) / ymaxvalue * 85));
 			}
 		}
 	}
