@@ -184,6 +184,7 @@ public class Calculation implements Runnable {
 	private static String xmlrootelement = "objects";
 	private static String xmlelement = "object";
 	private static String xmlfield = "attribute";
+	private static String rootnamespace = "";// namespace-uri()	
 	private static String namespace = "";// namespace-uri()
 	// -----------------------------------------------
 	static String TEXTARRAY[] = {
@@ -273,12 +274,13 @@ public class Calculation implements Runnable {
 			("Set XML Rootelement,Objects,"), // ---------------------
 			("Set XML Element,Object,"),// ---------------------------
 			("Set XML Namespace,xs,"),// -----------------------------
+			("Set XML Rootnamespace,xs,"),// -----------------------------
 			("Filename,Output Filename,Date,Front,"),// Standard,Date-
 			("Separator,59,"), // ------------------------------------
 			("Columns,30,"), // --------------------------------------
-			("Copy Columns,2,3,"), // --------------------------------
+			("Copy Column,2,3,"), // --------------------------------
 			("Set Header,0,Test,"), // -------------------------------
-			("Set Columns,0,bla,"), // -------------------------------
+			("Set Column,0,bla,"), // -------------------------------
 			("Set Block,0,2000,"), // --------------------------------
 			("Find Replace,0,bla,blupp,"), // ------------------------
 			("Find Move,0,up,1,ap,"), // -----------------------------
@@ -811,7 +813,7 @@ public class Calculation implements Runnable {
 	// *****************************************************************************************
 	public static void writexmlfile() {
 
-		String ROOTELEMENTOPEN = "<" + xmlrootelement + ">";
+		String ROOTELEMENTOPEN = "<" + xmlrootelement + rootnamespace + ">";
 		String ROOTELEMENTCLOSE = "</" + xmlrootelement + ">";
 		// String ROOTELEMENTEMPTY = "<" + xmlrootelement + "/>";
 		String ELEMENTOPEN = "  " + "<" + xmlelement + namespace + ">";
@@ -1019,6 +1021,7 @@ public class Calculation implements Runnable {
 									|| (row.indexOf("Set XML Rootelement,") != -1)
 									|| (row.indexOf("Set XML Element,") != -1)
 									|| (row.indexOf("Set XML Namespace,") != -1)
+									|| (row.indexOf("Set XML Rootnamespace,") != -1)									
 									|| (row.indexOf("Set Maximum CSV Lines,") != -1)
 									|| (row.indexOf("Set Maximum CSV Columns,") != -1)) {
 								// --------------------------------------------
@@ -1197,6 +1200,20 @@ public class Calculation implements Runnable {
 								if (row.length() >= 18) {
 									if (row.substring(0, 18).equals(
 											"Set XML Namespace,")) {
+										commands[x] = (row);
+										JFrame1.jList1(MESSAGE71 + MESSAGE99
+												+ commands[x]);
+										if (loglevel >= 1) {
+											write_log(MESSAGE71 + MESSAGE99
+													+ commands[x]);
+										} // standard = 1
+										x++;
+									}
+								}
+								// --------------------------------------------
+								if (row.length() >= 22) {
+									if (row.substring(0, 22).equals(
+											"Set XML Rootnamespace,")) {
 										commands[x] = (row);
 										JFrame1.jList1(MESSAGE71 + MESSAGE99
 												+ commands[x]);
@@ -1765,9 +1782,9 @@ public class Calculation implements Runnable {
 								String b;
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
-								if (a == 0) {
-									b = "//" + b;
-								}
+//								if (a == 0) {  //Workaround: Set Header,0,/name,
+//									b = "//" + b;
+//								}
 								multicolumn[a][0] = b;
 								// System.out.println(a + " " + b);
 							}
@@ -1890,6 +1907,22 @@ public class Calculation implements Runnable {
 								if (loglevel >= 1) {
 									write_log(MESSAGE72 + MESSAGE99
 											+ "Set XML Namespace" + MESSAGE99
+											+ a);
+								} // standard = 1
+									// System.out.println(a);
+							}
+							// -----------------------------------
+							if (command.equals("Set XML Rootnamespace")) {
+								// --------------------------------------------------
+								String a;
+								a = attribute1;
+								rootnamespace = a;
+
+								JFrame1.jList1(MESSAGE72 + MESSAGE99
+										+ "Set XML Rootnamespace" + MESSAGE99 + a);
+								if (loglevel >= 1) {
+									write_log(MESSAGE72 + MESSAGE99
+											+ "Set XML Rootnamespace" + MESSAGE99
 											+ a);
 								} // standard = 1
 									// System.out.println(a);
