@@ -758,7 +758,13 @@ public class Calculation implements Runnable {
 							multicolumn[p][x] = "";// init_with""
 						}
 						if (p == 0) {
-							line = (line + multicolumn[p][x]);
+							if (x == 0) {
+								line = (line + "//" + multicolumn[p][x]); // first
+																			// CSV
+																			// Statement
+							} else {
+								line = (line + multicolumn[p][x]);
+							}
 						}
 						if (p > 0) {
 							line = (line + separator_character + multicolumn[p][x]);
@@ -1826,7 +1832,7 @@ public class Calculation implements Runnable {
 								String b;
 								a = Integer.parseInt(attribute1);
 								b = attribute2;
-								// if (a == 0) { //Workaround: Set
+								// if (a == 0) { //function is go to write CSV file
 								// Header,0,/name,
 								// b = "//" + b;
 								// }
