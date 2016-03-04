@@ -59,7 +59,7 @@ public class JFrame1 extends javax.swing.JFrame {
 	// titel+substring = Version
 	// public static String SUBVERSION = ".1-Alpha"; // Subversion
 	//public static String SUBVERSION = ".9-Beta"; // Subversion
-	public static String SUBVERSION = ".8-RC"; // Subversion
+	public static String SUBVERSION = ".9-RC"; // Subversion
 	// public static String SUBVERSION = "-R-Stable"; // Subversion
 	// public static String SUBVERSION = "-R-Final"; // Subversion
 
