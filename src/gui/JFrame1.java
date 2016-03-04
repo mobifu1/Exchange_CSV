@@ -57,11 +57,11 @@ public class JFrame1 extends javax.swing.JFrame {
 	public static String TITEL = "Exchange CSV V2.5"; // V2.x
 
 	// titel+substring = Version
-	// public static String subversion = ".1-Alpha"; // Subversion
-	public static String SUBVERSION = ".9-Beta"; // Subversion
-	// public static String subversion = ".8-RC"; // Subversion
-	// public static String subversion = "-R-Stable"; // Subversion
-	// public static String subversion = "-R-Final"; // Subversion
+	// public static String SUBVERSION = ".1-Alpha"; // Subversion
+	//public static String SUBVERSION = ".9-Beta"; // Subversion
+	public static String SUBVERSION = ".8-RC"; // Subversion
+	// public static String SUBVERSION = "-R-Stable"; // Subversion
+	// public static String SUBVERSION = "-R-Final"; // Subversion
 
 	static String MASSAGE01 = "Application Started";
 	static String MASSAGE02 = "Application Init";

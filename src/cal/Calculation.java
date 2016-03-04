@@ -91,7 +91,7 @@ public class Calculation implements Runnable {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "25.02.2016";// last Modify
+	static final String DATE = "04.03.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 50;// delay time in working process ,100ms
@@ -208,19 +208,12 @@ public class Calculation implements Runnable {
 			("//*********                      XML                        *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
+			("//This Script File is created by Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
+					+ ", last modify: " + DATE),
 			("//" + url1),
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
 			("//http://www.eclipse.org/platform"),
 			("//http://www.cloudgarden.com/jigloo/"),
-			("//Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
-					+ ", last modify: " + DATE),
-			("//V2.6-R-Stable New Feature:"),
-			("//XML Parser / XML Writer"),
-			("//Compare Column / Compare Instring Column / Log File"),
-			("//Find Move / Find Clear / Not Find Clear"),
-			("//Change: Set Maximum CSV Lines,100000,"),
-			("//Change: Set Maximum CSV Columns,1000,"),
-			("//Default: CSV-Columns-Max=100, CSV-Lines-Max=10000, Script-Commands-Max=100"),
 			("//------------------------------------------------------"),
 			("//TRANSFORM-COMMANDS:"),
 			("//Output Header Line: 0, Hide Header Line in Output-CSV, Set default Fields in XML / default=1"),
