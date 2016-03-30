@@ -24,3 +24,4 @@ Workflow:
 
     Take a look inside the terminal for results.
 
+![gui](https://cloud.githubusercontent.com/assets/16726287/12412989/b4e2d4ee-be8b-11e5-9dce-9d90429e0c8a.JPG)
