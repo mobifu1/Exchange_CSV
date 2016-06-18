@@ -54,13 +54,13 @@ public class JFrame1 extends javax.swing.JFrame {
 	private JSeparator jSeparator1;
 	private JButton jButton2;
 	static DefaultListModel<String> listModel = new DefaultListModel<String>();
-	public static String TITEL = "Exchange CSV V2.5"; // V2.x
+	public static String TITEL = "Exchange CSV V2.6"; // V2.x
 
 	// titel+substring = Version
 	// public static String SUBVERSION = ".1-Alpha"; // Subversion
-	//public static String SUBVERSION = ".9-Beta"; // Subversion
-	public static String SUBVERSION = ".9-RC"; // Subversion
-	// public static String SUBVERSION = "-R-Stable"; // Subversion
+	// public static String SUBVERSION = ".9-Beta"; // Subversion
+	// public static String SUBVERSION = ".9-RC"; // Subversion
+	 public static String SUBVERSION = "-R-Stable"; // Subversion
 	// public static String SUBVERSION = "-R-Final"; // Subversion
 
 	static String MASSAGE01 = "Application Started";

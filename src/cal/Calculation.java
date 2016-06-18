@@ -91,7 +91,7 @@ public class Calculation implements Runnable {
 	static final String DEAFAULT_OUTPUPATH = "Exchange Output";
 	static final String SCRIPTFILEPATH = "Script-ExChange.txt";
 	static final String LOGFILEPATH = "LogFile-ExChangeCsv.log";
-	static final String DATE = "04.03.2016";// last Modify
+	static final String DATE = "18.06.2016";// last Modify
 	static long sort_count;
 	static int loglevel = 0; // 0 nothing,1 log,2 log+errors
 	static final int TIME_VALUE_ms = 50;// delay time in working process ,100ms
@@ -208,8 +208,8 @@ public class Calculation implements Runnable {
 			("//*********                      XML                        *********"),
 			("//*******************************************************************"),
 			("//*******************************************************************"),
-			("//This Script File is created by Version: " + JFrame1.TITEL + JFrame1.SUBVERSION
-					+ ", last modify: " + DATE),
+			("//This Script File is created by Version: " + JFrame1.TITEL
+					+ JFrame1.SUBVERSION + ", last modify: " + DATE),
 			("//" + url1),
 			("//Java Eclipse Version: 3.8.1" + " / Jigloo Version: 4.6.6"),
 			("//http://www.eclipse.org/platform"),
@@ -242,7 +242,8 @@ public class Calculation implements Runnable {
 			("//Extract Chars: in Column 5 from Position 0 to Position 3+1 = Extract 4 Chars"),
 			("//Migrate In: Load data from Column 1 into Migrationarray Column 0"),
 			("//Migrate Out:Compare value of Migrationarray Column 0 with value of Column 1"),
-			("//Migrate Out:If both values the same then copy from Migrationarray Column 1 to Column 2"),
+			("//Migrate Out:If both values even then copy from Migrationarray Column 1 to Column 2"),
+			("//Migrate Out:If both values even then marking the Column 2 with X"),
 			("//Bubblesort: Sorting of Column 0, Numbers/Strings, up/down"),
 			("//Quicksort: Sorting of Column 0, Numbers/Strings, up/down"),
 			("//Writefile: 1, Press Button Writefile"),
@@ -295,6 +296,7 @@ public class Calculation implements Runnable {
 			("Extract Chars,5,0,3,"), // -----------------------------
 			("Migrate In,1,0,"), // ----------------------------------
 			("Migrate Out,0,1,1,2,"), // -----------------------------
+			("Migrate Out,0,1,mark,2,"), // -----------------------------
 			("Bubblesort,0,Numbers,up,"), // -------------------------
 			("Quicksort,0,Strings,up,"), // --------------------------
 			("Writefile,1,"), // -------------------------------------
@@ -2665,20 +2667,28 @@ public class Calculation implements Runnable {
 									// --------------------------------------------------
 								int v;
 								int a;
-								int b;
+								int b = 0;
 								int g;
 								String d = "";
 								int c; // counter 1
 								int l = mc; // counter 2
 								int o = 0; // visueller counter
+								boolean marking = false;
+
 								v = Integer.parseInt(attribute1);// 0 column
 																	// Quelle
 																	// Mig
 								a = Integer.parseInt(attribute2);// 0 column
 																	// Ziel Mig
-								b = Integer.parseInt(attribute3);// 0 column
-																	// Quelle
-																	// copy
+
+								if (attribute3.equals("mark")) {
+									marking = true;
+								} else { // Quelle// copy
+									marking = false;
+									b = Integer.parseInt(attribute3);// 0
+									// column
+								}
+
 								g = Integer.parseInt(attribute4);// 0 column
 																	// Ziel copy
 								for (c = 1; c < mc; c++) {// i = Csv input
@@ -2697,7 +2707,13 @@ public class Calculation implements Runnable {
 											// (a.equals(b))
 											// if
 											// (!"".equals(multicolumn[g][l])) {
-											multicolumn[g][l] = migrate[b][c];
+											if (marking == true) {
+												multicolumn[g][l] = "x";
+											}
+											if (marking == false) {
+												multicolumn[g][l] = migrate[b][c];
+											}
+
 											o++;
 											if (o == 1) {
 												JFrame1.jList1(MESSAGE22
